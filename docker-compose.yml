@@ -3,7 +3,7 @@ version: '3'
 services:
   php:
     container_name: 'php'
-    image: ${PREFIX_APP}php:${TAG}
+    image: ${APP_ENV}php:${TAG}
     build:
       context: .
       dockerfile: docker/php/Dockerfile
@@ -12,7 +12,7 @@ services:
 
   server:
     container_name: 'nginx'
-    image: ${PREFIX_APP}nginx:${TAG}
+    image: ${APP_ENV}nginx:${TAG}
     build:
       context: .
       dockerfile: docker/nginx/Dockerfile
@@ -23,7 +23,7 @@ services:
 
   db:
     container_name: 'mysql'
-    image: ${PREFIX_APP}mysql:${TAG}
+    image: ${APP_ENV}mysql:${TAG}
     build:
       context: ./
       dockerfile: docker/mysql/Dockerfile
