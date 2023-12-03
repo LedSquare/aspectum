@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  php:
+    container_name: 'php'
+    image: ${PREFIX_APP}php:${TAG}
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    volumes:
+      - './:/site'
+
+  server:
+    container_name: 'nginx'
+    image: ${PREFIX_APP}nginx:${TAG}
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    ports:
+      - 80:80
+    volumes:
+      - './:/site'
+
+  db:
+    container_name: 'mysql'
+    image: ${PREFIX_APP}mysql:${TAG}
+    build:
+      context: ./
+      dockerfile: docker/mysql/Dockerfile
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - './docker/volumes/mysql:/var/lib/mysql'
+
+networks:
+  default:
+    driver: bridge
+    name: internet
