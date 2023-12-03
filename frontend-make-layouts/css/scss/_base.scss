@@ -1,0 +1,40 @@
+@import 'variables';
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    height: 100%;
+}
+
+main {
+    min-height: calc(100% - (#{$header-footer-height} * 2));
+    width: 100%;
+}
+
+section {
+    padding: 1rem;
+    width: 100%;
+
+    /* Если окно браузера меньше 1200 то */
+    @media (min-width: 1200px) {
+        padding: 1rem calc(50% - 590px);
+    }
+}
+
+
+
+nav {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: space-around;
+}
+
+li {
+    list-style-type: none;
+}
