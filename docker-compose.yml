@@ -33,8 +33,12 @@ services:
       - MYSQL_DATABASE=${DB_DATABASE}
       - MYSQL_USER=${DB_USERNAME}
       - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
     volumes:
-      - './docker/volumes/mysql:/var/lib/mysql'
+      - 'mysql-data:/var/lib/mysql'
+
+volumes:
+  mysql-data:
 
 networks:
   default:
