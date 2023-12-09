@@ -1,5 +1,20 @@
 include .env
 
+
+# start deploying
+start: composer npm composer-install dockerInstall build up 
+
+# deploying
+composer:
+	bash deploying/composer.sh
+npm:
+	apt install nodejs; node -v; apt install npm
+composer-install:
+	composer install 
+dockerInstall:
+	bash deploying/docker-install.sh
+
+
 # Чистая инициализация
 init: docker-down-clear docker-build up
 
