@@ -1,4 +1,4 @@
-<header>
+<header class="flex-c">
     
     <nav>
         <ul>
@@ -12,5 +12,5 @@
             <li>Регистрация</li>
         </ul>
     </nav>
-    
+
 </header>

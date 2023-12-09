@@ -46,7 +46,7 @@ li {
 header {
   padding: 10px;
   display: flex;
-  background-color: #F8F2ED;
+  background-color: #f8faff;
   height: 80px;
 }
 header > div {
@@ -72,12 +72,12 @@ header ul > li {
 footer {
   padding: 1.5em;
   display: flex;
-  background-color: #F8F2ED;
+  background-color: #f8faff;
   height: 80px;
 }
 
 .wrapper {
-  background-color: #E5EDFE;
+  background-color: #f8faff;
   max-width: 1200px;
   height: auto;
   margin-left: auto;

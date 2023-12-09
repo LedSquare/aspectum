@@ -7,7 +7,7 @@
 header {
     padding: 10px;
     display: flex;
-    background-color: $body;
+    background-color: $blue-light;
     height: $header-footer-height;
 
     > div {
@@ -39,7 +39,7 @@ header {
 footer {
     padding: 1.5em;
     display: flex;
-    background-color: $body;
+    background-color: $blue-light;
     height: $header-footer-height;
 }
 
