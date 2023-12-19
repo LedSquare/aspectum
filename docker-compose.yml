@@ -3,7 +3,7 @@ version: '3'
 services:
   php:
     container_name: 'php'
-    image: ${PREFIX_APP}php:${TAG}
+    image: ${APP_NAME}_php:${TAG}
     build:
       context: .
       dockerfile: docker/php/Dockerfile
@@ -12,7 +12,7 @@ services:
 
   server:
     container_name: 'nginx'
-    image: ${PREFIX_APP}nginx:${TAG}
+    image: ${APP_NAME}_nginx:${TAG}
     build:
       context: .
       dockerfile: docker/nginx/Dockerfile
@@ -23,7 +23,7 @@ services:
 
   db:
     container_name: 'mysql'
-    image: ${PREFIX_APP}mysql:${TAG}
+    image: ${APP_NAME}_mysql:${TAG}
     build:
       context: ./
       dockerfile: docker/mysql/Dockerfile
@@ -31,8 +31,8 @@ services:
       - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${DB_NAME}
-      - MYSQL_USER=${DB_USER}
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USERNAME}
       - MYSQL_PASSWORD=${DB_PASSWORD}
     volumes:
       - './docker/volumes/mysql:/var/lib/mysql'
