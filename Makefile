@@ -28,8 +28,8 @@ delete-name: docker-clear-images-name
 
 
 # shortcuts
-up: docker-up
-down: docker-down
+start: docker-up
+stop: docker-down
 restart: down up
 build: docker-build
 rebuild: down build up 
