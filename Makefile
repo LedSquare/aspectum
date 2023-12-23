@@ -50,4 +50,5 @@ docker-clear-images-name:
 	docker rmi $$(docker images --format '{{.Repository}}:{{.Tag}}' | grep '${PROJ}') -f
 composer-update:
 	docker exec -it php composer update
-
+chmod:
+	docker exec -it php chmod -R 777 . 
