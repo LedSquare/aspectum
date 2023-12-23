@@ -2,7 +2,7 @@ include .env
 
 
 # start deploying
-start: composer npm composer-install dockerInstall build up 
+start-dep: composer npm composer-install dockerInstall build up 
 
 # deploying
 composer:
