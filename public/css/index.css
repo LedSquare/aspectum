@@ -1,0 +1,151 @@
+@import url(snippets.css);
+
+:root {
+    --back-main: #fffffe;
+    --blue-light: #E5EDFE;
+    --dark-blue: #65849D;
+    --blue: #C1DAFD;
+    --aqua: #C1DAFD;
+    --body: #F8F2ED;
+
+
+    --header-footer-height: 80px;
+}
+
+/* BASE */
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    height: 100%;
+}
+
+main {
+    min-height: calc(100% - (var(--header-footer-height)*2));
+    width: 100%;
+}
+
+section {
+    padding: 1rem;
+    width: 100%;
+
+    /* Если окно браузера меньше 1200 то */
+    
+}
+
+@media (min-width: 1200px) {
+    section {
+        padding: 1rem calc(50% - 590px);
+    }
+}
+
+nav {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: space-around;
+}
+
+li {
+    list-style-type: none;
+}
+
+/* START header */
+
+header {
+    padding: 10px;
+    display: flex;
+    background-color: var(--body);
+    height: var(--header-footer-height);
+}
+
+    header>div {
+        display: flex;
+        width: 1200px;
+        height: 100%;
+    }
+
+    header ul>li:first-child{
+        margin-right: 5em;
+    }
+
+    header .auth-ul > li{
+        margin-right: 10px !important;
+    }
+
+ul {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+    ul>li {
+        margin: 10px;
+    }
+
+
+
+/* END header  */
+
+footer {
+    padding: 1.5em;
+    display: flex;
+    background-color: var(--body);
+    height: var(--header-footer-height);
+}
+
+.wrapper {
+    background-color: var(--blue-light);
+    max-width: 1200px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+
+    padding-left: 15px;
+    padding-right: 15px;
+
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 10px;
+}
+    .wrapper > *{
+        display:flex;
+    }
+
+.start-page {
+    display: flex;
+    height: 500px;
+    flex-direction: column;   
+}
+
+.img-container {
+    
+}   
+
+.start-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 700;
+    cursor: pointer;
+    border: 2px solid var(--blue);
+    color: black;
+    border-radius: 10px;
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+}
+
+/* Стили при наведении на кнопку */
+.start-button:hover {
+    background-color: var(--blue);
+    border: 2px solid whitesmoke;
+    color: #fff;
+}
+
