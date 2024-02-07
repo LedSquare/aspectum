@@ -3,16 +3,16 @@ version: '3'
 services:
   php:
     container_name: 'php'
-    image: ${APP_NAME}_php:${TAG}
+    image: ${PROJECT}_php:${TAG}
     build:
       context: .
       dockerfile: docker/php/Dockerfile
     volumes:
-      - './:/site'
+      - './laravel/:/site'
 
   server:
     container_name: 'nginx'
-    image: ${APP_NAME}_nginx:${TAG}
+    image: ${PROJECT}_nginx:${TAG}
     build:
       context: .
       dockerfile: docker/nginx/Dockerfile
@@ -23,7 +23,7 @@ services:
 
   db:
     container_name: 'mysql'
-    image: ${APP_NAME}_mysql:${TAG}
+    image: ${PROJECT}_mysql:${TAG}
     build:
       context: .
       dockerfile: docker/mysql/Dockerfile
