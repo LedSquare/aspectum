@@ -9,7 +9,7 @@ composer:
 	bash deploying/composer.sh
 npm:
 	apt install nodejs; node -v; apt install npm
-composer-install:
+composer-dep:
 	composer install 
 dockerInstall:
 	bash deploying/docker-install.sh
@@ -28,11 +28,11 @@ delete-name: docker-clear-images-name
 
 
 # shortcuts
-start: docker-up
+start: docker-up composer-install key-gen storage-chmod
 stop: docker-down
-restart: down up
+restart: stop start
+rebuild: stop build start 
 build: docker-build
-rebuild: down build up 
 
 docker-build:
 	docker compose build
@@ -47,8 +47,16 @@ docker-pull:
 docker-clear-images-tag:
 	docker rmi $$(docker images --format '{{.Repository}}:{{.Tag}}' | grep ':${TAG}') -f
 docker-clear-images-name:
-	docker rmi $$(docker images --format '{{.Repository}}:{{.Tag}}' | grep '${PROJ}') -f
+	docker rmi $$(docker images --format '{{.Repository}}:{{.Tag}}' | grep '${PROJECT}') -f
 composer-update:
-	docker exec -it php composer update
+	${DOCKER_EXEC_APP} composer update
+composer-install:
+	${DOCKER_EXEC_APP} composer install
+key-gen:
+	${DOCKER_EXEC_APP} php artisan key:generate
+storage-chmod:
+	${DOCKER_EXEC_APP} chmod -R 777 storage
 chmod:
-	docker exec -it php chmod -R 777 . 
+	docker exec -it php chmod -R 777 
+exec-app:
+	${DOCKER_EXEC_APP} bash
