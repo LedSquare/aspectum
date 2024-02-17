@@ -65,6 +65,16 @@ services:
     networks:
       - appnet
 
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - "8888:8080"
+    container_name: ${PROJECT}_adminer
+    hostname: adminer
+    networks:
+      - appnet
+      
 #------------
 
 networks:
