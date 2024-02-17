@@ -44,7 +44,7 @@ services:
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - 'mysql-data:/var/lib/mysql'
+      - ./data/db:/var/lib/mysql
     networks:
       - appnet
 
@@ -66,8 +66,7 @@ services:
     networks:
       - appnet
 
-volumes:
-  mysql-data:
+#------------
 
 networks:
   appnet:
