@@ -28,7 +28,7 @@ delete-name: docker-clear-images-name
 
 
 # shortcuts
-start: docker-up composer-install key-gen storage-chmod
+start: docker-up composer-install setup
 stop: docker-down
 restart: stop start
 rebuild: stop build start 
@@ -52,9 +52,8 @@ composer-update:
 	${DOCKER_EXEC_APP} composer update
 composer-install:
 	${DOCKER_EXEC_APP} composer install
-key-gen:
+setup:
 	${DOCKER_EXEC_APP} php artisan key:generate
-storage-chmod:
 	${DOCKER_EXEC_APP} chmod -R 777 storage
 chmod:
 	docker exec -it php chmod -R 777 
