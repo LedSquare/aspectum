@@ -11,22 +11,21 @@
 <body>
 
         @include('includes.header')
-    
-        
+
+
         <main>
             <section>
                 <div class="wrapper">
 
                     @yield('content')
 
-                    
                 </div>
             </section>
         </main>
-                    
-        
-    
+
+
+
         @include('includes.footer')
-    
+
 </body>
 </html>
