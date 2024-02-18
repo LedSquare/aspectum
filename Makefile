@@ -53,12 +53,6 @@ composer-update:
 composer-install:
 	${DOCKER_EXEC_APP} composer install
 setup:
-#	if [-d "node_modules"]; then \
-		echo "folder node_modules exists" ;\
-	else \
-		${DOCKER_EXEC_APP} npm install ;\
-	fi
-	${DOCKER_EXEC_APP} npm install
 	${DOCKER_EXEC_APP} php artisan key:generate
 	${DOCKER_EXEC_APP} chmod -R 777 storage
 chmod:

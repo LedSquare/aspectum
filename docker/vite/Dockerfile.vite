@@ -1,0 +1,12 @@
+FROM node:20 AS node
+# Create app directory
+WORKDIR /app
+
+COPY laravel/package*.json /app
+# If you are building your code for production
+#RUN npm ci --omit=dev && npm run build
+RUN npm install
+
+COPY laravel/ /app
+
+CMD [ "npm", "run", "dev" ]
