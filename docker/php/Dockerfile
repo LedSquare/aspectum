@@ -1,4 +1,5 @@
 FROM composer:latest AS composer
+FROM node:20-alpine AS node
 
 FROM php:8.2-fpm-alpine
 
@@ -33,4 +34,8 @@ RUN apk $CACHE update && apk $CACHE add \
 
 RUN docker-php-ext-install pdo_mysql bcmath gd zip
 
+COPY --from=node /usr/local/bin/node /usr/local/bin/
+COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
+COPY laravel/package*.json ./
 
+RUN apk $CACHE add npm
