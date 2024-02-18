@@ -27,8 +27,9 @@ class RegisterRequest extends FormRequest
             'firstname' => ['string', 'nullable'],
             'lastname' => ['string', 'nullable'],
             'fathername' => ['string', 'nullable'],
-            'gender' => ['string', 'nullable'],
+            'gender' => ['string', 'nullable', 'in:мужчина,женщина'],
             'password' => ['string', 'min:6', 'required', 'confirmed'],
+            'phone' => ['string', 'min:6', 'phone']
         ];
     }
 
@@ -36,6 +37,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             //TODO: Сделать сообщения на русском
+            'gender.in' => 'Пол может быть только мужчина или женщина',
         ];
     }
 }
