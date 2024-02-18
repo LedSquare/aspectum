@@ -7,7 +7,6 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\User\RegisterRequest;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -55,12 +54,12 @@ class RegisterController extends Controller
         return User::create([
             'username' => $data['username'],
             'email' => $data['email'],
-            'firstname' => $data['firstname'],
-            'lastname' => $data['lastname'],
-            'fathername' => $data['fathername'],
-            'gender' => $data['gender'],
             'password' => Hash::make($data['password']),
-            'phone' => $data['phone'],
+            'firstname' => $data['firstname'] ?? null,
+            'lastname' => $data['lastname'] ?? null,
+            'fathername' => $data['fathername'] ?? null,
+            'gender' => $data['gender'] ?? null,
+            'phone' => $data['phone'] ?? null,
         ]);
     }
 }
