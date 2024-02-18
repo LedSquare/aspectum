@@ -1,17 +1,21 @@
 <?php
+namespace Database\Factories\User;
 
-namespace Database\Factories;
-
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
 class UserFactory extends Factory
 {
-    protected static ?string $password;
+    protected static ?string $password = '123123';
+
+    protected $model = User::class;
+
+    protected $genders = ['мужчина', 'женщина'];
 
     /**
      * Define the model's default state.
@@ -20,9 +24,18 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+
+        $gender = fake()->randomElement($this->genders);
+
+        $gender = ($gender == 'мужчина') ? 'male' : 'female';
+
         return [
-            'name' => fake()->name(),
+            'gender' => $gender,
+            'firstname' => fake()->firstName($gender),
+            'lastname' => fake()->lastName($gender),
+            'fathername' => fake()->middleName($gender),
             'email' => fake()->unique()->safeEmail(),
+            'phone' => fake()->phoneNumber(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
