@@ -16,6 +16,7 @@ services:
 
   vite:
     container_name: ${PROJECT}_vite
+    image: ${PROJECT}_vite:${TAG}
     build:
       context: .
       dockerfile: docker/vite/Dockerfile.vite
@@ -23,6 +24,8 @@ services:
       - 3000:3000
     volumes:
       - ./laravel/:/app
+      - /app/node_modules
+    entrypoint: ['npm', 'run', 'dev'] 
     networks:
       - appnet
 

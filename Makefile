@@ -1,6 +1,5 @@
 include .env
 
-
 # start deploying
 start-dep: composer npm composer-install dockerInstall build up 
 
@@ -28,7 +27,7 @@ delete-name: docker-clear-images-name
 
 
 # shortcuts
-start: docker-up composer-install setup
+start: docker-up composer-install key-storage
 stop: docker-down
 restart: stop start
 rebuild: stop build start 
@@ -52,7 +51,7 @@ composer-update:
 	${DOCKER_EXEC_APP} composer update
 composer-install:
 	${DOCKER_EXEC_APP} composer install
-setup:
+key-storage:
 	${DOCKER_EXEC_APP} php artisan key:generate
 	${DOCKER_EXEC_APP} chmod -R 777 storage
 chmod:
