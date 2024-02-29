@@ -10,7 +10,22 @@ services:
     depends_on:
       - db
     volumes:
-      - './laravel:/site'
+      - ./laravel:/site
+    networks:
+      - appnet
+
+  vite:
+    container_name: ${PROJECT}_vite
+    image: ${PROJECT}_vite:${TAG}
+    build:
+      context: .
+      dockerfile: docker/vite/Dockerfile.vite
+    ports:
+      - 3000:3000
+    volumes:
+      - ./laravel/:/app
+      - /app/node_modules
+    entrypoint: ['npm', 'run', 'dev'] 
     networks:
       - appnet
 

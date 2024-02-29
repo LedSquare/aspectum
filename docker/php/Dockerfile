@@ -33,4 +33,3 @@ RUN apk $CACHE update && apk $CACHE add \
 
 RUN docker-php-ext-install pdo_mysql bcmath gd zip
 
-

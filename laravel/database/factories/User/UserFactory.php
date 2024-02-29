@@ -30,6 +30,7 @@ class UserFactory extends Factory
         $gender = ($gender == 'мужчина') ? 'male' : 'female';
 
         return [
+            'username' => fake()->userName(),
             'gender' => $gender,
             'firstname' => fake()->firstName($gender),
             'lastname' => fake()->lastName($gender),

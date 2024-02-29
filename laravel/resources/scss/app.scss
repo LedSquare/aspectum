@@ -1,6 +1,6 @@
-@import './scss/base';
-@import './scss/variables';
-@import './scss/snippets';
+@import './base';
+@import './variables';
+@import './snippets';
 
 // HEADER START
 
@@ -33,7 +33,7 @@ header {
             margin: 10px;
         }
     }
-    
+
 }
 
 footer {
@@ -62,7 +62,7 @@ footer {
         display:flex;
     }
 }
-    
+
 
 .start-page {
     display: flex;
@@ -84,7 +84,7 @@ footer {
         width: auto;
         height: auto;
     }
-}   
+}
 
 .start-button {
     display: inline-block;

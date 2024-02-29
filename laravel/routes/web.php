@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
  * Laravel ui routes
  */
 Auth::routes();
+
+Route::get('/', function () {
+    return view('pages.home');
+});
