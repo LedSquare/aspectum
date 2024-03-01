@@ -3,6 +3,14 @@ include .env
 # start deploying
 start-dep: composer npm composer-install dockerInstall build up 
 
+git-config:
+	@echo "Настройка Git..."
+	@read -p "Введите ваше имя: " name; \
+	git config user.name "$$name"; \
+	read -p "Введите вашу электронную почту: " email; \
+	git config user.email "$$email"; \
+	echo "Настройка завершена."
+
 # deploying
 composer:
 	bash deploying/composer.sh
