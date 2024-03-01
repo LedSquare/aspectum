@@ -1,4 +1,3 @@
-
 <template>
   <div>
    hello
@@ -9,7 +8,6 @@
 export default {
   name: 'App',
   created() {
-
   },
   data() {
     return {
