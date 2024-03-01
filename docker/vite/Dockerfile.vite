@@ -10,4 +10,4 @@ COPY laravel/ /app
 
 EXPOSE 3000
 
-CMD ["echo", "hello"]
+ENTRYPOINT [ "npm", "run", "dev" ]

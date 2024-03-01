@@ -25,7 +25,6 @@ services:
     volumes:
       - ./laravel/:/app
       - /app/node_modules
-    entrypoint: ['npm', 'run', 'dev'] 
     networks:
       - appnet
 
@@ -50,7 +49,7 @@ services:
     restart: unless-stopped
     hostname: ${DB_HOST}
     ports:
-      - 3306:3306
+      - 3307:3306
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_DATABASE}
