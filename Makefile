@@ -1,4 +1,7 @@
-include .env
+ifneq (,$(wildcard ./.env))
+    include .env
+    export
+endif
 
 # start deploying
 start-dep: composer npm composer-install dockerInstall build up 
