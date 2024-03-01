@@ -10,7 +10,6 @@
 
     <h1>ОБЛИК</h1>
     <button class="start-button">Начать</button>
-
 </div>
 
 @endsection

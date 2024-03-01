@@ -20,7 +20,6 @@ export default defineConfig({
             input: ['resources/scss/app.scss', 'resources/js/app.js'],
             refresh: true,
         }),
-
         vue(),
     ],
 
