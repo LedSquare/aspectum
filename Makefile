@@ -3,6 +3,10 @@ ifneq (,$(wildcard ./.env))
     export
 endif
 
+setup: 
+	cp .env.example .env; 
+	cp laravel/.env.example laravel/.env;
+
 # start deploying
 start-dep: composer npm composer-install dockerInstall build up 
 
