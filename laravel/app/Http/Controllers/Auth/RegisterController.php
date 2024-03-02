@@ -7,7 +7,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
-use App\Http\Requests\User\RegisterRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
