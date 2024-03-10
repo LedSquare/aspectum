@@ -13,6 +13,14 @@
         text-align: center;
     }
 
+    select{
+        margin: 30px 10px;
+        font-size: 1em;
+        border-radius: 15px;
+        cursor: pointer;
+
+    }
+
     .input-group{
         position: relative;
         margin: 30px 0;
@@ -49,6 +57,8 @@
             font-size: 1.2em;
             top: 20px;
         }
+
+
 
     }
 
@@ -106,5 +116,12 @@
 
 }
 
+.invalid-feedback{
+    color: #af3333;
+}
 
+.input-is-required::after{
+    color: #af3333;
+    content: " *";
+}
 

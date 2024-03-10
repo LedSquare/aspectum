@@ -3,40 +3,52 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Validation\Validator as ValidatorObj;
 
 class RegisterController extends Controller
 {
-    use RegistersUsers;
-
     protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @return voidregister
      */
     public function __construct()
     {
         $this->middleware('guest');
     }
 
-    public function register(RegisterRequest $request)
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showRegistrationForm()
     {
-        $data = $request->validated();
+        return view('auth.register');
+    }
+
+    public function register(Request $request)
+    {
+        $data = $request->validate([
+            'username' => 'required|min:3'
+        ]);
+
+        dd($data);
+
 
         event(new Registered($user = $this->create($data)));
 
         $this->guard()->login($user);
-
-        if ($response = $this->registered($request, $user)) {
-            return $response;
-        }
 
         return $request->wantsJson()
                     ? new JsonResponse([], 201)

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CustomController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +23,5 @@ Auth::routes();
 Route::get('/', function () {
     return view('pages.start');
 });
+
+Route::post('/custom', [CustomController::class, 'index'])->name('custom');

@@ -1,18 +1,34 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="form-box">
     <div class="form-value">
-        <form action="{{ route('register') }}" method="POST"> @csrf
+        <form action="{{ route('custom') }}" method="post">
+            @csrf
             <h2>Регистрация</h2>
-                <x-auth.input id="username" type="username" name="username">Логин:</x-auth.input>
-                <x-auth.input id="email" type="email" name="email">Почта:</x-auth.input>
-                <x-auth.input id="phone" type="phone" name="phone">Телефон:</x-auth.input>
-                <x-auth.input id="password" type="password" name="password">Пароль:</x-auth.input>
-                <x-auth.input id="firstname" type="firstname" name="firstname">Имя:</x-auth.input>
-                <x-auth.input id="lastname" type="lastname" name="lastname">Фамилия:</x-auth.input>
-                <x-auth.input id="fathername" type="fathername" name="fathername">Отчество:</x-auth.input>
-                <x-auth.input id="gender" type="gender" name="gender">Пол:</x-auth.input>
+                <x-form.input id="username" type="text" name="username" required>Логин</x-form.input>
+                <x-form.input id="email" type="email" name="email" required>Почта</x-form.input>
+                {{-- TODO: Решить вопрос с маской --}}
+                {{-- <vue-phone-input> </vue-phone-input> --}}
+                <x-form.input id="phone" type="text" name="phone">Телефон</x-form.input>
+                <x-form.input id="password" type="text" name="password" required>Пароль</x-form.input>
+                <x-form.input id="password_confirmation" type="text" name="password_confirmation" required>Подтверждение пароля</x-form.input>
+                <x-form.input id="firstname" type="text" name="firstname" required>Имя</x-form.input>
+                <x-form.input id="lastname" type="text" name="lastname">Фамилия</x-form.input>
+                <x-form.input id="fathername" type="text" name="fathername">Отчество</x-form.input>
+
+                    <label class="input-is-required" for="gender" required>Пол</label>
+                    <select name="gender" id="gender">
+                        <option value="муж">муж</option>
+                        <option value="жен">жен</option>
+                    </select>
+                    @error('gender')
+                    <div class="invalid-feedback">
+                            {{ $message }}
+                    </div>
+                    @enderror
+
             <button type="submit">Зарегистрироваться</button>
         </form>
     </div>

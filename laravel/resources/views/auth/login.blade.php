@@ -5,8 +5,8 @@
     <div class="form-value">
         <form action="{{ route('login') }}" method="POST"> @csrf
             <h2>Авторизация</h2>
-                <x-auth.input id="email" type="email" name="email">Почта</x-auth.input>
-                <x-auth.input id="password" type="password" name="password">Пароль:</x-auth.input>
+                <x-form.input id="email" type="email" name="email">Почта</x-form.input>
+                <x-form.input id="password" type="password" name="password">Пароль:</x-form.input>
             <div class="forget">
                 <label for=""><input type="checkbox">Запомнить<a href="#">, забыли пароль?</a></label>
             </div>

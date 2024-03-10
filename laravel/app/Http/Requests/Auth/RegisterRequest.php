@@ -24,12 +24,13 @@ class RegisterRequest extends FormRequest
         return [
             'username' => ['required', 'string', 'min:3'],
             'email' => ['required' , 'email', 'string', 'unique:users'],
-            'firstname' => ['string', 'nullable'],
+            'firstname' => ['string', 'required'],
             'lastname' => ['string', 'nullable'],
             'fathername' => ['string', 'nullable'],
-            'gender' => ['string', 'nullable', 'in:мужчина,женщина'],
-            'password' => ['string', 'min:6', 'required', 'confirmed'],
-            'phone' => ['string', 'min:6', 'phone']
+            'gender' => ['required','string', 'nullable', 'in:муж,жен'],
+            'password' => ['required','string', 'min:6', 'required', 'confirmed'],
+            'password_confirmation' => ['required', 'min:6'],
+            'phone' => ['string', 'min:6']
         ];
     }
 
@@ -37,7 +38,8 @@ class RegisterRequest extends FormRequest
     {
         return [
             //TODO: Сделать сообщения на русском
-            'gender.in' => 'Пол может быть только мужчина или женщина',
+            'username.min' => 'Слишком мало символов',
+            'gender.in' => 'Пол может быть только муж или жен',
         ];
     }
 }
