@@ -4,7 +4,7 @@
 
 <div class="form-box">
     <div class="form-value">
-        <form action="{{ route('custom') }}" method="post">
+        <form action="{{ route('register') }}" method="post">
             @csrf
             <h2>Регистрация</h2>
                 <x-form.input id="username" type="text" name="username" required>Логин</x-form.input>

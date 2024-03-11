@@ -4,6 +4,6 @@
 <div class="start-page flex-c">
     <h1>Облик</h1>
 
-    <button class="start-button">Начать</button>
+    <a href="#"><button class="start-button">Начать</button></a>
 </div>
 @endsection

@@ -8,13 +8,13 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Validation\Validator as ValidatorObj;
 
 class RegisterController extends Controller
 {
+    use RegistersUsers;
+
     protected $redirectTo = '/';
 
     /**
@@ -37,14 +37,9 @@ class RegisterController extends Controller
         return view('auth.register');
     }
 
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $data = $request->validate([
-            'username' => 'required|min:3'
-        ]);
-
-        dd($data);
-
+        $data = $request->validated();
 
         event(new Registered($user = $this->create($data)));
 

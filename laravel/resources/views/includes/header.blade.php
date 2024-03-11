@@ -8,8 +8,9 @@
             <li><x-link>Контакты</x-link></li>
         </ul>
 
+        {{-- TODO: Удалить, временный блок --}}
         @if ($user = auth()->user())
-            <div> Пользователь:{{ " $user->firstname, $user->lastname" }} </div>
+            <div style="display: flex;" class="flex-c"> Пользователь:{{" $user->firstname $user->lastname "}} </div>
         @endif
 
         <ul class="auth-ul">
