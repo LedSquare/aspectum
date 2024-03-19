@@ -73,3 +73,11 @@ chmod:
 	docker exec -it php chmod -R 777 
 exec-app:
 	${DOCKER_EXEC_APP} bash
+
+run-tests:
+	@read -p "Тип теста? - " type; \
+	docker exec -it ${PROJECT}_php php artisan test --testsuite=$$type
+
+tinker:
+	docker exec -it ${PROJECT}_php php artisan tinker app/Console/tinker.php
+
