@@ -4,6 +4,6 @@
 <div class="start-page flex-c">
     <h1>Облик</h1>
 
-    <a href="#"><button class="start-button">Начать</button></a>
+    <a href="{{route('')}}"><button class="start-button">Начать</button></a>
 </div>
 @endsection

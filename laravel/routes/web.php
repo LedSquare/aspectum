@@ -24,4 +24,4 @@ Route::get('/', function () {
     return view('pages.start');
 });
 
-Route::post('/custom', [CustomController::class, 'index'])->name('custom');
+// Route::post('/custom', [CustomController::class, 'index'])->name('custom');
