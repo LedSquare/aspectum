@@ -23,15 +23,27 @@ class CreateModule extends Command
     /**
      * Execute the console command.
      */
+
+    protected $moduleName;
     public function handle()
     {
-        $this->createModule();
+        $this->moduleName = $this->argument('moduleName');
+        // $this->createModule();
+        // $this->addServiceProvider();
+        $this->addNamespaceToComposer();
+    }
+
+    protected function getAbsolutePath(): string
+    {
+        $path = preg_replace("/(.*?)\/app\/.*/", "$1", __DIR__);
+        return $path;
     }
 
     protected function createModule()
     {
         echo 'Создание модуля...' . "\n";
-        $module = $this->argument('moduleName');
+        $module = $this->moduleName;
+
         $directories = [
             "app/Modules/{$module}",
             "app/Modules/{$module}/database",
@@ -51,10 +63,7 @@ class CreateModule extends Command
         $lowerModuleName = strtolower($module);
 
         //----router----
-        $routeFileContent = "<?php\n
-use Illuminate\\Support\\Facades\\Route;\n\n" .
-            "Route::middleware('api')->prefix('api/{$lowerModuleName}')\n" .
-            "    ->group(__DIR__ . '/../../routes/{$module}.php');\n";
+        $routeFileContent = "<?php\n\n" . "use Illuminate\\Support\\Facades\\Route;";
         file_put_contents("app/Modules/{$module}/routes/{$lowerModuleName}.php", $routeFileContent);
 
         //----Serice Provider----
@@ -84,5 +93,58 @@ class {$module}ModuleServiceProvider extends ServiceProvider
         file_put_contents("app/Modules/{$module}/src/Providers/{$module}ModuleServiceProvider.php", $providerFileContent);
 
         echo "\n" . 'Модуль "' . $module . '" создан успешно.' . "\n";
+    }
+
+    protected function addServiceProvider()
+    {
+        $module = $this->moduleName;
+        $path = $this->getAbsolutePath();
+
+        $file = $path . '/config/app.php';
+
+        if (!file_exists($file)) {
+            echo 'File:' . $file . " don't exists";
+            die;
+        }
+
+        $lines = explode("\n", file_get_contents($file));
+        echo 'start' . "\t\tHello\n";
+        $flag = false;
+        foreach ($lines as $key => $line) {
+            if (trim($line) === "'providers' => ServiceProvider::defaultProviders()->merge([") {
+                $flag = true;
+            }
+            if ($flag === true && trim($line) === "])->toArray(),") {
+                $keyEnd = $key;
+                break;
+            }
+        }
+
+        array_splice($lines, $keyEnd, 0, "\t\t\\$module\Providers\\$module" . 'ModuleServiceProvider::class,');
+        file_put_contents($file, implode("\n", $lines));
+    }
+
+    protected function addNamespaceToComposer()
+    {
+        $module = $this->moduleName;
+        $path = $this->getAbsolutePath();
+
+        $file = $path . '/composer.json';
+
+        if (!file_exists($file)) {
+            echo 'File:' . $file . " don't exists";
+            die;
+        }
+        $lines = explode("\n", file_get_contents($file));
+
+        foreach ($lines as $key => $line) {
+            if (trim($line) === "\"autoload\": {") {
+                $needleKey = $key;
+            }
+        }
+
+        $newLine = "\t\t\t\"$module\\\\\": \"app/Modules/$module/src\",";
+        array_splice($lines, $needleKey + 2, 0, $newLine);
+        file_put_contents($file, implode("\n", $lines));
     }
 }
