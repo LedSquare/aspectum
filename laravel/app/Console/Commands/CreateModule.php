@@ -28,8 +28,8 @@ class CreateModule extends Command
     public function handle()
     {
         $this->moduleName = $this->argument('moduleName');
-        // $this->createModule();
-        // $this->addServiceProvider();
+        $this->createModule();
+        $this->addServiceProvider();
         $this->addNamespaceToComposer();
     }
 
