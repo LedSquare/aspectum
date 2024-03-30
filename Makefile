@@ -16,7 +16,9 @@ git-config:
 	git config user.name "$$name"; \
 	read -p "Введите вашу электронную почту: " email; \
 	git config user.email "$$email"; \
-	echo "Настройка завершена."
+	echo "Настройка завершена."; \
+	git config user.name; \
+	git config user.email
 
 # deploying
 composer:
@@ -75,8 +77,11 @@ exec-app:
 	${DOCKER_EXEC_APP} bash
 
 run-tests:
-	@read -p "Тип теста? - " type; \
-	docker exec -it ${PROJECT}_php php artisan test --testsuite=$$type
+	read -p "Тип теста? - " type; \
+	if [ -z "$$type" ]; then\
+		type="Feature"; \
+	fi; \
+	docker exec -it ${PROJECT}_app php artisan test --testsuite=$$type
 
 tinker:
 	docker exec -it ${PROJECT}_php php artisan tinker app/Console/tinker.php
