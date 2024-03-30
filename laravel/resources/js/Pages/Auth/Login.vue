@@ -1,0 +1,157 @@
+<template>
+    <div class="form-box">
+        <div class="form-value">
+            <form action="{{ route('login') }}" method="POST">
+                <h2>Авторизация</h2>
+                <x-form.input id="email" type="email" name="email">Почта</x-form.input>
+                <x-form.input id="password" type="password" name="password">Пароль:</x-form.input>
+                <div class="forget">
+                    <label for=""><input type="checkbox">Запомнить<a href="#">, забыли пароль?</a></label>
+                </div>
+                <button type="submit">Войти</button>
+                <div class="register-box">
+                    <p> <a href="{{ route('register') }}">Зарегистрироваться</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    name: 'Login',
+    created() {
+
+    },
+    data() {
+        return {
+        }
+    },
+    props: {
+
+    },
+    methods: {
+
+    },
+}
+</script>
+
+<style lang="scss" scoped>
+.form-box {
+    min-height: 450px;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h2 {
+        font-size: 2em;
+        color: #0a0a0a;
+        text-align: center;
+    }
+
+    select {
+        margin: 30px 10px;
+        font-size: 1em;
+        border-radius: 15px;
+        cursor: pointer;
+    }
+
+    .input-group {
+        position: relative;
+        margin: 30px 0;
+        width: 310px;
+        border-bottom: 2px solid $blue;
+        /* (полосочки) */
+
+        input {
+            width: 100%;
+            height: 30px;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 1em;
+            padding: 0 35px 0 5px;
+            color: #0f0e0e;
+
+            &:invalid {
+                color: #af3333;
+            }
+        }
+
+        label {
+            transform: translateY(-50%);
+            color: #131111;
+            font-size: 1em;
+            pointer-events: none;
+        }
+
+        ion-icon {
+            position: absolute;
+            right: 8px;
+            color: #0e0d0d;
+            font-size: 1.2em;
+            top: 20px;
+        }
+    }
+
+    * button {
+        width: 100%;
+        height: 40px;
+        border-radius: 15px;
+        background: $blue;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: 600;
+    }
+}
+
+.forget {
+    margin: -15px 0 15px;
+    font-size: 0.9em;
+    color: #0e0d0d;
+    display: flex;
+    justify-content: center;
+}
+
+.forget label input {
+    margin-right: 3px;
+}
+
+.forget label a {
+    color: #141313;
+    text-decoration: none;
+}
+
+.forget label a:hover {
+    text-decoration: underline;
+}
+
+.register-box {
+    font-size: 0.9em;
+    color: #f0e5e5;
+    text-align: center;
+    margin: 25px 0 10px;
+
+    a {
+        text-decoration: none;
+        color: #050505;
+        font-weight: 600;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.invalid-feedback {
+    color: #af3333;
+}
+
+.input-is-required::after {
+    color: #af3333;
+    content: " *";
+}
+</style>
