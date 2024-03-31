@@ -1,16 +1,24 @@
+<script setup>
+import InputGroup from '../../Components/Forms/InputGroup.vue';
+import { Head, Link } from '@inertiajs/inertia-vue3'
+</script>
 <template>
+
+    <Head :title="title" />
     <div class="form-box">
         <div class="form-value">
-            <form action="{{ route('login') }}" method="POST">
+            <form :action="route('login')" method="POST">
                 <h2>Авторизация</h2>
-                <x-form.input id="email" type="email" name="email">Почта</x-form.input>
-                <x-form.input id="password" type="password" name="password">Пароль:</x-form.input>
+                <InputGroup :id="email" :type="email" :name="email" :required="true"> Почта </InputGroup>
+                <InputGroup :id="password" :type="password" :name="password" :required="true"> Пароль</InputGroup>
                 <div class="forget">
                     <label for=""><input type="checkbox">Запомнить<a href="#">, забыли пароль?</a></label>
                 </div>
                 <button type="submit">Войти</button>
                 <div class="register-box">
-                    <p> <a href="{{ route('register') }}">Зарегистрироваться</a></p>
+                    <p>
+                        <Link :href="route('register')">Зарегистрироваться</Link>
+                    </p>
                 </div>
             </form>
         </div>
@@ -20,6 +28,10 @@
 <script>
 export default {
     name: 'Login',
+    components: {
+        Head,
+        Link,
+    },
     created() {
 
     },
@@ -28,7 +40,7 @@ export default {
         }
     },
     props: {
-
+        title: String,
     },
     methods: {
 
@@ -55,44 +67,6 @@ export default {
         font-size: 1em;
         border-radius: 15px;
         cursor: pointer;
-    }
-
-    .input-group {
-        position: relative;
-        margin: 30px 0;
-        width: 310px;
-        border-bottom: 2px solid $blue;
-        /* (полосочки) */
-
-        input {
-            width: 100%;
-            height: 30px;
-            background: transparent;
-            border: none;
-            outline: none;
-            font-size: 1em;
-            padding: 0 35px 0 5px;
-            color: #0f0e0e;
-
-            &:invalid {
-                color: #af3333;
-            }
-        }
-
-        label {
-            transform: translateY(-50%);
-            color: #131111;
-            font-size: 1em;
-            pointer-events: none;
-        }
-
-        ion-icon {
-            position: absolute;
-            right: 8px;
-            color: #0e0d0d;
-            font-size: 1.2em;
-            top: 20px;
-        }
     }
 
     * button {
@@ -144,14 +118,5 @@ export default {
             text-decoration: underline;
         }
     }
-}
-
-.invalid-feedback {
-    color: #af3333;
-}
-
-.input-is-required::after {
-    color: #af3333;
-    content: " *";
 }
 </style>

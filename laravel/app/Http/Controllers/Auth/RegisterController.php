@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Auth\Events\Registered;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
+use Inertia\Inertia;
 
 class RegisterController extends Controller
 {
@@ -27,14 +27,11 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    /**
-     * Show the application registration form.
-     *
-     * @return \Illuminate\View\View
-     */
     public function showRegistrationForm()
     {
-        return view('auth.register');
+        return Inertia::render('Auth/Register', [
+            'title' => '',
+        ]);
     }
 
     public function register(RegisterRequest $request)
@@ -46,8 +43,8 @@ class RegisterController extends Controller
         $this->guard()->login($user);
 
         return $request->wantsJson()
-                    ? new JsonResponse([], 201)
-                    : redirect($this->redirectPath());
+            ? new JsonResponse([], 201)
+            : redirect($this->redirectPath());
     }
 
     /**

@@ -1,10 +1,17 @@
+<script setup>
+import { Link } from "@inertiajs/inertia-vue3"
+</script>
 <template>
     <header class="flex-c">
         <div>
             <nav>
                 <ul>
-                    <li><x-link>Домой</x-link></li>
-                    <li><x-link>Контакты</x-link></li>
+                    <li>
+                        <Link :href="route('home')">Домой</Link>
+                    </li>
+                    <li>
+                        <a>Контакты</a>
+                    </li>
                 </ul>
 
                 <!-- TODO: Удалить, временный блок -->
@@ -17,7 +24,7 @@
 
                     <li>
                         <!-- TODO: Добавить разные роуты -->
-                        <x-link route='login'>Личный кабинет</x-link>
+                        <Link :href="route('login')">Личный кабинет</Link>
                     </li>
                 </ul>
             </nav>
@@ -28,6 +35,9 @@
 <script>
 export default {
     name: 'Header',
+    components: {
+        Link
+    },
     created() {
 
     },
