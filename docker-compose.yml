@@ -48,8 +48,8 @@ services:
     container_name: ${PROJECT}_db
     restart: unless-stopped
     hostname: ${DB_HOST}
-    # ports:
-    #   - 3307:3306
+    ports:
+      - "${DB_PORT}:5432"
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_DATABASE}
