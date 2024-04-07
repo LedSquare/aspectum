@@ -20,7 +20,7 @@ class RegisterController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @return voidregister
+     * @return void register
      */
     public function __construct()
     {
@@ -30,7 +30,7 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         return Inertia::render('Auth/Register', [
-            'title' => '',
+            'title' => 'Облик - регистрация',
         ]);
     }
 

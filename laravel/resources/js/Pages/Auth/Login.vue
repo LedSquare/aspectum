@@ -1,16 +1,15 @@
 <script setup>
 import InputGroup from '../../Components/Forms/InputGroup.vue';
-import { Head, Link } from '@inertiajs/inertia-vue3'
+import { Head, Link } from '@inertiajs/inertia-vue3';
 </script>
 <template>
-
     <Head :title="title" />
     <div class="form-box">
         <div class="form-value">
-            <form :action="route('login')" method="POST">
+            <form @submit.prevent="login" method="POST">
                 <h2>Авторизация</h2>
-                <InputGroup :id="email" :type="email" :name="email" :required="true"> Почта </InputGroup>
-                <InputGroup :id="password" :type="password" :name="password" :required="true"> Пароль</InputGroup>
+                <input-group id="email" type="email" name="email" :required="true"> Почта </input-group>
+                <input-group id="password" type="password" name="password" :required="true"> Пароль</input-group>
                 <div class="forget">
                     <label for=""><input type="checkbox">Запомнить<a href="#">, забыли пароль?</a></label>
                 </div>
@@ -32,9 +31,6 @@ export default {
         Head,
         Link,
     },
-    created() {
-
-    },
     data() {
         return {
         }
@@ -42,9 +38,14 @@ export default {
     props: {
         title: String,
     },
-    methods: {
+    setup(){
+        const form = useForm({
+            email: null,
+            password: null,
 
-    },
+        });
+        return form
+    }
 }
 </script>
 

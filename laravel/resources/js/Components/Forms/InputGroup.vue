@@ -6,9 +6,9 @@
             <slot />
         </label>
         <input :id="id" :type="type" :name="name" class="form-input">
-        <!-- @error($name) -->
+
         <div class="invalid-feedback">
-            <!-- {{ message }} -->
+
         </div>
     </div>
 
