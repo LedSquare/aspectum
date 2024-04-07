@@ -16,7 +16,9 @@ git-config:
 	git config user.name "$$name"; \
 	read -p "Введите вашу электронную почту: " email; \
 	git config user.email "$$email"; \
-	echo "Настройка завершена."
+	echo "Настройка завершена."; \
+	git config user.name; \
+	git config user.email
 
 # deploying
 composer:
@@ -42,7 +44,7 @@ delete-name: docker-clear-images-name
 
 
 # shortcuts
-start: docker-up composer-install key-storage
+start: docker-up composer-install key-storage npm-install
 stop: docker-down
 restart: stop start
 rebuild: stop build start 
@@ -73,10 +75,18 @@ chmod:
 	docker exec -it php chmod -R 777 
 exec-app:
 	${DOCKER_EXEC_APP} bash
+npm-install:
+	docker exec -it ${PROJECT}_vite npm install 
+
+migrate:
+	${DOCKER_EXEC_APP} php artisan migrate:fresh $(s)
 
 run-tests:
-	@read -p "Тип теста? - " type; \
-	docker exec -it ${PROJECT}_php php artisan test --testsuite=$$type
+	read -p "Тип теста? - " type; \
+	if [ -z "$$type" ]; then\
+		type="Feature"; \
+	fi; \
+	docker exec -it ${PROJECT}_app php artisan test --testsuite=$$type
 
 tinker:
 	docker exec -it ${PROJECT}_php php artisan tinker app/Console/tinker.php

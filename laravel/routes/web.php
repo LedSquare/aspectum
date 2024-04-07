@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CustomController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +22,7 @@ use Illuminate\Support\Facades\Route;
  */
 Auth::routes();
 
-Route::get('/', function () {
-    return view('pages.start');
+Route::controller(HomeController::class)->name('home')->group(function () {
+    Route::get('/', 'index');
 });
 
-// Route::post('/custom', [CustomController::class, 'index'])->name('custom');

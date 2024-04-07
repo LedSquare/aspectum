@@ -1,64 +1,6 @@
-@import './base';
-@import './variables';
-@import './snippets';
-@import './auth/form';
-
-// HEADER START
-@mixin header-footer-div(){
-    display: flex;
-    width: 1180;
-    height: 100%;
-    padding: 0px 10px;
-    border-radius: 10px;
-    background-color: $blocks-background;
-}
-
-header {
-    padding: 0px 10px;
-    display: flex;
-    background-color: $body-background;
-    height: $header-footer-height;
-
-    > div {
-        @include header-footer-div;
-    }
-
-    nav {
-        justify-content: space-between;
-    }
-
-    ul>li:first-child{
-        margin-right: 5em;
-    }
-
-    .auth-ul > li{
-        margin-right: 10px !important;
-    }
-
-    ul {
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-
-        > li {
-            margin: 10px;
-        }
-    }
-}
-// HEADER END
-// FOOTER START
-footer {
-    padding: 10px;
-    display: flex;
-    background-color: $body-background;
-    height: $header-footer-height;
-
-    > div {
-        @include header-footer-div;
-    }
-}
-// FOOTER END
-
+@import "./base";
+@import "./variables";
+@import "./snippets";
 
 .wrapper {
     background-color: $blocks-background;
@@ -75,11 +17,10 @@ footer {
 
     border-radius: 10px;
 
-    > *{
-        display:flex;
+    > * {
+        display: flex;
     }
 }
-
 
 .start-page {
     display: flex;
@@ -95,7 +36,7 @@ footer {
     width: 250px;
     height: 250px;
 
-    .image{
+    .image {
         max-width: 100%;
         max-height: 100%;
         width: auto;
@@ -114,7 +55,10 @@ footer {
     border: 2px solid $blue;
     color: black;
     border-radius: 10px;
-    transition: background-color 0.3s, color 0.3s, border 0.3s;
+    transition:
+        background-color 0.3s,
+        color 0.3s,
+        border 0.3s;
 
     &:hover {
         background-color: $blue;
@@ -126,4 +70,3 @@ footer {
 .active {
     text-decoration: underline;
 }
-
