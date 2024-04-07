@@ -25,12 +25,16 @@ class CreateModule extends Command
      */
 
     protected $moduleName;
+
+    protected $moduleType = 'Domain';
+
     public function handle()
     {
         $this->moduleName = $this->argument('moduleName');
         $this->createModule();
         $this->addServiceProvider();
         $this->addNamespaceToComposer();
+        exec('composer update');
     }
 
     protected function getAbsolutePath(): string
@@ -42,17 +46,19 @@ class CreateModule extends Command
     protected function createModule()
     {
         echo 'Создание модуля...' . "\n";
+
         $module = $this->moduleName;
+        $moduleType = $this->moduleType;
 
         $directories = [
-            "app/Modules/{$module}",
-            "app/Modules/{$module}/database",
-            "app/Modules/{$module}/src",
-            "app/Modules/{$module}/routes",
-            "app/Modules/{$module}/src/Http",
-            "app/Modules/{$module}/src/Models",
-            "app/Modules/{$module}/src/Providers",
-            "app/Modules/{$module}/database/migrations"
+            "app/{$moduleType}s/{$module}",
+            "app/{$moduleType}s/{$module}/database",
+            "app/{$moduleType}s/{$module}/src",
+            "app/{$moduleType}s/{$module}/routes",
+            "app/{$moduleType}s/{$module}/src/Http",
+            "app/{$moduleType}s/{$module}/src/Models",
+            "app/{$moduleType}s/{$module}/src/Providers",
+            "app/{$moduleType}s/{$module}/database/migrations"
         ];
 
         foreach ($directories as $directory) {
@@ -64,7 +70,7 @@ class CreateModule extends Command
 
         //----router----
         $routeFileContent = "<?php\n\n" . "use Illuminate\\Support\\Facades\\Route;";
-        file_put_contents("app/Modules/{$module}/routes/{$lowerModuleName}.php", $routeFileContent);
+        file_put_contents("app/{$moduleType}s/{$module}/routes/{$lowerModuleName}.php", $routeFileContent);
 
         //----Serice Provider----
         $providerFileContent =
@@ -75,7 +81,7 @@ namespace {$module}\Providers;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-class {$module}ModuleServiceProvider extends ServiceProvider
+class {$module}{$moduleType}ServiceProvider extends ServiceProvider
 {
 
     public function boot(): void
@@ -85,12 +91,12 @@ class {$module}ModuleServiceProvider extends ServiceProvider
             "                ->prefix('api/{$lowerModuleName}')" . "\n" .
             "                ->group(__DIR__ . '/../../routes/{$lowerModuleName}.php');" . "\n" .
             '        });' . "\n" .
-            '       $this->loadMigrationsFrom(__DIR__ . ' . "'/../../database/migrations');" . "\n" .
+            '       $this->loadMigrationsFrom(__DIR__ . ' . "'/../../database/migrations/*');" . "\n" .
             "   }\n" .
             '}'
         ;
 
-        file_put_contents("app/Modules/{$module}/src/Providers/{$module}ModuleServiceProvider.php", $providerFileContent);
+        file_put_contents("app/{$moduleType}s/{$module}/src/Providers/{$module}{$moduleType}ServiceProvider.php", $providerFileContent);
 
         echo "\n" . 'Модуль "' . $module . '" создан успешно.' . "\n";
     }
@@ -99,6 +105,7 @@ class {$module}ModuleServiceProvider extends ServiceProvider
     {
         $module = $this->moduleName;
         $path = $this->getAbsolutePath();
+        $moduleType = $this->moduleType;
 
         $file = $path . '/config/app.php';
 
@@ -108,7 +115,7 @@ class {$module}ModuleServiceProvider extends ServiceProvider
         }
 
         $lines = explode("\n", file_get_contents($file));
-        echo 'start' . "\t\tHello\n";
+
         $flag = false;
         foreach ($lines as $key => $line) {
             if (trim($line) === "'providers' => ServiceProvider::defaultProviders()->merge([") {
@@ -120,13 +127,15 @@ class {$module}ModuleServiceProvider extends ServiceProvider
             }
         }
 
-        array_splice($lines, $keyEnd, 0, "\t\t\\$module\Providers\\$module" . 'ModuleServiceProvider::class,');
+        array_splice($lines, $keyEnd, 0, "\t\t\\$module\Providers\\$module" . "{$moduleType}ServiceProvider::class,");
         file_put_contents($file, implode("\n", $lines));
     }
 
     protected function addNamespaceToComposer()
     {
         $module = $this->moduleName;
+        $moduleType = $this->moduleType;
+
         $path = $this->getAbsolutePath();
 
         $file = $path . '/composer.json';
@@ -143,7 +152,7 @@ class {$module}ModuleServiceProvider extends ServiceProvider
             }
         }
 
-        $newLine = "\t\t\t\"$module\\\\\": \"app/Modules/$module/src\",";
+        $newLine = "\t\t\t\"$module\\\\\": \"app/{$moduleType}s/$module/src\",";
         array_splice($lines, $needleKey + 2, 0, $newLine);
         file_put_contents($file, implode("\n", $lines));
     }
