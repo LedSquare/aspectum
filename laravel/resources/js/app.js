@@ -1,7 +1,7 @@
 // import { createApp, h } from 'vue/dist/vue.esm-bundler.js'
-import { createApp, h } from 'vue';
-import { createInertiaApp } from '@inertiajs/inertia-vue3';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import { createApp, h } from 'vue'
+import { createInertiaApp } from '@inertiajs/inertia-vue3'
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
 import { InertiaProgress } from '@inertiajs/progress'
 
 import Layout from './Layouts/Layout.vue'
