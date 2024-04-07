@@ -78,6 +78,9 @@ exec-app:
 npm-install:
 	docker exec -it ${PROJECT}_vite npm install 
 
+migrate:
+	${DOCKER_EXEC_APP} php artisan migrate:fresh $(s)
+
 run-tests:
 	read -p "Тип теста? - " type; \
 	if [ -z "$$type" ]; then\

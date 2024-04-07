@@ -9,6 +9,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 WORKDIR /site
 
 RUN apk $CACHE update && apk $CACHE add \
+    postgresql-dev \
     bash \
     libzip-dev \
     zip \
@@ -29,7 +30,7 @@ RUN apk $CACHE update && apk $CACHE add \
     gdbm-dev \
     ncurses-dev \
     bzip2-dev \
-    zlib-dev
+    zlib-dev 
 
-RUN docker-php-ext-install pdo_mysql bcmath gd zip
+RUN docker-php-ext-install pdo pdo_pgsql bcmath gd zip
 

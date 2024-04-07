@@ -45,18 +45,17 @@ services:
 
   db:
     image: postgres:15-bookworm
-    container_name: ${PROJECT}_db
     restart: unless-stopped
-    hostname: ${DB_HOST}
-    ports:
-      - "${DB_PORT}:5432"
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_DATABASE}
     volumes:
       - ./data/db:/var/lib/postgresql/data:rw
+    container_name: ${PROJECT}_db
+    hostname: db
     networks:
       - appnet
+
 
   redis:
     build:
