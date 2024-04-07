@@ -44,19 +44,17 @@ services:
       - appnet
 
   db:
-    image: mysql:8
-    container_name: ${PROJECT}_mysql
+    image: postgres:15-bookworm
+    container_name: ${PROJECT}_db
     restart: unless-stopped
     hostname: ${DB_HOST}
-    ports:
-      - 3307:3306
+    # ports:
+    #   - 3307:3306
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
     volumes:
-      - ./data/db:/var/lib/mysql
+      - ./data/db:/var/lib/postgresql/data:rw
     networks:
       - appnet
 
