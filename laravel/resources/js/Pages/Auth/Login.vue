@@ -24,7 +24,7 @@ function login() {
             <form @submit.prevent="login" method="POST">
                 <h2>Авторизация</h2>
                 <input-group :error="form.errors.email" v-model="form.email" id="email" type="email" :required="true"> Почта </input-group>
-                <input-group :error="form.errors.passowrd" v-model="form.password" id="password" type="password" :required="true"> Пароль</input-group>
+                <input-group :error="form.errors.password" v-model="form.password" id="password" type="password" :required="true"> Пароль</input-group>
                 <div class="forget">
                     <label for="forget"><input id="forget" type="checkbox">Запомнить<a href="#">, забыли пароль?</a></label>
                 </div>

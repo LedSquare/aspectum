@@ -10,13 +10,19 @@ const props = defineProps({
     modelValue: String,
     error: String,
 })
+const emit = defineEmits(['update:model-value'])
+
+const onInput = (event) => {
+    emit('update:model-value', event.target.value)
+}
+
 </script>
 <template>
     <div class="input-group">
         <label :class="[required ? 'input-is-required' : '']" :for="id">
             <slot />
         </label>
-        <input :id="id" :value="modelValue" :type="type" class="form-input">
+        <input :id="id" :value="modelValue" @input="onInput" :type="type" class="form-input">
 
         <div v-if="error" class="invalid-feedback">
             {{ error }}
