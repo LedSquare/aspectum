@@ -5,7 +5,7 @@ namespace Aspect\Providers;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-class AspectModuleServiceProvider extends ServiceProvider
+class AspectDomainServiceProvider extends ServiceProvider
 {
 
     public function boot(): void
@@ -15,6 +15,6 @@ class AspectModuleServiceProvider extends ServiceProvider
                 ->prefix('api/aspect')
                 ->group(__DIR__ . '/../../routes/aspect.php');
         });
-       $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
+       $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations/*');
    }
 }
