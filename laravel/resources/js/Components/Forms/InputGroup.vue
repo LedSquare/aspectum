@@ -1,45 +1,36 @@
 <script setup>
+const props = defineProps({
+    id: String,
+    type: String,
+    required: {
+        type: Boolean,
+        required: false,
+        default: false,
+    },
+    modelValue: String,
+    error: String,
+})
+const emit = defineEmits(['update:model-value'])
+
+const onInput = (event) => {
+    emit('update:model-value', event.target.value)
+}
+
 </script>
 <template>
     <div class="input-group">
         <label :class="[required ? 'input-is-required' : '']" :for="id">
             <slot />
         </label>
-        <input :id="id" :type="type" :name="name" class="form-input">
+        <input :id="id" :value="modelValue" @input="onInput" :type="type" class="form-input">
 
-        <div class="invalid-feedback">
-
+        <div v-if="error" class="invalid-feedback">
+            {{ error }}
         </div>
     </div>
 
 
 </template>
-
-<script>
-export default {
-    name: 'InputGroup',
-    created() {
-
-    },
-    data() {
-        return {
-        }
-    },
-    props: {
-        id: String,
-        type: String,
-        name: String,
-        required: {
-            type: Boolean,
-            required: false,
-            default: false,
-        }
-    },
-    methods: {
-
-    },
-}
-</script>
 
 <style lang="scss" scoped>
 .input-group {

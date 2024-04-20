@@ -1,17 +1,32 @@
 <script setup>
 import InputGroup from '../../Components/Forms/InputGroup.vue';
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+
+const props = defineProps({
+    title: String,
+})
+
+const form = useForm({
+    email: null,
+    password: null,
+})
+
+function login() {
+    form.post(route('login'))
+}
+
 </script>
+
 <template>
     <Head :title="title" />
     <div class="form-box">
         <div class="form-value">
             <form @submit.prevent="login" method="POST">
                 <h2>Авторизация</h2>
-                <input-group id="email" type="email" name="email" :required="true"> Почта </input-group>
-                <input-group id="password" type="password" name="password" :required="true"> Пароль</input-group>
+                <input-group :error="form.errors.email" v-model="form.email" id="email" type="email" :required="true"> Почта </input-group>
+                <input-group :error="form.errors.password" v-model="form.password" id="password" type="password" :required="true"> Пароль</input-group>
                 <div class="forget">
-                    <label for=""><input type="checkbox">Запомнить<a href="#">, забыли пароль?</a></label>
+                    <label for="forget"><input id="forget" type="checkbox">Запомнить<a href="#">, забыли пароль?</a></label>
                 </div>
                 <button type="submit">Войти</button>
                 <div class="register-box">
@@ -23,31 +38,6 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
         </div>
     </div>
 </template>
-
-<script>
-export default {
-    name: 'Login',
-    components: {
-        Head,
-        Link,
-    },
-    data() {
-        return {
-        }
-    },
-    props: {
-        title: String,
-    },
-    setup(){
-        const form = useForm({
-            email: null,
-            password: null,
-
-        });
-        return form
-    }
-}
-</script>
 
 <style lang="scss" scoped>
 .form-box {

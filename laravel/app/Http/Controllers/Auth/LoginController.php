@@ -26,7 +26,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest');
     }
 
     public function showLoginForm()
@@ -39,7 +39,7 @@ class LoginController extends Controller
     protected function validateLogin(Request $request)
     {
         $request->validate([
-            $this->username() => ['required', 'string', 'min:3'],
+            'email' => ['required', 'string', 'min:5'],
             'password' => ['required', 'string', 'min:3'],
         ]);
     }
