@@ -15,7 +15,7 @@ const form = useForm({
     gender: 'муж',
 })
 
-function register(){
+function register() {
     form.post(route('register'))
 }
 
@@ -29,21 +29,24 @@ function register(){
         <div class="form-value">
             <form @click.prevent="register" method="POST">
                 <h2>Регистрация</h2>
-                <input-group :error="form.errors.username" v-model="form.username" id="username" type="text" :required="true"> Логин </input-group>
-                <input-group :error="form.errors.email" v-model="form.email" id="email" type="email" :required="true"> Почта </input-group>
-                <input-group :error="form.errors.phone" v-model="form.phone" id="phone" type="text" :required="false"> Телефон </input-group>
-                <input-group :error="form.errors.password" v-model="form.password" id="password" type="password" :required="true"> Пароль </input-group>
-                <input-group
-                :error="form.errors.password_confirmation"
-                v-model="form.password_confirmation" id="password_confirmation" type="password_confirmation"
-                    :required="true"> Подтверждение пароля </input-group>
+                <input-group :error="form.errors.username" v-model="form.username" id="username" type="text"
+                    :required="true"> Логин </input-group>
+                <input-group :error="form.errors.email" v-model="form.email" id="email" type="email" :required="true">
+                    Почта </input-group>
+                <input-group :error="form.errors.phone" v-model="form.phone" id="phone" type="text" :required="false">
+                    Телефон </input-group>
+                <input-group :error="form.errors.password" v-model="form.password" id="password" type="password"
+                    :required="true"> Пароль </input-group>
+                <input-group :error="form.errors.password_confirmation" v-model="form.password_confirmation"
+                    id="password_confirmation" type="password_confirmation" :required="true"> Подтверждение пароля
+                </input-group>
 
                 <select v-model="form.gender" id="gender">
                     <option value="муж">муж</option>
                     <option value="жен">жен</option>
                 </select>
                 <div v-if="form.errors.gender" class="invalid-feedback">
-                    Ошибка Гендера
+                    {{ form.errors.gender }}
                 </div>
 
                 <button type="submit">Зарегистрироваться</button>

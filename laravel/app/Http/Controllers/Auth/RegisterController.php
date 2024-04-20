@@ -17,18 +17,11 @@ class RegisterController extends Controller
 
     protected $redirectTo = '/';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void register
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
-
     public function showRegistrationForm()
     {
+        if(auth()->user()){
+            return redirect($this->redirectTo);
+        }
         return Inertia::render('Auth/Register', [
             'title' => 'Облик - регистрация',
         ]);

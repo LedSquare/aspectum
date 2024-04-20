@@ -19,18 +19,11 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
-
     public function showLoginForm()
     {
+        if(auth()->user()){
+            return redirect($this->redirectTo);
+        }
         return Inertia::render('Auth/Login', [
             'title' => 'Облик - Вход',
         ]);
