@@ -87,8 +87,7 @@ class {$module}{$moduleType}ServiceProvider extends ServiceProvider
     public function boot(): void
     { \n" .
             '        $this->routes(function () {' . "\n" .
-            "             Route::middleware('api')" . "\n" .
-            "                ->prefix('api/{$lowerModuleName}')" . "\n" .
+            "             Route::prefix('{$lowerModuleName}')" . "\n" .
             "                ->group(__DIR__ . '/../../routes/{$lowerModuleName}.php');" . "\n" .
             '        });' . "\n" .
             '       $this->loadMigrationsFrom(__DIR__ . ' . "'/../../database/migrations/*');" . "\n" .
