@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class, 'user_id')->constrained();
             $table->foreignIdFor(AspectType::class, 'type_id')->constrained();
-            $table->jsonb('aspect_entity');
+            $table->jsonb('aspect_unit')->nullable(true);
             $table->timestamps();
         });
     }
