@@ -2,9 +2,10 @@
 
 namespace Aspect\Models\Stages;
 
+use Aspect\Models\AspectType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Morph Relation class
@@ -17,20 +18,18 @@ class Step extends Model
 
     protected $fillable = [
         'name',
-        'stepable_id',
-        'stepable_type',
+        'step_class_name',
         'a_type_id',
         'order',
     ];
 
     protected $casts = [
-        'stepable_id' => 'integer',
         'a_type_id' => 'integer',
         'order' => 'integer',
     ];
 
-    public function stepable(): MorphTo
+    public function aspectType(): BelongsTo
     {
-        return $this->morphTo();
+        return $this->belongsTo(AspectType::class, 'a_type_id');
     }
 }
