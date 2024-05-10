@@ -1,5 +1,6 @@
 <?php
 
+use Aspect\Models\Stages\Shape\ShapeCategory;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,9 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shapes', function (Blueprint $table) {
+        Schema::create('a_shapes', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignIdFor(ShapeCategory::class, 'a_shape_category_id')->index();
+            $table->string('filepath');
         });
     }
 

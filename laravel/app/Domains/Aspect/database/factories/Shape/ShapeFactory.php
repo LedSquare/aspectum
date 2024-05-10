@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Domains\Aspect\database\factories;
+namespace App\Domains\Aspect\database\factories\Shape;
 
+use Aspect\Models\Stages\Shape\Shape;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ShapeCategory>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<Shape>
  */
-class ShapeCategoryFactory extends Factory
+class ShapeFactory extends Factory
 {
     /**
      * Define the model's default state.

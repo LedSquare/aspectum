@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Domains\Aspect\database\factories;
+namespace App\Domains\Aspect\database\factories\Shape;
 
+use Aspect\Models\Stages\Shape\ShapeCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ShapeFile>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<ShapeCategory>
  */
-class ShapeFileFactory extends Factory
+class ShapeCategoryFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +18,7 @@ class ShapeFileFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+
         ];
     }
 }

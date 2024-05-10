@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Domains\Aspect\database\seeders;
+namespace App\Domains\Aspect\database\seeders\Shape;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class ShapeCategorySeeder extends Seeder
+class ShapeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
