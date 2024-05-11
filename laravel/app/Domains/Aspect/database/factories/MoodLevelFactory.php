@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Domains\Aspect\database\factories\Word;
+namespace App\Domains\Aspect\database\factories;
 
-use Aspect\Models\Stages\Word\Word;
+use Aspect\Models\Stage\MoodLevel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<Word>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<MoodLevel>
  */
-class WordFactory extends Factory
+class MoodLevelFactory extends Factory
 {
     /**
      * @var class-string<\Illuminate\Database\Eloquent\Model>
      */
-    protected $model = Word::class;
-
+    protected $model = MoodLevel::class;
     /**
      * Define the model's default state.
      *

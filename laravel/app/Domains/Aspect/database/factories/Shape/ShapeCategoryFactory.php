@@ -11,6 +11,10 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class ShapeCategoryFactory extends Factory
 {
     /**
+     * @var class-string<\Illuminate\Database\Eloquent\Model>
+     */
+    protected $model = ShapeCategory::class;
+    /**
      * Define the model's default state.
      *
      * @return array<string, mixed>

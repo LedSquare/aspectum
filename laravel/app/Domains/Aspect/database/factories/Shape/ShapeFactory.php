@@ -11,6 +11,11 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class ShapeFactory extends Factory
 {
     /**
+     * @var class-string<\Illuminate\Database\Eloquent\Model>
+     */
+    protected $model = Shape::class;
+
+    /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
