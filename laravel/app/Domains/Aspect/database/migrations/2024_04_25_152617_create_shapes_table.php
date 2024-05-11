@@ -15,6 +15,8 @@ return new class extends Migration
         Schema::create('a_shapes', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(ShapeCategory::class, 'a_shape_category_id')->index();
+            $table->string('name');
+            $table->string('slug');
             $table->string('filepath');
         });
     }

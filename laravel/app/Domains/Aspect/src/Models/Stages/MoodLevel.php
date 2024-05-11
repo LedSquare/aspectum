@@ -14,6 +14,6 @@ class MoodLevel
     ];
 
     protected $casts = [
-        //
+        'procent' => 'integer'
     ];
 }

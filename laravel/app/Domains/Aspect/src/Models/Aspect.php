@@ -24,18 +24,18 @@ class Aspect extends Model
 
     protected $fillable = [
         'user_id',
-        'type_id',
+        // 'type_id',
         'aspect_unit',
     ];
 
     protected $casts = [
         'user_id' => 'integer',
-        'type_id' => 'integer',
+        // 'type_id' => 'integer',
         'aspect_unit' => 'array',
     ];
 
-    public function type(): HasOne
-    {
-        return $this->hasOne(AspectType::class, 'type_id');
-    }
+    // public function type(): HasOne
+    // {
+    //     return $this->hasOne(AspectType::class, 'type_id');
+    // }
 }

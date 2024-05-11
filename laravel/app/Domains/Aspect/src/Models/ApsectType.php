@@ -18,7 +18,8 @@ class AspectType extends Model
     protected $table = 'a_types';
 
     protected $fillable = [
-        'name'
+        'name',
+        'slug',
     ];
 
     protected $casts = [

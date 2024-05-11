@@ -15,6 +15,7 @@ class Word extends Model
     protected $fillable = [
         'a_word_category_id',
         'name',
+        'slug',
     ];
 
     protected $casts = [

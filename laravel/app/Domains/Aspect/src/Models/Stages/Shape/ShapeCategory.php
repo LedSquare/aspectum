@@ -15,6 +15,7 @@ class ShapeCategory extends Model
 
     protected $fillable = [
         'name',
+        'slug',
     ];
 
     protected $casts = [
