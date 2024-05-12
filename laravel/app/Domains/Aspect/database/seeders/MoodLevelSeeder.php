@@ -13,6 +13,12 @@ class MoodLevelSeeder extends Seeder
      */
     public function run(): void
     {
-        MoodLevelFactory::new()->count(10)->create();
+        $procent = 0;
+        while ($procent <= 100) {
+            MoodLevelFactory::new()->create([
+                'procent' => $procent,
+            ]);
+            $procent += 10;
+        }
     }
 }
