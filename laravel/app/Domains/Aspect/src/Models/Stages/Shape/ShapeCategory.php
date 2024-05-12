@@ -11,6 +11,8 @@ class ShapeCategory extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $table = 'a_shapes_categories';
 
     protected $fillable = [

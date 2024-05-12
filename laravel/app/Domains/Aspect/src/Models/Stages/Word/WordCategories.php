@@ -10,6 +10,8 @@ class WordCategories extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $table = 'a_word_categories';
 
     protected $fillable = [

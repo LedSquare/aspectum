@@ -14,6 +14,6 @@ class AspectDomainServiceProvider extends ServiceProvider
              Route::prefix('aspect')
                 ->group(__DIR__ . '/../../routes/aspect.php');
         });
-       $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations/*');
+       $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
    }
 }

@@ -5,18 +5,28 @@ namespace Aspect\Units;
 use Aspect\Exceptions\AspectModuleException;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Models\Aspect;
-use Aspect\Models\Stages\Step;
-use Aspect\Models\Stages\Word\Word;
-use Illuminate\Support\Collection;
+use Aspect\Models\Stages\{
+    MoodLevel,
+    Color,
+    Word\Word,
+    Shape\Shape,
+};
 
-class AspectUnit implements AspectUnitInterface
+class AspectV1Unit implements AspectUnitInterface
 {
 
-    /**
-     * @var Step[]
-     */
-    protected readonly array $steps;
+    public array $steps = [
+        MoodLevel::class,
+        Word::class,
+        MoodLevel::class,
+        Shape::class,
+        MoodLevel::class,
 
+    ];
+
+    public ?int $currentStep = 0;
+
+    public int $totalSteps;
     public array $moodLevels;
     public array $words;
     public array $colors;
@@ -25,7 +35,7 @@ class AspectUnit implements AspectUnitInterface
     private function __construct(
         public readonly int $aspectId,
         public readonly int $userId,
-        public readonly int $aspectTypeId,
+        // public readonly int $aspectTypeId,
     ){
     }
 
@@ -34,31 +44,14 @@ class AspectUnit implements AspectUnitInterface
         $self = new self(
             $aspect->id,
             $aspect->user_id,
-            $aspect->type_id,
+            // $aspect->type_id,
         );
-
-        $self->setSteps($aspect->type->steps);
 
         if(! $self->saveUnit()){
             throw new AspectModuleException('Возникла проблема при создании облика', 400);
         }
 
         return $self;
-    }
-
-    /**
-     * Set steps
-     *
-     * @param Collection<Step|Step[]> $steps
-     * @return void
-     */
-    protected function setSteps(Collection|array $steps): void
-    {
-        if($steps instanceof Collection) {
-            $steps->toArray();
-        }
-
-        $this->steps = $steps;
     }
 
     public function saveUnit(): bool

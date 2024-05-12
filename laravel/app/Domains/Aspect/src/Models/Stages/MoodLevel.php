@@ -1,12 +1,15 @@
 <?php
 
-namespace Aspect\Models\Stage;
+namespace Aspect\Models\Stages;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class MoodLevel
+class MoodLevel extends Model
 {
     use HasFactory;
+    public $timestamps = false;
+
     protected $table = 'a_mood_levels';
 
     protected $fillable = [

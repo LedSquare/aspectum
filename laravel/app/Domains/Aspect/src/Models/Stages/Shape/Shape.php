@@ -11,6 +11,8 @@ class Shape extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $table = 'a_shapes';
 
     protected $fillable = [

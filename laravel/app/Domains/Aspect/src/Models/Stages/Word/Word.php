@@ -10,6 +10,8 @@ class Word extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $table = 'a_words';
 
     protected $fillable = [

@@ -2,7 +2,7 @@
 
 namespace App\Domains\Aspect\database\factories;
 
-use Aspect\Models\Stage\MoodLevel;
+use Aspect\Models\Stages\MoodLevel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -14,6 +14,7 @@ class MoodLevelFactory extends Factory
      * @var class-string<\Illuminate\Database\Eloquent\Model>
      */
     protected $model = MoodLevel::class;
+
     /**
      * Define the model's default state.
      *
@@ -22,7 +23,7 @@ class MoodLevelFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'procent' => fake()->numberBetween(0, 100),
         ];
     }
 }

@@ -15,6 +15,8 @@ class AspectType extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $table = 'a_types';
 
     protected $fillable = [
