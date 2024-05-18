@@ -8,6 +8,7 @@ Route::controller(AspectController::class)
     ->name('aspect')
     ->middleware('auth')
     ->group(function () {
-        Route::get('get-aspect-step', 'getStep')->name('.get');
-        Route::post('next-aspect-step', 'nextStep')->name('.post');
+        Route::get('start', 'start')->name('.start');
+        Route::get('get-step/{aspect}', 'getStep')->name('.get');
+        Route::post('next-step/{aspect}', 'nextStep')->name('.post');
     });

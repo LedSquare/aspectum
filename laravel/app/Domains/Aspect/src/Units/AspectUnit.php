@@ -2,7 +2,7 @@
 
 namespace Aspect\Units;
 
-use Aspect\Exceptions\AspectModuleException;
+use Aspect\Exceptions\AspectDomainException;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Models\Aspect;
 use Aspect\Models\Stages\Step;
@@ -40,7 +40,7 @@ class AspectUnit implements AspectUnitInterface
         $self->setSteps($aspect->type->steps);
 
         if(! $self->saveUnit()){
-            throw new AspectModuleException('Возникла проблема при создании облика', 400);
+            throw new AspectDomainException('Возникла проблема при создании облика', 400);
         }
 
         return $self;

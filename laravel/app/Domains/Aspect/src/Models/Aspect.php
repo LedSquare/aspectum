@@ -3,6 +3,7 @@ namespace Aspect\Models;
 
 use App\Models\User;
 use Aspect\Interfaces\Units\AspectUnitInterface;
+use Aspect\Units\AspectV1Unit;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -48,8 +49,8 @@ class Aspect extends Model
     //     return $this->hasOne(AspectType::class, 'type_id');
     // }
 
-    // public function getUnit(): AspectUnitInterface
-    // {
-    //     return AspectUnit->hydrate($this->aspect_unit);
-    // }
+    public function getUnit(): AspectUnitInterface
+    {
+        return AspectV1Unit::makeInstance($this);
+    }
 }
