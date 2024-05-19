@@ -1,5 +1,5 @@
 <script setup>
-import { Head } from '@inertiajs/inertia-vue3'
+import { Head, Link } from '@inertiajs/inertia-vue3'
 </script>
 <template>
 
@@ -7,7 +7,9 @@ import { Head } from '@inertiajs/inertia-vue3'
 
     <div class="start-page flex-c">
         <h1>Облик</h1>
-        <a href="#"><button class="start-button">Начать</button></a>
+        <Link :href="route('aspect.start')">
+        <button class="start-button">Начать</button>
+        </Link>
     </div>
 </template>
 
