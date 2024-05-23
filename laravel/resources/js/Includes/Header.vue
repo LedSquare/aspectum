@@ -23,7 +23,7 @@ import { Link } from "@inertiajs/inertia-vue3"
                 <ul class="auth-ul">
 
                     <li>
-                        <Link :href="route('logout')" method="post">Выйти</Link>
+                        <Link :href="route('logout')" method="POST">Выйти</Link>
                     </li>
                     <li>
                         <Link :href="route('login')">Личный кабинет</Link>

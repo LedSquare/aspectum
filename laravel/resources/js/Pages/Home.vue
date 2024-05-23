@@ -7,8 +7,8 @@ import { Head, Link } from '@inertiajs/inertia-vue3'
 
     <div class="start-page flex-c">
         <h1>Облик</h1>
-        <Link :href="route('aspect.start')">
-        <button class="start-button">Начать</button>
+        <Link :href="route('aspect.start')" as="button" class="start-button">
+        Начать
         </Link>
     </div>
 </template>
