@@ -11,9 +11,10 @@ class AspectDomainServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->routes(function () {
-             Route::prefix('aspect')
+            Route::middleware('web')
+                ->prefix('aspect')
                 ->group(__DIR__ . '/../../routes/aspect.php');
         });
-       $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
-   }
+        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
+    }
 }

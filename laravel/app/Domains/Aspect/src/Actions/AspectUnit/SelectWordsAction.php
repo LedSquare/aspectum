@@ -18,8 +18,11 @@ class SelectWordsAction implements AspectActionInterface
         return 'asd';
     }
 
-    public function getParameters(Request $request): mixed
+    public function getParameters(Request $request, AspectUnitInterface $aspectUnit): mixed
     {
-        return Word::all();
+        return Inertia::render('Aspect/Word', [
+            'data' => Word::all(),
+            'aspect_id' => $aspectUnit->aspectId,
+        ]);
     }
 }

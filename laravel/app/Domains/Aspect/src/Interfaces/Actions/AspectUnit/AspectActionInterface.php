@@ -11,6 +11,6 @@ interface AspectActionInterface
 {
     public function action(ActionFormRequest $request, AspectUnitInterface $aspectUnit): mixed;
 
-    public function getParameters(Request $request): mixed;
+    public function getParameters(Request $request, AspectUnitInterface $aspectUnit): mixed;
 
 }

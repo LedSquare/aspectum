@@ -34,28 +34,30 @@ class AspectV1Unit implements AspectUnitInterface
     public array $figures;
 
     private function __construct(
-    ){
+    ) {
     }
 
     public static function makeInstance(Aspect $aspect): self
     {
         $instance = new self();
 
-        if(! $aspect->aspect_unit) {
+        if (!$aspect->aspect_unit) {
             $instance->aspectId = $aspect->id;
             $instance->userId = $aspect->user_id;
 
-            if(! $instance->saveUnit()){
+            if (!$instance->saveUnit()) {
                 throw new AspectDomainException('Возникла проблема при создании облика', 400);
             }
             return $instance;
 
         } else {
             foreach ($aspect->aspect_unit as $key => $value) {
-                if(property_exists($instance, $key)){
+                if (property_exists($instance, $key)) {
                     $instance->$key = $value;
-                };
-            };
+                }
+                ;
+            }
+            ;
         }
         return $instance;
 
@@ -71,7 +73,7 @@ class AspectV1Unit implements AspectUnitInterface
 
     public function selectStepOption(ActionFormRequest $request): Response
     {
-        if ($request->method() === 'GET'){
+        if ($request->method() === 'GET') {
             return $this->getStepParameters($request);
         } else {
             return $this->nextStep($request);
@@ -83,9 +85,7 @@ class AspectV1Unit implements AspectUnitInterface
     {
         $actionClass = $this->getActionClass();
 
-        return inertia('Some/Some', [
-            'data' => $actionClass->getParameters($request),
-        ]);
+        return $actionClass->getParameters($request, $this);
     }
 
     protected function nextStep(ActionFormRequest $request): Response
