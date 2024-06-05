@@ -33,6 +33,8 @@ class AspectV1Unit implements AspectUnitInterface
     public array $colors;
     public array $figures;
 
+    public bool $isEnded = false;
+
     private function __construct(
     ) {
     }

@@ -15,8 +15,16 @@ class AspectController extends Controller
     public function start()
     {
         $user = auth()->user();
-
-        $aspectUnit = AspectV1Unit::makeInstance($user->aspects()->create());
+        if ($aspect = $user->aspects->last()) {
+            $aspectUnit = AspectV1Unit::makeInstance($aspect);
+            if ($aspectUnit->isEnded) {
+                $aspect = $user->aspects()->create();
+                $aspectUnit = AspectV1Unit::makeInstance($aspect);
+            }
+        } else {
+            $aspect = $user->aspects()->create();
+            $aspectUnit = AspectV1Unit::makeInstance($aspect);
+        }
 
         return Inertia::render('Aspect/Word', [
             'data' => Word::all(),
@@ -27,6 +35,7 @@ class AspectController extends Controller
     }
     public function getStep(ActionFormRequest $request, Aspect $aspect): Response
     {
+
         $aspectUnit = $aspect->getUnit();
 
         return $aspectUnit->selectStepOption($request);
