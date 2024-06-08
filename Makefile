@@ -91,3 +91,5 @@ run-tests:
 tinker:
 	docker exec -it ${PROJECT}_php php artisan tinker app/Console/tinker.php
 
+migrate-fresh:
+	docker exec -it ${PROJECT}_php php artisan migrate:fresh --seed
