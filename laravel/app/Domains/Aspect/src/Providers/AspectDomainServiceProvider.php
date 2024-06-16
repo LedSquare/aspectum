@@ -2,11 +2,17 @@
 
 namespace Aspect\Providers;
 
+use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
+use Aspect\Units\AspectV1Unit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
 class AspectDomainServiceProvider extends ServiceProvider
 {
+
+    public array $bindings = [
+        AspectActionInterface::class => AspectV1Unit::class,
+    ];
 
     public function boot(): void
     {

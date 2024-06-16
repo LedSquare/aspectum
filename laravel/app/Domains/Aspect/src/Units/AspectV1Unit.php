@@ -4,10 +4,10 @@ namespace Aspect\Units;
 
 use Aspect\Actions\AspectUnit\SelectWordsAction;
 use Aspect\Exceptions\AspectDomainException;
-use Aspect\Http\Requests\Core\ActionFormRequest;
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Models\Aspect;
+use Aspect\Models\Stages\MoodLevel;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -23,6 +23,7 @@ class AspectV1Unit implements AspectUnitInterface
      */
     public array $steps = [
         SelectWordsAction::class,
+        MoodLevel::class,
     ];
 
     public ?int $currentStep = 0;
@@ -57,9 +58,7 @@ class AspectV1Unit implements AspectUnitInterface
                 if (property_exists($instance, $key)) {
                     $instance->$key = $value;
                 }
-                ;
             }
-            ;
         }
         return $instance;
 
@@ -73,29 +72,30 @@ class AspectV1Unit implements AspectUnitInterface
         return $aspect->save();
     }
 
-    public function selectStepOption(ActionFormRequest $request): Response
+    public function selectStepOption(array $data, bool $store = null): Response
     {
-        if ($request->method() === 'GET') {
-            return $this->getStepParameters($request);
-        } else {
-            return $this->nextStep($request);
-        }
-
+        return match (true) {
+            !$store => $this->getStepParameters($data),
+            $store => $this->nextStep($data),
+            default => Inertia::render('Errors/Error', [
+                'errors' => [__METHOD__ => 'Упс! Что-то пошло не так на этапе выбора опции в облике'],
+                'code' => 400,
+            ]),
+        };
     }
 
-    public function getStepParameters(ActionFormRequest $request): Response
+    public function getStepParameters(array $data): Response
     {
         $actionClass = $this->getActionClass();
 
-        return $actionClass->getParameters($request, $this);
+        return $actionClass->getParameters($data, $this);
     }
 
-    protected function nextStep(ActionFormRequest $request): Response
+    protected function nextStep(array $data): Response
     {
         $actionClass = $this->getActionClass();
 
-        dd($actionClass->action($request, $this));
-        // dd('NEXT_STEP');
+        $actionClass->action($data, $this);
         return Inertia::render('Some/Some', []);
         // if ($this->currentStep++ > $this->totalSteps){
         //     echo 'Perebor';

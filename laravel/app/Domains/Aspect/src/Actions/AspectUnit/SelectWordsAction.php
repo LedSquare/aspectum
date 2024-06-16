@@ -12,13 +12,13 @@ use Inertia\Response;
 
 class SelectWordsAction implements AspectActionInterface
 {
-    public function action(ActionFormRequest $request, AspectUnitInterface $aspectUnit): mixed
+    public function action(array $data, AspectUnitInterface $aspectUnit): mixed
     {
         $aspectUnit;
         return 'asd';
     }
 
-    public function getParameters(Request $request, AspectUnitInterface $aspectUnit): mixed
+    public function getParameters(array $data, AspectUnitInterface $aspectUnit): mixed
     {
         return Inertia::render('Aspect/Word', [
             'data' => Word::all(),

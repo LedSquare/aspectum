@@ -12,5 +12,5 @@ interface AspectUnitInterface
 {
     public function saveUnit(): bool;
 
-    public function selectStepOption(ActionFormRequest $request): Response;
+    public function selectStepOption(array $data, bool $store = null): Response;
 }

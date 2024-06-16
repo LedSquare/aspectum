@@ -1,7 +1,7 @@
 <script setup>
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/inertia-vue3';
 import NextStep from '../../Components/Aspect/Buttons/NextStep.vue';
-import { ref } from 'vue';
+import { ref, watch, computed } from 'vue';
 
 const props = defineProps({
     title: String,
@@ -15,7 +15,7 @@ function addWord(word) {
     const index = selectedWords.value.findIndex((item) => item === word);
 
     if (selectedWords.value.length > 7) {
-        console.log('Дохуя слов')
+        console.log('Перебор слов')
         selectedWords.value.splice(index, 1)
     } else if (index > -1) {
         selectedWords.value.splice(index, 1)
@@ -24,6 +24,7 @@ function addWord(word) {
     }
 }
 </script>
+
 <template>
 
     <Head title="Выбор понятий" />
@@ -34,7 +35,8 @@ function addWord(word) {
         <div class="word-box">
 
             <div class="left-box">
-                <div class="word" @click="addWord(word)" v-if="data" v-for="word in data" :key="word.id">
+                <div :class="{ 'some': true }" class="word" @click="addWord(word)" v-if="data" v-for="word in data"
+                    :key="word.id">
                     {{ word.name }}
                 </div>
                 <div v-else>
@@ -49,7 +51,7 @@ function addWord(word) {
                 </div>
             </div>
         </div>
-        <NextStep :aspect_id="aspect_id"></NextStep>
+        <NextStep :words="selectedWords" :aspect_id="aspect_id" :store="true"></NextStep>
     </div>
 
 
@@ -65,11 +67,31 @@ function addWord(word) {
     width: 60%;
 }
 
+::-webkit-scrollbar {
+    background: $body-background;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $blue;
+    border-radius: 1em;
+}
+
 .left-box {
     min-width: 12em;
+    max-height: 30em;
+    overflow-y: scroll;
     border-radius: 15px;
     background-color: Snow;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.right-box {
+    min-width: 12em;
+    max-height: 30em;
+    border-radius: 15px;
+    background-color: Snow;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: sticky;
 }
 
 .word {
@@ -87,14 +109,5 @@ function addWord(word) {
         font-size: 22px;
         transition: 0.2s ease-in-out;
     }
-}
-
-.right-box {
-    min-width: 12em;
-    max-height: 16em;
-    border-radius: 15px;
-    background-color: Snow;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    position: sticky;
 }
 </style>

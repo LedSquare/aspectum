@@ -1,5 +1,6 @@
 <script setup>
 import { Link } from "@inertiajs/inertia-vue3"
+
 </script>
 <template>
     <header class="flex-c">
@@ -34,27 +35,6 @@ import { Link } from "@inertiajs/inertia-vue3"
     </header>
 </template>
 
-<script>
-export default {
-    name: 'Header',
-    components: {
-        Link
-    },
-    created() {
-
-    },
-    data() {
-        return {
-        }
-    },
-    props: {
-
-    },
-    methods: {
-
-    },
-}
-</script>
 
 <style lang="scss" scoped>
 header {
@@ -62,6 +42,7 @@ header {
     display: flex;
     background-color: $body-background;
     height: $header-footer-height;
+
 
     >div {
         display: flex;

@@ -13,26 +13,4 @@ import { Head, Link } from '@inertiajs/inertia-vue3'
     </div>
 </template>
 
-<script>
-export default {
-    name: 'Home',
-    components: {
-        Head
-    },
-    created() {
-        console.log(this.title);
-    },
-    data() {
-        return {
-        }
-    },
-    props: {
-        title: String,
-    },
-    methods: {
-
-    },
-}
-</script>
-
 <style lang="scss" scoped></style>

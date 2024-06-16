@@ -9,8 +9,8 @@ use Inertia\Response;
 
 interface AspectActionInterface
 {
-    public function action(ActionFormRequest $request, AspectUnitInterface $aspectUnit): mixed;
+    public function action(array $data, AspectUnitInterface $aspectUnit): mixed;
 
-    public function getParameters(Request $request, AspectUnitInterface $aspectUnit): mixed;
+    public function getParameters(array $data, AspectUnitInterface $aspectUnit): mixed;
 
 }

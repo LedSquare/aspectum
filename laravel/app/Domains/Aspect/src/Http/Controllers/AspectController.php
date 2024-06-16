@@ -5,16 +5,15 @@ namespace Aspect\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Aspect\Http\Requests\Core\ActionFormRequest;
 use Aspect\Models\Aspect;
-use Aspect\Models\Stages\Word\Word;
 use Aspect\Units\AspectV1Unit;
-use Inertia\Inertia;
 use Inertia\Response;
 
 class AspectController extends Controller
 {
-    public function start()
+    public function start(): Response
     {
         $user = auth()->user();
+
         if ($aspect = $user->aspects->last()) {
             $aspectUnit = AspectV1Unit::makeInstance($aspect);
             if ($aspectUnit->isEnded) {
@@ -25,27 +24,16 @@ class AspectController extends Controller
             $aspect = $user->aspects()->create();
             $aspectUnit = AspectV1Unit::makeInstance($aspect);
         }
-
-        return Inertia::render('Aspect/Word', [
-            'data' => Word::all(),
-            'aspect_id' => $aspectUnit->aspectId,
-        ]);
-
-        // return $aspectUnit->selectStepOption($request);
+        return $aspectUnit->selectStepOption([], false);
     }
-    public function getStep(ActionFormRequest $request, Aspect $aspect): Response
-    {
 
+    public function store(ActionFormRequest $request, Aspect $aspect): Response
+    {
+        $data = $request->validated();
         $aspectUnit = $aspect->getUnit();
 
-        return $aspectUnit->selectStepOption($request);
+        return $aspectUnit->selectStepOption($data['words'], $data['store']);
     }
 
-    public function nextStep(ActionFormRequest $request, Aspect $aspect): Response
-    {
-        $aspectUnit = $aspect->getUnit();
-
-        return $aspectUnit->selectStepOption($request);
-    }
-
+    // protected function ifAspectExists
 }

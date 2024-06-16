@@ -1,20 +1,35 @@
 <script setup>
+import { useForm } from '@inertiajs/inertia-vue3'
+
 const props = defineProps({
     aspect_id: Number,
+    words: Array,
+    store: Boolean,
 });
+
+const form = useForm(props, {
+    aspect_id: props.aspect_id,
+    words: props.words,
+    store: props.store,
+});
+
+function storeAspect() {
+    form.post(route('aspect.store', form.aspect_id))
+}
+
 
 </script>
 <template>
     <div class="button-box">
-        <Link :href="route('aspect.post', { aspect: aspect_id })" as="button" class="step-button">
-        Следующий шаг
-        </Link>
+        <button @click.prevent="storeAspect()" class="step-button">
+            Следующий шаг
+        </button>
     </div>
 </template>
 
 <style lang="scss" scoped>
 .button-box {
-    margin-top: 0.5em;
+    margin-top: 1em;
     margin-bottom: 0.1em;
 }
 

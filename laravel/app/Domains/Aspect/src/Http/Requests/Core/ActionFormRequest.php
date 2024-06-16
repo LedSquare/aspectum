@@ -19,8 +19,8 @@ class ActionFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'data' => ['array'],
-            'aspect_id' => ['integer', 'exists:aspects,id'],
+            'words' => ['array'],
+            'store' => ['required', 'boolean'],
         ];
     }
 
