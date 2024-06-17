@@ -20,7 +20,7 @@ function addWord(word) {
     } else if (index > -1) {
         selectedWords.value.splice(index, 1)
     } else {
-        selectedWords.value.push(word);
+        selectedWords.value =  [...selectedWords.value, word];
     }
 }
 </script>
