@@ -20,7 +20,7 @@ function addWord(word) {
     } else if (index > -1) {
         selectedWords.value.splice(index, 1)
     } else {
-        selectedWords.value =  [...selectedWords.value, word];
+        selectedWords.value.push(word);
     }
 }
 </script>
@@ -81,7 +81,7 @@ function addWord(word) {
     max-height: 30em;
     overflow-y: scroll;
     border-radius: 15px;
-    background-color: Snow;
+    background-color: aliceblue;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -89,7 +89,7 @@ function addWord(word) {
     min-width: 12em;
     max-height: 30em;
     border-radius: 15px;
-    background-color: Snow;
+    background-color: aliceblue;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: sticky;
 }

@@ -2,23 +2,35 @@
 
 namespace Aspect\Actions\AspectUnit;
 
-use Aspect\Http\Requests\Core\ActionFormRequest;
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Models\Stages\Word\Word;
-use Illuminate\Http\Request;
+use Aspect\Units\DTO\ComplexWord;
 use Inertia\Inertia;
-use Inertia\Response;
 
 class SelectWordsAction implements AspectActionInterface
 {
     public function action(array $data, AspectUnitInterface $aspectUnit): mixed
     {
-        $aspectUnit;
-        return 'asd';
+        $collection = collect();
+
+        foreach ($data['words'] as $index => $word) {
+            $collection->push(
+                new ComplexWord(
+                    $word['id'],
+                    $index,
+                    $word['name'],
+                    null,
+                    null
+                )
+            );
+        }
+        $aspectUnit->words[$aspectUnit->currentStep] = $collection;
+
+        return $aspectUnit;
     }
 
-    public function getParameters(array $data, AspectUnitInterface $aspectUnit): mixed
+    public function getParameters(AspectUnitInterface $aspectUnit): mixed
     {
         return Inertia::render('Aspect/Word', [
             'data' => Word::all(),

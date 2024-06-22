@@ -24,16 +24,21 @@ class AspectController extends Controller
             $aspect = $user->aspects()->create();
             $aspectUnit = AspectV1Unit::makeInstance($aspect);
         }
-        return $aspectUnit->selectStepOption([], false);
+        return $this->current($aspect);
     }
 
-    public function store(ActionFormRequest $request, Aspect $aspect): Response
+    public function next(ActionFormRequest $request, Aspect $aspect): Response
     {
         $data = $request->validated();
         $aspectUnit = $aspect->getUnit();
 
-        return $aspectUnit->selectStepOption($data['words'], $data['store']);
+        return $aspectUnit->nextStep($data);
     }
 
-    // protected function ifAspectExists
+    public function current(Aspect $aspect): Response
+    {
+        $aspectUnit = $aspect->getUnit();
+
+        return $aspectUnit->getStepParameters();
+    }
 }

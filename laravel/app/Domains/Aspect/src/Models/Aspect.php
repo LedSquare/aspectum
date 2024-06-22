@@ -15,7 +15,7 @@ use Illuminate\Support\Collection;
  * @property int $id
  * @property int $user_id
  * @property int $type_id
- * @property \Aspect\Units\AspectUnit $aspect_unit
+ * @property \Aspect\Interfaces\Units\AspectUnitInterface $aspect_unit
  * @property \App\Models\User $user
  *
  * Realtions

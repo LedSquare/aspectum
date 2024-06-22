@@ -23,16 +23,17 @@ class AspectV1Unit implements AspectUnitInterface
      */
     public array $steps = [
         SelectWordsAction::class,
-        MoodLevel::class,
+        MoodLevelAction::class,
     ];
 
-    public ?int $currentStep = 0;
+    public array $moodLevels;
+
+    public array $words;
+
+    public int $currentStep = 0;
 
     public int $totalSteps = 3;
-    public array $moodLevels;
-    public array $words;
-    public array $colors;
-    public array $figures;
+
 
     public bool $isEnded = false;
 
@@ -72,34 +73,29 @@ class AspectV1Unit implements AspectUnitInterface
         return $aspect->save();
     }
 
-    public function selectStepOption(array $data, bool $store = null): Response
-    {
-        return match (true) {
-            !$store => $this->getStepParameters($data),
-            $store => $this->nextStep($data),
-            default => Inertia::render('Errors/Error', [
-                'errors' => [__METHOD__ => 'Упс! Что-то пошло не так на этапе выбора опции в облике'],
-                'code' => 400,
-            ]),
-        };
-    }
-
-    public function getStepParameters(array $data): Response
+    public function getStepParameters(): Response
     {
         $actionClass = $this->getActionClass();
 
-        return $actionClass->getParameters($data, $this);
+        return $actionClass->getParameters($this);
+
+
     }
 
-    protected function nextStep(array $data): Response
+    public function nextStep(array $data): Response
     {
         $actionClass = $this->getActionClass();
 
         $actionClass->action($data, $this);
-        return Inertia::render('Some/Some', []);
-        // if ($this->currentStep++ > $this->totalSteps){
-        //     echo 'Perebor';
-        // }
+
+        $this->currentStep += 1;
+
+        dd($this);
+
+
+        // $this->saveUnit();
+
+        return $this->getStepParameters();
 
     }
 

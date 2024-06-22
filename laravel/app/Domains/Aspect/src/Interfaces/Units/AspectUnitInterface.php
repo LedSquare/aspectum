@@ -7,10 +7,17 @@ use Inertia\Response;
 
 /**
  * @property int $aspectId
+ * @property int $currentStep
+ * @property array $words
+ * @property array $moodLevels
  */
 interface AspectUnitInterface
 {
     public function saveUnit(): bool;
 
-    public function selectStepOption(array $data, bool $store = null): Response;
+    public function getStepParameters(): Response;
+
+    public function nextStep(array $data): Response;
+
+    // public function selectStepOption(array $data, bool $store = null): Response;
 }
