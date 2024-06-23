@@ -2,13 +2,12 @@
 
 namespace Aspect\Units;
 
+use Aspect\Actions\AspectUnit\MoodLevelAction;
 use Aspect\Actions\AspectUnit\SelectWordsAction;
 use Aspect\Exceptions\AspectDomainException;
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Models\Aspect;
-use Aspect\Models\Stages\MoodLevel;
-use Inertia\Inertia;
 use Inertia\Response;
 
 class AspectV1Unit implements AspectUnitInterface
@@ -21,7 +20,7 @@ class AspectV1Unit implements AspectUnitInterface
     /**
      * @var \Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface[]
      */
-    public array $steps = [
+    private static array $steps = [
         SelectWordsAction::class,
         MoodLevelAction::class,
     ];
@@ -36,7 +35,6 @@ class AspectV1Unit implements AspectUnitInterface
 
 
     public bool $isEnded = false;
-
     private function __construct(
     ) {
     }
@@ -49,7 +47,7 @@ class AspectV1Unit implements AspectUnitInterface
             $instance->aspectId = $aspect->id;
             $instance->userId = $aspect->user_id;
 
-            if (!$instance->saveUnit()) {
+            if (!$instance->saveUnit($instance)) {
                 throw new AspectDomainException('Возникла проблема при создании облика', 400);
             }
             return $instance;
@@ -65,43 +63,45 @@ class AspectV1Unit implements AspectUnitInterface
 
     }
 
-    public function saveUnit(): bool
+    public function saveUnit($instance): bool
     {
-        $aspect = Aspect::findOrFail($this->aspectId);
-        $aspect->aspect_unit = $this;
+        $aspect = Aspect::findOrFail($instance->aspectId);
+        $aspect->aspect_unit = $instance;
 
         return $aspect->save();
     }
 
     public function getStepParameters(): Response
     {
-        $actionClass = $this->getActionClass();
+        $actionClass = $this->getActionClassFromCurrentStep();
 
         return $actionClass->getParameters($this);
-
-
     }
 
-    public function nextStep(array $data): Response
+    public function nextStep(array $data): mixed
     {
-        $actionClass = $this->getActionClass();
+        $actionClass = $this->getActionClassFromCurrentStep();
 
         $actionClass->action($data, $this);
 
+        $this->saveUnit($this);
+
+        return redirect()->route('aspect.current', $this->aspectId);
+
+    }
+
+    protected function getActionClassFromCurrentStep(): AspectActionInterface
+    {
+        return new AspectV1Unit::$steps[$this->currentStep];
+    }
+
+    public function incrementStep(): void
+    {
         $this->currentStep += 1;
 
-        dd($this);
-
-
-        // $this->saveUnit();
-
-        return $this->getStepParameters();
+        if ($this->currentStep === $this->totalSteps) {
+            // Finish
+        }
 
     }
-
-    protected function getActionClass(): AspectActionInterface
-    {
-        return new $this->steps[$this->currentStep];
-    }
-
 }

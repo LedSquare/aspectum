@@ -10,5 +10,5 @@ Route::controller(AspectController::class)
     ->group(function () {
         Route::get('start', 'start')->name('.start');
         Route::post('next-step/{aspect}', 'next')->name('.store');
-        Route::get('{aspect}', 'current');
+        Route::get('current/{aspect}', 'current')->name('.current');
     });

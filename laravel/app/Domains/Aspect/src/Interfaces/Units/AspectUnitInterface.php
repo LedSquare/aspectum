@@ -2,7 +2,6 @@
 
 namespace Aspect\Interfaces\Units;
 
-use Aspect\Http\Requests\Core\ActionFormRequest;
 use Inertia\Response;
 
 /**
@@ -10,14 +9,15 @@ use Inertia\Response;
  * @property int $currentStep
  * @property array $words
  * @property array $moodLevels
+ * @staticvar \Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface[] $steps
  */
 interface AspectUnitInterface
 {
-    public function saveUnit(): bool;
+    public function saveUnit($instance): bool;
 
     public function getStepParameters(): Response;
 
-    public function nextStep(array $data): Response;
+    public function nextStep(array $data): mixed;
 
     // public function selectStepOption(array $data, bool $store = null): Response;
 }

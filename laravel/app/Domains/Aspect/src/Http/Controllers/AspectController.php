@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use Aspect\Http\Requests\Core\ActionFormRequest;
 use Aspect\Models\Aspect;
 use Aspect\Units\AspectV1Unit;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 
 class AspectController extends Controller
 {
-    public function start(): Response
+    public function start()
     {
         $user = auth()->user();
 
@@ -24,14 +25,13 @@ class AspectController extends Controller
             $aspect = $user->aspects()->create();
             $aspectUnit = AspectV1Unit::makeInstance($aspect);
         }
-        return $this->current($aspect);
+        return redirect()->route('aspect.current', $aspectUnit->aspectId);
     }
 
-    public function next(ActionFormRequest $request, Aspect $aspect): Response
+    public function next(ActionFormRequest $request, Aspect $aspect): RedirectResponse
     {
         $data = $request->validated();
         $aspectUnit = $aspect->getUnit();
-
         return $aspectUnit->nextStep($data);
     }
 

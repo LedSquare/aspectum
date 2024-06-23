@@ -11,14 +11,15 @@ class MoodLevelAction implements AspectActionInterface
 {
     public function action(array $data, AspectUnitInterface $aspectUnit): mixed
     {
-        $aspectUnit->moodLevels[$aspectUnit->currentStep] = $data['moodLevel'];
+        $aspectUnit->moodLevels[$aspectUnit->currentStep] = $data['aspect_data'];
+        return $aspectUnit;
     }
 
     public function getParameters(AspectUnitInterface $aspectUnit): mixed
     {
         return Inertia::render('Aspect/MoodLevel', [
             'data' => MoodLevel::all(),
-            'aspect_id'
+            'aspect_id' => $aspectUnit->aspectId,
         ]);
     }
 }

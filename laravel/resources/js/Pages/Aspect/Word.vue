@@ -1,7 +1,7 @@
 <script setup>
 import { Head } from '@inertiajs/inertia-vue3';
 import NextStep from '../../Components/Aspect/Buttons/NextStep.vue';
-import { ref, watch, computed } from 'vue';
+import { ref } from 'vue';
 
 const props = defineProps({
     title: String,
@@ -28,15 +28,11 @@ function addWord(word) {
 <template>
 
     <Head title="Выбор понятий" />
-    <div>
-        {{ aspect_id }}
-    </div>
     <div class="aspect-frame">
         <div class="word-box">
 
             <div class="left-box">
-                <div :class="{ 'some': true }" class="word" @click="addWord(word)" v-if="data" v-for="word in data"
-                    :key="word.id">
+                <div class="word" @click="addWord(word)" v-if="data" v-for="word in data" :key="word.id">
                     {{ word.name }}
                 </div>
                 <div v-else>
@@ -51,7 +47,7 @@ function addWord(word) {
                 </div>
             </div>
         </div>
-        <NextStep :words="selectedWords" :aspect_id="aspect_id" :store="true"></NextStep>
+        <NextStep :aspect_data="selectedWords" :aspect_id="aspect_id"></NextStep>
     </div>
 
 

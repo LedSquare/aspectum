@@ -14,7 +14,7 @@ class SelectWordsAction implements AspectActionInterface
     {
         $collection = collect();
 
-        foreach ($data['words'] as $index => $word) {
+        foreach ($data['aspect_data'] as $index => $word) {
             $collection->push(
                 new ComplexWord(
                     $word['id'],
