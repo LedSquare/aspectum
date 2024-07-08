@@ -84,6 +84,8 @@ class AspectV1Unit implements AspectUnitInterface
 
         $actionClass->action($data, $this);
 
+        $this->currentStep += 1;
+
         $this->saveUnit($this);
 
         return redirect()->route('aspect.current', $this->aspectId);
@@ -95,13 +97,13 @@ class AspectV1Unit implements AspectUnitInterface
         return new AspectV1Unit::$steps[$this->currentStep];
     }
 
-    public function incrementStep(): void
-    {
-        $this->currentStep += 1;
+    // public function incrementStep(): void
+    // {
+    //     $this->currentStep += 1;
 
-        if ($this->currentStep === $this->totalSteps) {
-            // Finish
-        }
+    //     if ($this->currentStep === $this->totalSteps) {
+    //         // Finish
+    //     }
 
-    }
+    // }
 }

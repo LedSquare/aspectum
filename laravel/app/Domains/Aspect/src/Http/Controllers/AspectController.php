@@ -38,7 +38,6 @@ class AspectController extends Controller
     public function current(Aspect $aspect): Response
     {
         $aspectUnit = $aspect->getUnit();
-
         return $aspectUnit->getStepParameters();
     }
 }
