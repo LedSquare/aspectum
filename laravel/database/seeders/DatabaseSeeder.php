@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Domains\Aspect\database\seeders\Color\ColorSeeder;
 use App\Domains\Aspect\database\seeders\MoodLevelSeeder;
 use App\Domains\Aspect\database\seeders\Word\WordSeeder;
 use Database\Seeders\User\UserSeeder;
@@ -19,6 +20,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             WordSeeder::class,
             MoodLevelSeeder::class,
+            ColorSeeder::class,
         ]);
     }
 }

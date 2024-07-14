@@ -3,6 +3,7 @@
 namespace Aspect\Units;
 
 use Aspect\Actions\AspectUnit\MoodLevelAction;
+use Aspect\Actions\AspectUnit\SelectColorAction;
 use Aspect\Actions\AspectUnit\SelectWordsAction;
 use Aspect\Exceptions\AspectDomainException;
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
@@ -23,6 +24,7 @@ class AspectV1Unit implements AspectUnitInterface
     private static array $steps = [
         SelectWordsAction::class,
         MoodLevelAction::class,
+        SelectColorAction::class,
     ];
 
     public array $moodLevels;

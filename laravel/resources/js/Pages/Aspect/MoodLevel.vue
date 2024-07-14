@@ -9,10 +9,10 @@ const props = defineProps({
     aspect_id: Number,
 });
 
-const moodData = ref([])
+const moodData = ref(0)
 
-function setMood(mood) {
-    moodData.value = mood
+function setMood(mood, data) {
+    moodData.value = mood.id
 }
 
 </script>
@@ -27,7 +27,7 @@ function setMood(mood) {
                 <label :for="mood.id">{{ mood.procent }} %</label>
             </diV>
         </div>
-        <NextStep :aspect_data="moodData" :aspect_id="aspect_id"></NextStep>
+        <NextStep :aspect_data="props.data[moodData]" :aspect_id="aspect_id"></NextStep>
     </div>
 
 </template>
