@@ -1,5 +1,7 @@
 <script setup>
 import { Link } from "@inertiajs/inertia-vue3"
+import ProfileIcon from '../Components/svg/icons/ProfileIcon.vue'
+import HomeIcon from '../Components/svg/icons/HomeIcon.vue'
 
 </script>
 <template>
@@ -7,8 +9,17 @@ import { Link } from "@inertiajs/inertia-vue3"
         <div>
             <nav>
                 <ul>
+                    <img class="logo-mini" src="../../../public/images/asp-small-logo.png" alt="Нет картинки">
+                    <div class="name">
+                        <p>ОБЛИК</p>
+                    </div>
+                </ul>
+                <ul>
                     <li>
-                        <Link :href="route('home')">Домой</Link>
+                        <Link :href="route('home')">
+                        Главная
+                        <!-- if width is small <home-icon /> -->
+                        </Link>
                     </li>
                     <li>
                         <a>Контакты</a>
@@ -27,7 +38,9 @@ import { Link } from "@inertiajs/inertia-vue3"
                         <Link :href="route('logout')" method="POST">Выйти</Link>
                     </li>
                     <li>
-                        <Link :href="route('login')">Личный кабинет</Link>
+                        <Link :href="route('login')">
+                        <profile-icon />
+                        </Link>
                     </li>
                 </ul>
             </nav>
@@ -74,5 +87,21 @@ header {
             margin: 10px;
         }
     }
+}
+
+.name {
+    display: flex;
+    flex-direction: column-reverse;
+    height: 80%;
+
+    >p {
+        color: $blue-gray-hover;
+        font-weight: bolder;
+    }
+}
+
+.logo-mini {
+    width: 95px;
+    height: 65px;
 }
 </style>

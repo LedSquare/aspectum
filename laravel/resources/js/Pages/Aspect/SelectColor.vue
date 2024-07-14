@@ -69,8 +69,8 @@ const coloredWords = ref(props.data.words)
 }
 
 .color-div {
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 15px;
     border: 2px solid black;
     border-radius: 0.8em;
     margin: 3px;

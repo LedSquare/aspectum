@@ -48,13 +48,14 @@ a {
     cursor: pointer;
     text-decoration: none;
     font-weight: bold;
-    color: #3b4655;
+    color: $blue-gray;
 
     transition: 0.2s ease-in-out;
 
     &:hover {
         font-size: 17;
 
+        color: $blue-gray-hover;
         transition: 0.2s ease-in-out;
     }
 }
