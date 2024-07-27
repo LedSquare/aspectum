@@ -15,6 +15,17 @@ const clickWord = (index) => {
     clickedWordIndex.value = index
 }
 
+const rollIndex = ref(0);
+
+const rightRollColor = (rollIndex, word, colors) => {
+    if (rollIndex > (colors.length - 1)) {
+        rollIndex = 0;
+    }
+    rollIndex++
+    word.colorCode = colors.hex_code[rollIndex];
+
+}
+console.log(props.data.colors.length)
 </script>
 <template>
 
@@ -31,7 +42,7 @@ const clickWord = (index) => {
                     <div class="arrow">
                         &#8249
                     </div>
-                    <div>
+                    <div :style="['color: ' + word.colorCode]">
                         {{ word.name }}
                     </div>
                     <div class="arrow">
@@ -72,12 +83,12 @@ const clickWord = (index) => {
     justify-content: center;
     display: flex;
 
-    border-bottom: solid 2px aliceblue;
+    border-bottom: solid 4px aliceblue;
 
     transition: 0.2s ease-in-out;
 
     &:hover {
-        border-bottom: solid 2px $blue;
+        border-bottom: solid 4px white;
         transition: 0.2s ease-in-out;
     }
 
