@@ -1,15 +1,13 @@
 <script setup>
 import { Head } from '@inertiajs/inertia-vue3';
 import NextStep from '../../Components/Aspect/Buttons/NextStep.vue';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 const props = defineProps({
     title: String,
     data: Array,
     aspect_id: Number,
 });
-
-const coloredWords = ref(props.data.words)
 
 
 
@@ -24,11 +22,11 @@ const coloredWords = ref(props.data.words)
             </div>
         </div>
         <div class="word-color-box">
-            <div class="word" v-for="word in data.words" :key="word.id">
+            <div class="word" v-for="(word, id) in data.words" :key="word.id">
                 {{ word.name }}
             </div>
         </div>
-        <NextStep :aspect_data="moodData" :aspect_id="aspect_id"></NextStep>
+        <NextStep :aspect_data="words" :aspect_id="aspect_id"></NextStep>
     </div>
 
 </template>

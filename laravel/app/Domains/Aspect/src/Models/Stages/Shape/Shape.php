@@ -17,8 +17,6 @@ class Shape extends Model
 
     protected $fillable = [
         'a_shape_category_id',
-        'name',
-        'slug',
         'filepath'
     ];
 

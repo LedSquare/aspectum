@@ -90,7 +90,7 @@ services:
 
 networks:
   appnet:
-    name: appnet
+    name: aspnet
     driver: bridge
     external: true
       

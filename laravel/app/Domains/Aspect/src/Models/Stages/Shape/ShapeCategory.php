@@ -13,7 +13,7 @@ class ShapeCategory extends Model
 
     public $timestamps = false;
 
-    protected $table = 'a_shapes_categories';
+    protected $table = 'a_shape_categories';
 
     protected $fillable = [
         'name',

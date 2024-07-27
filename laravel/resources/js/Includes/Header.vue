@@ -35,9 +35,6 @@ import HomeIcon from '../Components/svg/icons/HomeIcon.vue'
                 <ul class="auth-ul">
 
                     <li>
-                        <Link :href="route('logout')" method="POST">Выйти</Link>
-                    </li>
-                    <li>
                         <Link :href="route('login')">
                         <profile-icon />
                         </Link>
@@ -70,9 +67,6 @@ header {
         justify-content: space-between;
     }
 
-    ul>li:first-child {
-        margin-right: 5em;
-    }
 
     .auth-ul>li {
         margin-right: 10px !important;
@@ -84,7 +78,7 @@ header {
         align-items: center;
 
         >li {
-            margin: 10px;
+            margin: 20px;
         }
     }
 }

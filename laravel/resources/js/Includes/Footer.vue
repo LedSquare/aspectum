@@ -1,31 +1,41 @@
+<script setup>
+import TelegramIcon from '../Components/svg/icons/socials/TelegramIcon.vue';
+import { Link } from "@inertiajs/inertia-vue3"
+
+</script>
 <template>
     <footer class="flex-c">
         <div>
-            Я подвал
+            <div class="left-block">
+                <div class="contacs">
+                    <a target="_blank" href="https://t.me/Ilari29">
+                        <telegram-icon />
+                    </a>
+                </div>
+                <hr>
+                <div>
+                    <p class="polici-text">Продолжая использовать сайт, вы соглашаетесь на использование файлов cookie
+                    </p>
+                </div>
+            </div>
+            <div class="right-block">
+                <div>
+
+                </div>
+                <div>
+                    <p class="polici-text">©2024 - Все права защищены</p>
+                </div>
+            </div>
         </div>
+
     </footer>
 </template>
 
-<script>
-export default {
-    name: 'Footer',
-    created() {
-
-    },
-    data() {
-        return {
-        }
-    },
-    props: {
-
-    },
-    methods: {
-
-    },
-}
-</script>
-
 <style lang="scss" scoped>
+.polici-text {
+    color: gray;
+}
+
 footer {
     padding: 10px;
     display: flex;
@@ -38,7 +48,27 @@ footer {
         height: 100%;
         padding: 0px 10px;
         border-radius: 10px;
+        font-size: 12px;
         background-color: $blocks-background;
+        justify-content: space-between;
+    }
+
+    .left-block {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .contacs {
+            font-weight: bold;
+            display: flex;
+            margin-top: 10px;
+        }
+    }
+
+    .right-block {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 }
 </style>
