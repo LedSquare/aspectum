@@ -1,7 +1,7 @@
 <script setup>
 import { Head } from '@inertiajs/inertia-vue3';
 import NextStep from '../../Components/Aspect/Buttons/NextStep.vue';
-import { ref, computed } from 'vue';
+import { ref, computed, reactive } from 'vue';
 
 const props = defineProps({
     title: String,
@@ -9,7 +9,11 @@ const props = defineProps({
     aspect_id: Number,
 });
 
+const clickedWordIndex = ref(props.data.words[0].id);
 
+const clickWord = (index) => {
+    clickedWordIndex.value = index
+}
 
 </script>
 <template>
@@ -22,9 +26,26 @@ const props = defineProps({
             </div>
         </div>
         <div class="word-color-box">
-            <div class="word" v-for="(word, id) in data.words" :key="word.id">
-                {{ word.name }}
+            <div @click="clickWord(word.id)" class="word" v-for="(word, id) in  data.words " :key="word.id">
+                <div class="word-with-arrows" v-if="clickedWordIndex == word.id">
+                    <div class="arrow">
+                        &#8249
+                    </div>
+                    <div>
+                        {{ word.name }}
+                    </div>
+                    <div class="arrow">
+                        &#8250
+                    </div>
+                </div>
+                <div class="word-with-arrows" style="justify-content: center;" v-else>
+                    <div>
+                        {{ word.name }}
+                    </div>
+                </div>
             </div>
+
+
         </div>
         <NextStep :aspect_data="words" :aspect_id="aspect_id"></NextStep>
     </div>
@@ -41,7 +62,6 @@ const props = defineProps({
 }
 
 .word {
-    cursor: pointer;
     color: white;
     font-size: 25px;
     font-weight: bold;
@@ -52,11 +72,29 @@ const props = defineProps({
     justify-content: center;
     display: flex;
 
+    border-bottom: solid 2px aliceblue;
+
     transition: 0.2s ease-in-out;
 
     &:hover {
-        font-size: 22px;
+        border-bottom: solid 2px $blue;
         transition: 0.2s ease-in-out;
+    }
+
+    >div {
+        cursor: pointer;
+    }
+
+    .word-with-arrows {
+        cursor: pointer;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        transition: 0.2s ease-in-out;
+
+        >.arrow {
+            font-size: 25px;
+        }
     }
 }
 
