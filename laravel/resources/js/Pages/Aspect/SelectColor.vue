@@ -19,13 +19,21 @@ const rollIndex = ref(0);
 
 const rightRollColor = (rollIndex, word, colors) => {
     if (rollIndex > (colors.length - 1)) {
-        rollIndex = 0;
+        rollIndex = 0
     }
     rollIndex++
-    word.colorCode = colors.hex_code[rollIndex];
-
+    word.colorCode = colors[rollIndex].hex_code
+    console.log(rollIndex)
 }
-console.log(props.data.colors.length)
+
+const leftRollColor = (rollIndex, word, colors) => {
+    if (rollIndex.value < (colors.length - 1)) {
+        rollIndex.value = colors.length - 1
+    }
+    rollIndex.value--
+    word.colorCode = colors[rollIndex].hex_code
+}
+
 </script>
 <template>
 
@@ -39,7 +47,7 @@ console.log(props.data.colors.length)
         <div class="word-color-box">
             <div @click="clickWord(word.id)" class="word" v-for="(word, id) in  data.words " :key="word.id">
                 <div class="word-with-arrows" v-if="clickedWordIndex == word.id">
-                    <div class="arrow">
+                    <div @click="rightRollColor(rollIndex, word, data.colors)" class="arrow">
                         &#8249
                     </div>
                     <div :style="['color: ' + word.colorCode]">
@@ -105,6 +113,7 @@ console.log(props.data.colors.length)
 
         >.arrow {
             font-size: 25px;
+            margin: 0px 10px;
         }
     }
 }
