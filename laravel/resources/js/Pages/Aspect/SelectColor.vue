@@ -1,6 +1,8 @@
 <script setup>
-import { Head } from '@inertiajs/inertia-vue3';
-import NextStep from '../../Components/Aspect/Buttons/NextStep.vue';
+import { Head } from '@inertiajs/inertia-vue3'
+import NextStep from '@/Components/Aspect/Buttons/NextStep.vue'
+import WordModal from '@/Components/Aspect/Modals/WordModal.vue'
+
 import { ref, computed, reactive } from 'vue';
 
 const props = defineProps({
@@ -9,55 +11,48 @@ const props = defineProps({
     aspect_id: Number,
 });
 
-const clickedWordIndex = ref(props.data.words[0].id);
+const modalSwitch = ref(false);
+const clickedWord = ref(null);
 
-const clickWord = (index) => {
-    clickedWordIndex.value = index
+const clickWord = (word) => {
+    modalSwitch.value = !modalSwitch.value
+    clickedWord.value = word
 }
 
-const rollIndex = ref(0);
 
-const rightRollColor = (rollIndex, word, colors) => {
-    if (rollIndex > (colors.length - 1)) {
-        rollIndex = 0
-    }
-    rollIndex++
-    word.colorCode = colors[rollIndex].hex_code
-    console.log(rollIndex)
-}
+// const rollIndex = ref(0);
 
-const leftRollColor = (rollIndex, word, colors) => {
-    if (rollIndex.value < (colors.length - 1)) {
-        rollIndex.value = colors.length - 1
-    }
-    rollIndex.value--
-    word.colorCode = colors[rollIndex].hex_code
-}
+// const rightRollColor = (rollIndex, word, colors) => {
+//     if (rollIndex > (colors.length - 1)) {
+//         rollIndex = 0
+//     }
+//     rollIndex++
+//     word.colorCode = colors[rollIndex].hex_code
+//     console.log(rollIndex)
+// }
+
+// const leftRollColor = (rollIndex, word, colors) => {
+//     if (rollIndex.value < (colors.length - 1)) {
+//         rollIndex.value = colors.length - 1
+//     }
+//     rollIndex.value--
+//     word.colorCode = colors[rollIndex].hex_code
+// }
 
 </script>
 <template>
 
     <Head title="Цвет" />
     <div class="aspect-frame">
+        <WordModal :modalSwitch="modalSwitch" :colors="data.colors" :word="clickedWord" />
         <div class="colors">
             <div class="color" v-for="color in data.colors" :key="color.id">
                 <div :style="['background-color: ' + color.hex_code]" class="color-div"></div>
             </div>
         </div>
         <div class="word-color-box">
-            <div @click="clickWord(word.id)" class="word" v-for="(word, id) in  data.words " :key="word.id">
-                <div class="word-with-arrows" v-if="clickedWordIndex == word.id">
-                    <div @click="rightRollColor(rollIndex, word, data.colors)" class="arrow">
-                        &#8249
-                    </div>
-                    <div :style="['color: ' + word.colorCode]">
-                        {{ word.name }}
-                    </div>
-                    <div class="arrow">
-                        &#8250
-                    </div>
-                </div>
-                <div class="word-with-arrows" style="justify-content: center;" v-else>
+            <div @click="clickWord(word)" class="word" v-for="(word, id) in  data.words " :key="word.id">
+                <div class="word-with-arrows">
                     <div>
                         {{ word.name }}
                     </div>
@@ -102,19 +97,6 @@ const leftRollColor = (rollIndex, word, colors) => {
 
     >div {
         cursor: pointer;
-    }
-
-    .word-with-arrows {
-        cursor: pointer;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        transition: 0.2s ease-in-out;
-
-        >.arrow {
-            font-size: 25px;
-            margin: 0px 10px;
-        }
     }
 }
 
