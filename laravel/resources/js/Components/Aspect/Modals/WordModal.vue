@@ -1,10 +1,11 @@
 <template>
     <transition name="modal-animation">
-    <div v-show="modalSwitch" class="word-modal">
+    <div v-show="modalSwitch" class="word-modal" @click.self="onOffModal">
         <div class="inner-modal">
             <div class="colors">
-                <div class="color" v-for="color in props.colors" :key="color.id">
-                    <div :style="['background-color: ' + color.hex_code]" class="color-div"></div>
+                <div class="color" :style="[rollIndex === id ? 'border: solid 2px black;' : '']" v-for="(color, id) in props.colors" :key="color.id">
+                    <div :style="['background-color: ' + color.hex_code]" class="color-div">
+                    {{ id }}</div>
                 </div>
             </div>
             <div class="word">
@@ -14,14 +15,15 @@
                     </div>
                     <div :style="['color: ' + word?.colorCode]">
                         {{ word?.name }}
+                        {{ rollIndex }}
                     </div>
-                    <div class="arrow">
+                    <div class="arrow" @click="rightRollColor(word)">
                         &#8250
                     </div>
                 </div>
             </div>
             <div class="button-box">
-                <button class="color-button" @click="onDelete(word, word.id)">
+                <button class="color-button">
                     Выбрать цвет
                 </button>
             </div>
@@ -39,13 +41,28 @@ const props = defineProps({
     word: { type: Object || null, required: false },
 })
 
-const emit = defineEmits(['delete'])
-const rollIndex = ref(0);
+const emit = defineEmits(['offModal'])
 
-const onDelete = (color, id) => {
-    emit('delete', color, id)
+const onOffModal = () => {
+    emit('offModal')
 }
+
+
+const rollIndex = ref(0)
+
+const rightRollColor = (word) => {
+    if(rollIndex.value  === null){
+        rollIndex.value = 0
+    }
+    if (rollIndex.value > (props.colors.length - 2 )) {
+        rollIndex.value = 0
+    }
+    word.colorCode = props.colors[rollIndex.value].hex_code
+}
+
 </script>
+
+
 <style lang="scss" scoped>
 .modal-animation-enter-active,
 .modal-animation-leave-active {
@@ -81,6 +98,11 @@ const onDelete = (color, id) => {
         justify-content: space-between;
         transition: 0.2s ease-in-out;
 
+        >* {
+            display: flex;
+            align-items: center;
+        }
+
         >.arrow {
             margin: 0px 1em;
             font-size: 60px;
@@ -109,6 +131,7 @@ const onDelete = (color, id) => {
     justify-content: space-evenly;
     width: 30%;
     height: 50%;
+    min-width:500px;
     background-color: aliceblue;
     opacity: 1 !important;
 }
@@ -119,8 +142,13 @@ const onDelete = (color, id) => {
     margin-bottom: 1em;
 }
 
+.color{
+    border: solid 2px rgba($color: $blue-gray, $alpha: 0);
+    border-radius: 10px;
+}
+
 .color-div {
-    width: 55px;
+    width: 40px;
     height: 15px;
     border: 2px solid black;
     border-radius: 0.8em;

@@ -11,7 +11,6 @@ const props = defineProps({
     aspect_id: Number,
 });
 
-const clickedWordIndex = ref(props.data.words[0].id);
 const modalSwitch = ref(false)
 const clickedWord = ref();
 
@@ -21,15 +20,15 @@ const clickWord = (word) => {
 }
 
 
-const test = (e, a) => {
-    console.log(e, a)
+const offModal = () => {
+    modalSwitch.value = false
 }
 </script>
 <template>
 
     <Head title="Цвет" />
     <div class="aspect-frame">
-        <WordModal :modalSwitch="modalSwitch" :colors="data.colors" :word="clickedWord" @delete="test" />
+        <WordModal :modalSwitch="modalSwitch" :colors="data.colors" :word="clickedWord" @offModal="offModal" />
 
         <div class="word-color-box">
             <div @click="clickWord(word)" class="word" v-for="(word, id) in  data.words " :key="word.id">
