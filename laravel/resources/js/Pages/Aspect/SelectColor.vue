@@ -3,7 +3,7 @@ import { Head } from '@inertiajs/inertia-vue3'
 import NextStep from '@/Components/Aspect/Buttons/NextStep.vue'
 import WordModal from '@/Components/Aspect/Modals/WordModal.vue'
 
-import { ref, computed, reactive } from 'vue';
+import { ref } from 'vue';
 
 const props = defineProps({
     title: String,
@@ -11,8 +11,9 @@ const props = defineProps({
     aspect_id: Number,
 });
 
-const modalSwitch = ref(false);
-const clickedWord = ref(null);
+const clickedWordIndex = ref(props.data.words[0].id);
+const modalSwitch = ref(false)
+const clickedWord = ref();
 
 const clickWord = (word) => {
     modalSwitch.value = !modalSwitch.value
@@ -20,43 +21,21 @@ const clickWord = (word) => {
 }
 
 
-// const rollIndex = ref(0);
-
-// const rightRollColor = (rollIndex, word, colors) => {
-//     if (rollIndex > (colors.length - 1)) {
-//         rollIndex = 0
-//     }
-//     rollIndex++
-//     word.colorCode = colors[rollIndex].hex_code
-//     console.log(rollIndex)
-// }
-
-// const leftRollColor = (rollIndex, word, colors) => {
-//     if (rollIndex.value < (colors.length - 1)) {
-//         rollIndex.value = colors.length - 1
-//     }
-//     rollIndex.value--
-//     word.colorCode = colors[rollIndex].hex_code
-// }
-
+const test = (e, a) => {
+    console.log(e, a)
+}
 </script>
 <template>
 
     <Head title="Цвет" />
     <div class="aspect-frame">
-        <WordModal :modalSwitch="modalSwitch" :colors="data.colors" :word="clickedWord" />
-        <div class="colors">
-            <div class="color" v-for="color in data.colors" :key="color.id">
-                <div :style="['background-color: ' + color.hex_code]" class="color-div"></div>
-            </div>
-        </div>
+        <WordModal :modalSwitch="modalSwitch" :colors="data.colors" :word="clickedWord" @delete="test" />
+
         <div class="word-color-box">
             <div @click="clickWord(word)" class="word" v-for="(word, id) in  data.words " :key="word.id">
-                <div class="word-with-arrows">
-                    <div>
+                    <div :style="['color: ' + word.colorCode]">
                         {{ word.name }}
                     </div>
-                </div>
             </div>
 
 
@@ -98,19 +77,5 @@ const clickWord = (word) => {
     >div {
         cursor: pointer;
     }
-}
-
-.colors {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 1em;
-}
-
-.color-div {
-    width: 55px;
-    height: 15px;
-    border: 2px solid black;
-    border-radius: 0.8em;
-    margin: 3px;
 }
 </style>
