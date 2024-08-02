@@ -10,11 +10,14 @@ const props = defineProps({
     data: Array,
     aspect_id: Number,
 });
-const selectedWords = ref(props.data.words)
+
 const modalSwitch = ref(false)
 const clickedWord = ref();
 
 const clickWord = (word) => {
+    if (props.data.colors.length == 0) {
+        return
+    }
     modalSwitch.value = !modalSwitch.value
     clickedWord.value = word
 }
@@ -25,23 +28,29 @@ const offModal = () => {
 }
 
 const setColorOfWord = (emitWord, emitColor) => {
-    id = props.data.words.findIndex(word => word.id === emitWord.id)
+    modalSwitch.value = false
+
+    const word = props.data.words.find(word => word.id === emitWord.id)
+    word.colorCode = emitColor.hex_code
+
+    const colorId = props.data.colors.findIndex(color => color.id === emitColor.id)
+    props.data.colors.splice(colorId, 1)
 
 }
 
-// const deleteColorFromProps = (id)
 </script>
 <template>
 
     <Head title="Цвет" />
     <div class="aspect-frame">
-        <WordModal :modalSwitch="modalSwitch" :colors="data.colors" :word="clickedWord" @offModal="offModal" @selectColor="setColorOfWord" />
+        <WordModal :modalSwitch="modalSwitch" :colors="data.colors" :word="clickedWord" @offModal="offModal"
+            @selectColor="setColorOfWord" />
 
         <div class="word-color-box">
             <div @click="clickWord(word)" class="word" v-for="(word, id) in  data.words " :key="word.id">
-                    <div :style="['color: ' + word.colorCode]">
-                        {{ word.name }}
-                    </div>
+                <div :style="['color: ' + word.colorCode]">
+                    {{ word.name }}
+                </div>
             </div>
 
 

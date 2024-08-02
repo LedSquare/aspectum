@@ -1,37 +1,38 @@
 <template>
     <transition name="modal-animation">
-    <div v-show="modalSwitch" class="word-modal" @click.self="onOffModal">
-        <div class="inner-modal">
-            <div class="colors">
-                <div class="color" v-for="(color, id) in props.colors" :style="[rollIndex === id ? 'border: solid 2px black;' : '']" :key="color.id">
-                    <div :style="['background-color: ' + color.hex_code]" class="color-div"></div>
-                </div>
-            </div>
-            <div class="word">
-                <div class="word-with-arrows">
-                    <div @click="leftRollColor" class="arrow">
-                        &#8249
-                    </div>
-                    <div :style="['color: ' + colors[rollIndex]?.hex_code]">
-                        {{ word?.name }}
-                    </div>
-                    <div class="arrow" @click="rightRollColor">
-                        &#8250
+        <div v-show="modalSwitch" class="word-modal" @click.self="onOffModal">
+            <div class="inner-modal">
+                <div class="colors">
+                    <div class="color" v-for="(color, id) in props.colors"
+                        :style="[rollIndex === id ? 'border: solid 2px black;' : '']" :key="color.id">
+                        <div :style="['background-color: ' + color.hex_code]" class="color-div"></div>
                     </div>
                 </div>
-            </div>
-            <div class="button-box">
-                <button class="color-button" @click="onSelectColor(word, colors[rollIndex])">
-                    Выбрать цвет
-                </button>
+                <div class="word">
+                    <div class="word-with-arrows">
+                        <div @click="leftRollColor" class="arrow">
+                            &#8249
+                        </div>
+                        <div :style="['color: ' + colors[rollIndex]?.hex_code]" @wheel="onWheel">
+                            {{ word?.name }}
+                        </div>
+                        <div class="arrow" @click="rightRollColor">
+                            &#8250
+                        </div>
+                    </div>
+                </div>
+                <div class="button-box">
+                    <button class="color-button" @click="onSelectColor(word, colors[rollIndex])">
+                        Выбрать цвет
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
     </transition>
 </template>
 <script setup>
 
-import {ref} from 'vue';
+import { ref } from 'vue';
 
 const props = defineProps({
     modalSwitch: Boolean,
@@ -52,11 +53,11 @@ const onSelectColor = (word, color) => {
 const rollIndex = ref(null)
 
 const rightRollColor = () => {
-    if(rollIndex.value === null){
+    if (rollIndex.value === null) {
         rollIndex.value = 0
         return
     }
-    if (rollIndex.value > (props.colors.length - 2 )) {
+    if (rollIndex.value > (props.colors.length - 2)) {
         rollIndex.value = 0
         return
     }
@@ -64,7 +65,7 @@ const rightRollColor = () => {
 }
 
 const leftRollColor = () => {
-    if(rollIndex.value === null){
+    if (rollIndex.value === null) {
         rollIndex.value = props.colors.length - 1
         return
     }
@@ -73,6 +74,14 @@ const leftRollColor = () => {
         return
     }
     rollIndex.value--
+}
+
+const onWheel = (e) => {
+    if (e.deltaY < -1)
+        leftRollColor()
+
+    if (e.deltaY > 1)
+        rightRollColor()
 }
 
 </script>
@@ -106,6 +115,7 @@ const leftRollColor = () => {
     >div {
         cursor: pointer;
     }
+
     .word-with-arrows {
         cursor: pointer;
         width: 100%;
@@ -119,15 +129,23 @@ const leftRollColor = () => {
         }
 
         >.arrow {
-            margin: 0px 1em;
+            justify-content: center;
             font-size: 60px;
+            height: 1em;
+            width: 1.5em;
+            border-bottom: solid 3px rgba($color: $blue, $alpha: 0);
+            transition: 0.2s ease-in-out;
+
+            &:hover {
+                border-bottom: solid 3px rgba($color: $blue, $alpha: 1);
+            }
         }
     }
 }
 
 .word-modal {
     flex-direction: column;
-    display:flex;
+    display: flex;
     position: fixed;
     top: 0px;
     left: 0px;
@@ -139,14 +157,14 @@ const leftRollColor = () => {
     background-color: rgba($color: $blue-gray, $alpha: 0.5);
 }
 
-.inner-modal{
+.inner-modal {
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: space-evenly;
     width: 30%;
     height: 50%;
-    min-width:500px;
+    min-width: 500px;
     background-color: aliceblue;
     opacity: 1 !important;
 }
@@ -157,7 +175,7 @@ const leftRollColor = () => {
     margin-bottom: 1em;
 }
 
-.color{
+.color {
     border: solid 2px rgba($color: $blue-gray, $alpha: 0);
     border-radius: 10px;
 }
@@ -180,28 +198,26 @@ const leftRollColor = () => {
     margin-bottom: 0.1em;
 
     .color-button {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
-    text-align: center;
-    text-decoration: none;
-    font-weight: 700;
-    cursor: pointer;
-    border: 2px solid $blue;
-    color: black;
-    border-radius: 10px;
-    transition:
-        background-color 0.3s,
-        color 0.3s,
-        border 0.3s;
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 700;
+        cursor: pointer;
+        border: 2px solid $blue;
+        color: black;
+        border-radius: 10px;
+        transition:
+            background-color 0.3s,
+            color 0.3s,
+            border 0.3s;
 
-    &:hover {
-        background-color: $blue;
-        border: 2px solid whitesmoke;
-        color: #fff;
+        &:hover {
+            background-color: $blue;
+            border: 2px solid whitesmoke;
+            color: #fff;
+        }
     }
 }
-}
-
-
 </style>
