@@ -3,27 +3,25 @@
     <div v-show="modalSwitch" class="word-modal" @click.self="onOffModal">
         <div class="inner-modal">
             <div class="colors">
-                <div class="color" :style="[rollIndex === id ? 'border: solid 2px black;' : '']" v-for="(color, id) in props.colors" :key="color.id">
-                    <div :style="['background-color: ' + color.hex_code]" class="color-div">
-                    {{ id }}</div>
+                <div class="color" v-for="(color, id) in props.colors" :style="[rollIndex === id ? 'border: solid 2px black;' : '']" :key="color.id">
+                    <div :style="['background-color: ' + color.hex_code]" class="color-div"></div>
                 </div>
             </div>
             <div class="word">
                 <div class="word-with-arrows">
-                    <div @click="rightRollColor(rollIndex, word, data.colors)" class="arrow">
+                    <div @click="leftRollColor" class="arrow">
                         &#8249
                     </div>
-                    <div :style="['color: ' + word?.colorCode]">
+                    <div :style="['color: ' + colors[rollIndex]?.hex_code]">
                         {{ word?.name }}
-                        {{ rollIndex }}
                     </div>
-                    <div class="arrow" @click="rightRollColor(word)">
+                    <div class="arrow" @click="rightRollColor">
                         &#8250
                     </div>
                 </div>
             </div>
             <div class="button-box">
-                <button class="color-button">
+                <button class="color-button" @click="onSelectColor(word, colors[rollIndex])">
                     Выбрать цвет
                 </button>
             </div>
@@ -41,23 +39,40 @@ const props = defineProps({
     word: { type: Object || null, required: false },
 })
 
-const emit = defineEmits(['offModal'])
+const emit = defineEmits(['offModal', 'selectColor'])
 
 const onOffModal = () => {
     emit('offModal')
 }
 
+const onSelectColor = (word, color) => {
+    emit('selectColor', word, color)
+}
 
-const rollIndex = ref(0)
+const rollIndex = ref(null)
 
-const rightRollColor = (word) => {
-    if(rollIndex.value  === null){
+const rightRollColor = () => {
+    if(rollIndex.value === null){
         rollIndex.value = 0
+        return
     }
     if (rollIndex.value > (props.colors.length - 2 )) {
         rollIndex.value = 0
+        return
     }
-    word.colorCode = props.colors[rollIndex.value].hex_code
+    rollIndex.value++
+}
+
+const leftRollColor = () => {
+    if(rollIndex.value === null){
+        rollIndex.value = props.colors.length - 1
+        return
+    }
+    if (rollIndex.value < 1) {
+        rollIndex.value = props.colors.length - 1
+        return
+    }
+    rollIndex.value--
 }
 
 </script>
