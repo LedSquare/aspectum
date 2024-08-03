@@ -5,15 +5,16 @@
                 <div class="colors">
                     <div class="color" v-for="(color, id) in props.colors"
                         :style="[rollIndex === id ? 'border: solid 2px black;' : '']" :key="color.id">
-                        <div :style="['background-color: ' + color.hex_code]" class="color-div"></div>
+                        <div :style="['background-color: ' + color.hex_code]" class="color-div">
+                        </div>
                     </div>
                 </div>
-                <div class="word">
+                <div class="word" data-title="Можно использовать колесо мыши для смены цвета">
                     <div class="word-with-arrows">
                         <div @click="leftRollColor" class="arrow">
                             &#8249
                         </div>
-                        <div :style="['color: ' + colors[rollIndex]?.hex_code]" @wheel="onWheel">
+                        <div :key="rollIndex" :style="['color: ' + colors[rollIndex]?.hex_code]" @wheel="onWheel">
                             {{ word?.name }}
                         </div>
                         <div class="arrow" @click="rightRollColor">
@@ -41,6 +42,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['offModal', 'selectColor'])
+const rollIndex = ref(null)
 
 const onOffModal = () => {
     emit('offModal')
@@ -50,7 +52,7 @@ const onSelectColor = (word, color) => {
     emit('selectColor', word, color)
 }
 
-const rollIndex = ref(null)
+
 
 const rightRollColor = () => {
     if (rollIndex.value === null) {
@@ -61,6 +63,7 @@ const rightRollColor = () => {
         rollIndex.value = 0
         return
     }
+
     rollIndex.value++
 }
 
@@ -111,6 +114,10 @@ const onWheel = (e) => {
     align-items: center;
     display: flex;
 
+    &:hover::after {
+        content: attr(data-title);
+        font-size: 5px;
+    }
 
     >div {
         cursor: pointer;
@@ -132,12 +139,15 @@ const onWheel = (e) => {
             justify-content: center;
             font-size: 60px;
             height: 1em;
-            width: 1.5em;
-            border-bottom: solid 3px rgba($color: $blue, $alpha: 0);
-            transition: 0.2s ease-in-out;
+            width: 1em;
+            border: solid 3px rgba($color: $blue, $alpha: 0);
+            border-radius: 10px;
+            box-shadow: -4px 4px 7px 0px rgba($color: $blue-gray, $alpha: 0.3);
+            margin: 0px 0.4em;
+            transition: border 0.2s cubic-bezier(0.19, 1, 0.22, 1);
 
-            &:hover {
-                border-bottom: solid 3px rgba($color: $blue, $alpha: 1);
+            &:active {
+                border: solid 3px rgba($color: $blue, $alpha: 1);
             }
         }
     }

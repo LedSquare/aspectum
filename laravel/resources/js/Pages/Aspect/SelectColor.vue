@@ -11,13 +11,25 @@ const props = defineProps({
     aspect_id: Number,
 });
 
+const deletedColors = ref([]);
 const modalSwitch = ref(false)
-const clickedWord = ref();
+const clickedWord = ref(null);
+
+const emit = defineEmits(['rollIndexInModal'])
 
 const clickWord = (word) => {
-    if (props.data.colors.length == 0) {
+    if (word.colorCode !== (null)) {
+        const findedColor = deletedColors.value.find(color => color.hex_code === word.colorCode)
+
+        if (findedColor) {
+            deletedColors.value = deletedColors.value.filter(color => color.id !== findedColor.id)
+            props.data.colors.push(findedColor)
+        }
+
+        word.colorCode = null
         return
     }
+
     modalSwitch.value = !modalSwitch.value
     clickedWord.value = word
 }
@@ -33,8 +45,9 @@ const setColorOfWord = (emitWord, emitColor) => {
     const word = props.data.words.find(word => word.id === emitWord.id)
     word.colorCode = emitColor.hex_code
 
-    const colorId = props.data.colors.findIndex(color => color.id === emitColor.id)
-    props.data.colors.splice(colorId, 1)
+    const findedColor = props.data.colors.find(color => color.id === emitColor.id)
+    deletedColors.value.push(findedColor)
+    props.data.colors = props.data.colors.filter(color => color.id !== findedColor.id)
 
 }
 
@@ -43,12 +56,12 @@ const setColorOfWord = (emitWord, emitColor) => {
 
     <Head title="Цвет" />
     <div class="aspect-frame">
-        <WordModal :modalSwitch="modalSwitch" :colors="data.colors" :word="clickedWord" @offModal="offModal"
+        <WordModal :modalSwitch="modalSwitch" :colors="props.data.colors" :word="clickedWord" @offModal="offModal"
             @selectColor="setColorOfWord" />
 
         <div class="word-color-box">
             <div @click="clickWord(word)" class="word" v-for="(word, id) in  data.words " :key="word.id">
-                <div :style="['color: ' + word.colorCode]">
+                <div :style="['color: ' + (word.colorCode ? word.colorCode : 'white')]">
                     {{ word.name }}
                 </div>
             </div>
@@ -67,6 +80,7 @@ const setColorOfWord = (emitWord, emitColor) => {
     border-radius: 15px;
     background-color: aliceblue;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 2em;
 }
 
 .word {
