@@ -2,6 +2,9 @@
     <transition name="modal-animation">
         <div v-show="modalSwitch" class="word-modal" @click.self="onOffModal">
             <div class="inner-modal">
+                <div class="question" data-title="При наведении на словоа 'понятие', можно использовать колесо мыши, для изменения цвета">
+                    <QuestionIcon/>
+                </div>
                 <div class="colors">
                     <div class="color" v-for="(color, id) in props.colors"
                         :style="[rollIndex === id ? 'border: solid 2px black;' : '']" :key="color.id">
@@ -9,7 +12,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="word" data-title="Можно использовать колесо мыши для смены цвета">
+                <div class="word">
                     <div class="word-with-arrows">
                         <div @click="leftRollColor" class="arrow">
                             &#8249
@@ -34,6 +37,7 @@
 <script setup>
 
 import { ref } from 'vue';
+import QuestionIcon from '@/Components/svg/icons/QuestionIcon.vue'
 
 const props = defineProps({
     modalSwitch: Boolean,
@@ -49,6 +53,7 @@ const onOffModal = () => {
 }
 
 const onSelectColor = (word, color) => {
+    rollIndex.value = null
     emit('selectColor', word, color)
 }
 
@@ -101,6 +106,41 @@ const onWheel = (e) => {
     opacity: 0;
 }
 
+.question{
+    position: relative;
+    display: flex;
+    width: 100%;
+    padding-left: 30px;
+
+    &::after {
+        content: attr(data-title);
+        position: absolute;
+        left: -10em;
+        top: -5em;
+
+        font-size: 14px;
+        color: $blue-gray;
+
+        background-color: aliceblue;
+        width: 15em;
+        height: 5em;
+        border: solid 2px rgba($color: $blue-gray-hover, $alpha: 0.6);
+        border-radius: 1em;
+        padding: 10px 5px;
+
+
+        text-shadow: 0 0 0 black;
+        text-align: center;
+
+
+        transition: 0.3s ease-in-out;
+        opacity: 0;
+    }
+
+    &:hover::after{
+        opacity: 1;
+    }
+}
 
 .word {
     color: white;
@@ -114,10 +154,6 @@ const onWheel = (e) => {
     align-items: center;
     display: flex;
 
-    &:hover::after {
-        content: attr(data-title);
-        font-size: 5px;
-    }
 
     >div {
         cursor: pointer;
@@ -142,12 +178,12 @@ const onWheel = (e) => {
             width: 1em;
             border: solid 3px rgba($color: $blue, $alpha: 0);
             border-radius: 10px;
-            box-shadow: -4px 4px 7px 0px rgba($color: $blue-gray, $alpha: 0.3);
+            box-shadow: -4px 4px 9px 0px rgba($color: $blue-gray, $alpha: 0.3);
             margin: 0px 0.4em;
             transition: border 0.2s cubic-bezier(0.19, 1, 0.22, 1);
 
             &:active {
-                border: solid 3px rgba($color: $blue, $alpha: 1);
+                box-shadow: -4px 4px 3px 0px rgba($color: $blue-gray, $alpha: 0.3);
             }
         }
     }
@@ -177,6 +213,7 @@ const onWheel = (e) => {
     min-width: 500px;
     background-color: aliceblue;
     opacity: 1 !important;
+    border-radius: 0.8rem;
 }
 
 .colors {

@@ -3,16 +3,17 @@ import { useForm } from '@inertiajs/inertia-vue3'
 
 const props = defineProps({
     aspect_id: Number,
-    aspect_data: Array,
+    aspect_data: { type: Array || Number || String, required: true },
 });
 
-const form = useForm(props, {
+const form = useForm({
     aspect_id: props.aspect_id,
     aspect_data: props.aspect_data,
 });
 
 function storeAspect() {
-    form.post(route('aspect.store', form.aspect_id))
+    console.log(props)
+    // form.post(route('aspect.store', form.aspect_id))
 }
 
 

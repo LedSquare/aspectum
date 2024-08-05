@@ -9,11 +9,8 @@ const props = defineProps({
     aspect_id: Number,
 });
 
-const moodData = ref(0)
+const moodProcent = ref(0)
 
-function setMood(mood, data) {
-    moodData.value = mood.id
-}
 
 </script>
 <template>
@@ -22,14 +19,40 @@ function setMood(mood, data) {
     <div class="aspect-frame">
 
         <div class="mood-level-box">
-            <div v-for="mood in data">
-                <input @click="setMood(mood)" type="radio" name="mood"></input>
-                <label :for="mood.id">{{ mood.procent }} %</label>
-            </diV>
+            <input class="input-range" type="range" v-model="moodProcent" min="0" max="100" @input="updatePercent">
+            <div class="procent">
+                {{ moodProcent }} %
+            </div>
         </div>
-        <NextStep :aspect_data="props.data[moodData]" :aspect_id="aspect_id"></NextStep>
+        <NextStep :aspect_data="moodProcent" :aspect_id="aspect_id"></NextStep>
     </div>
 
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+.mood-level-box{
+    width: 400px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column-reverse;
+    border: solid 2px $blue-gray-hover;
+    border-radius: 0.8rem;
+}
+
+.procent{
+    color: $blue-gray;
+    font-size: 50px;
+    margin: 5rem 0rem;
+}
+
+.input-range{
+    -webkit-appearance: none;
+    width: 90%;
+    background-color: $blue;
+    border-radius: 1rem;
+}
+
+</style>

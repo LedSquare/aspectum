@@ -18,7 +18,7 @@ class MoodLevelAction implements AspectActionInterface
     public function getParameters(AspectUnitInterface $aspectUnit): mixed
     {
         return Inertia::render('Aspect/MoodLevel', [
-            'data' => MoodLevel::all(),
+            'data' => [],
             'aspect_id' => $aspectUnit->aspectId,
         ]);
     }
