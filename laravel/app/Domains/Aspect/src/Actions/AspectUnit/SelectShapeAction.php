@@ -17,9 +17,9 @@ class SelectShapeAction implements AspectActionInterface
     public function getParameters(AspectUnitInterface $aspectUnit): mixed
     {
         return Inertia::render('Aspect/SelectShape', [
+            'aspect_id' => $aspectUnit->aspectId,
             'data' => [
-                'aspect_id' => $aspectUnit->aspectId,
-                'shapes_categories' => ShapeCategory::with('shapes')->all(),
+                'shape_categories' => ShapeCategory::with('shapes')->get(),
             ],
         ]);
     }

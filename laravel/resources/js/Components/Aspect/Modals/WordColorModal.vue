@@ -92,6 +92,12 @@ const onWheel = (e) => {
         rightRollColor()
 }
 
+
+function find(element, findedElement){
+    element === findedElement
+    return 'ok';
+}
+
 </script>
 
 

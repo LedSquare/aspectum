@@ -43,6 +43,7 @@ const setColorOfWord = (emitWord, emitColor) => {
 
 }
 
+
 </script>
 <template>
 

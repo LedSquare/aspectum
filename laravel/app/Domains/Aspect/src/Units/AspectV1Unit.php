@@ -4,6 +4,7 @@ namespace Aspect\Units;
 
 use Aspect\Actions\AspectUnit\MoodLevelAction;
 use Aspect\Actions\AspectUnit\SelectColorAction;
+use Aspect\Actions\AspectUnit\SelectShapeAction;
 use Aspect\Actions\AspectUnit\SelectWordsAction;
 use Aspect\Exceptions\AspectDomainException;
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
@@ -25,6 +26,7 @@ class AspectV1Unit implements AspectUnitInterface
         SelectWordsAction::class,
         MoodLevelAction::class,
         SelectColorAction::class,
+        SelectShapeAction::class,
     ];
 
     public array $moodLevels;
@@ -76,7 +78,6 @@ class AspectV1Unit implements AspectUnitInterface
     public function getStepParameters(): Response
     {
         $actionClass = $this->getActionClassFromCurrentStep();
-
         return $actionClass->getParameters($this);
     }
 

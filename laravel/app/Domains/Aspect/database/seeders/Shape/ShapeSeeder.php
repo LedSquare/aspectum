@@ -3,6 +3,7 @@
 namespace App\Domains\Aspect\database\seeders\Shape;
 
 use Aspect\Models\Stages\Shape\Shape;
+use Aspect\Models\Stages\Shape\ShapeCategory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
@@ -12,23 +13,26 @@ class ShapeSeeder extends Seeder
     /**
      * Run the database seeds.
      */
+    private static int $number = 5;
+
     public function run(): void
     {
-        $cirle = 'circle';
-        $triang = 'triang';
+        $triangleCategory = ShapeCategory::firstWhere('slug', 'Triangles');
+        $circleCategory = ShapeCategory::firstWhere('slug', 'Circles');
+        $squareCategory = ShapeCategory::firstWhere('slug', 'Squares');
 
-        for ($i = 1; $i <= 2; $i++) {
-            Shape::create([
-                'a_shape_category_id' => 1,
-                'filepath' => "shapes/$cirle" . 's/' . $cirle . $i . '.png',
-            ]);
-        }
+        $categories = [$triangleCategory, $circleCategory, $squareCategory];
 
-        for ($i = 1; $i <= 3; $i++) {
-            Shape::create([
-                'a_shape_category_id' => 2,
-                'filepath' => "shapes/$triang" . 's/' . $triang . $i . '.png',
-            ]);
+
+        foreach ($categories as $category) {
+
+            $i = self::$number;
+            while ($i > 0) {
+                $category->shapes()->create([
+                    'filepath' => "images/shapes/" . strtolower($category->slug) . "/$i.png"
+                ]);
+                $i--;
+            }
         }
     }
 }

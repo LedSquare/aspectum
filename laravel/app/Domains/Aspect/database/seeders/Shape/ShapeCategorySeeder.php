@@ -22,5 +22,11 @@ class ShapeCategorySeeder extends Seeder
             'name' => 'Окружности',
             'slug' => 'Circles',
         ]);
+
+        ShapeCategory::create([
+            'name' => 'Квадраты',
+            'slug' => 'Squares',
+        ]);
+
     }
 }

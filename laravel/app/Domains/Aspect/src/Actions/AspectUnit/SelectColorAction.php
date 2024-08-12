@@ -13,7 +13,7 @@ class SelectColorAction implements AspectActionInterface
     public function action(array $data, AspectUnitInterface $aspectUnit): mixed
     {
         $collection = collect();
-        foreach ($data as $index => $word) {
+        foreach ($data['aspect_data'] as $index => $word) {
             $collection->push(
                 new WordDTO(
                     $word['id'],
@@ -24,6 +24,8 @@ class SelectColorAction implements AspectActionInterface
                 )
             );
         }
+        $aspectUnit->words[$aspectUnit->currentStep] = $collection;
+
         return $aspectUnit;
     }
 
