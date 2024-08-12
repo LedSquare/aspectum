@@ -2,7 +2,7 @@
 
 namespace Aspect\Units\DTO;
 
-final class ComplexWord
+final class WordDTO
 {
     public function __construct(
         public int $id,

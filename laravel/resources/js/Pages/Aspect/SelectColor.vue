@@ -19,14 +19,6 @@ const emit = defineEmits(['rollIndexInModal'])
 
 const clickWord = (word) => {
     if (word.colorCode !== (null)) {
-        const findedColor = deletedColors.value.find(color => color.hex_code === word.colorCode)
-
-        if (findedColor) {
-            deletedColors.value = deletedColors.value.filter(color => color.id !== findedColor.id)
-            props.data.colors.push(findedColor)
-        }
-
-        word.colorCode = null
         return
     }
 
@@ -61,14 +53,14 @@ const setColorOfWord = (emitWord, emitColor) => {
 
         <div class="word-color-box">
             <div @click="clickWord(word)" class="word" v-for="(word, id) in  data.words " :key="word.id">
-                <div :style="['color: ' + (word.colorCode ? word.colorCode : 'white')]">
+                <div :style="['color: ' + (word.colorCode ? word.colorCode + '; cursor: default' : 'white')]">
                     {{ word.name }}
                 </div>
             </div>
 
 
         </div>
-        <NextStep :aspect_data="words" :aspect_id="aspect_id"></NextStep>
+        <NextStep :aspect_data="props.data.words" :aspect_id="props.data.aspect_id"></NextStep>
     </div>
 
 </template>

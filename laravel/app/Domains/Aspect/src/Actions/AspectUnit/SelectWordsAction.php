@@ -5,7 +5,7 @@ namespace Aspect\Actions\AspectUnit;
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Models\Stages\Word\Word;
-use Aspect\Units\DTO\ComplexWord;
+use Aspect\Units\DTO\WordDTO;
 use Inertia\Inertia;
 
 class SelectWordsAction implements AspectActionInterface
@@ -16,7 +16,7 @@ class SelectWordsAction implements AspectActionInterface
 
         foreach ($data['aspect_data'] as $index => $word) {
             $collection->push(
-                new ComplexWord(
+                new WordDTO(
                     $word['id'],
                     $index,
                     $word['name'],
