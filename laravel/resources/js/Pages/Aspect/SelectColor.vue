@@ -1,7 +1,7 @@
 <script setup>
 import { Head } from '@inertiajs/inertia-vue3'
 import NextStep from '@/Components/Aspect/Buttons/NextStep.vue'
-import WordModal from '@/Components/Aspect/Modals/WordModal.vue'
+import WordModal from '@/Components/Aspect/Modals/WordColorModal.vue'
 
 import { ref } from 'vue';
 

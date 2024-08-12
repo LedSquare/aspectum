@@ -2,7 +2,7 @@
     <transition name="modal-animation">
         <div v-show="modalSwitch" class="word-modal" @click.self="onOffModal">
             <div class="inner-modal">
-                <div class="question" data-title="При наведении на словоа 'понятие', можно использовать колесо мыши, для изменения цвета">
+                <div class="question">
                     <QuestionIcon/>
                 </div>
                 <div class="colors">
@@ -111,31 +111,6 @@ const onWheel = (e) => {
     display: flex;
     width: 100%;
     padding-left: 30px;
-
-    &::after {
-        content: attr(data-title);
-        position: absolute;
-        left: -10em;
-        top: -5em;
-
-        font-size: 14px;
-        color: $blue-gray;
-
-        background-color: aliceblue;
-        width: 15em;
-        height: 5em;
-        border: solid 2px rgba($color: $blue-gray-hover, $alpha: 0.6);
-        border-radius: 1em;
-        padding: 10px 5px;
-
-
-        text-shadow: 0 0 0 black;
-        text-align: center;
-
-
-        transition: 0.3s ease-in-out;
-        opacity: 0;
-    }
 
     &:hover::after{
         opacity: 1;

@@ -23,8 +23,8 @@ const moodProcent = ref(0)
             <div class="procent">
                 {{ moodProcent }} %
             </div>
-        </div>
-        <NextStep :aspect_data="moodProcent" :aspect_id="aspect_id"></NextStep>
+    </div>
+        <NextStep :aspect_data="[moodProcent]" :aspect_id="aspect_id"></NextStep>
     </div>
 
 </template>
