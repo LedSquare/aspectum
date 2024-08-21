@@ -24,14 +24,13 @@ const moodProcent = ref(0)
                 {{ moodProcent }} %
             </div>
         </div>
-        <NextStep :aspect_data="moodProcent" :aspect_id="aspect_id"></NextStep>
+        <NextStep :aspect_data="[moodProcent]" :aspect_id="aspect_id"></NextStep>
     </div>
 
 </template>
 
 <style lang="scss" scoped>
-
-.mood-level-box{
+.mood-level-box {
     width: 400px;
     height: 500px;
     display: flex;
@@ -42,17 +41,16 @@ const moodProcent = ref(0)
     border-radius: 0.8rem;
 }
 
-.procent{
+.procent {
     color: $blue-gray;
     font-size: 50px;
     margin: 5rem 0rem;
 }
 
-.input-range{
+.input-range {
     -webkit-appearance: none;
     width: 90%;
     background-color: $blue;
     border-radius: 1rem;
 }
-
 </style>
