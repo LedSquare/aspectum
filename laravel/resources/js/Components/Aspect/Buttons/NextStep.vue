@@ -12,6 +12,7 @@ const form = useForm({
 });
 
 function storeAspect() {
+    // console.log(props)
     form.post(route('aspect.store', form.aspect_id))
 }
 
