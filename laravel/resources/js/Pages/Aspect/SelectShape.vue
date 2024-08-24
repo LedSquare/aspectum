@@ -1,7 +1,8 @@
 <script setup>
 import { Head } from '@inertiajs/inertia-vue3';
 import NextStep from '../../Components/Aspect/Buttons/NextStep.vue';
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted } from 'vue';
+import { draggable } from 'vuedraggable'
 
 const props = defineProps({
     title: String,
@@ -13,8 +14,21 @@ const activeCategory = ref(1);
 const setActiveCategory = (categoryId) => {
     activeCategory.value = categoryId
 }
-
+//color code is $blue
 let activeCategoryStyle = 'border-bottom: solid 4px rgba(193, 218, 253, 1)'
+
+const shapeImgElement = ref()
+const shapeSlotElement = ref()
+
+onMounted(() => {
+    /**
+     * get proportions from source shape element
+     */
+    const { width, height } = shapeImgElement.value[0].getBoundingClientRect()
+    shapeSlotElement.value.style.width = `${width}px`
+    shapeSlotElement.value.style.height = `${height}px`
+})
+
 
 
 </script>
@@ -22,8 +36,10 @@ let activeCategoryStyle = 'border-bottom: solid 4px rgba(193, 218, 253, 1)'
 
     <Head title="Фигуры"></Head>
     <div class="aspect-frame">
-        <div :style="[activeCategoryStyle]">
+        <div class="shape-slots">
+            <div class="shape-slot" ref="shapeSlotElement">
 
+            </div>
         </div>
         <div class="tabs-rows">
             <div class="category-tab" @click="setActiveCategory(shape_category.id)"
@@ -35,7 +51,7 @@ let activeCategoryStyle = 'border-bottom: solid 4px rgba(193, 218, 253, 1)'
         </div>
         <div class="grid-shapes">
             <div v-for="shape in data.shape_categories.find(category => category.id === activeCategory).shapes">
-                <img class="shape" alt="some image" :src="'/' + shape.filepath">
+                <img class="shape" ref="shapeImgElement" alt="some image" :src="'/' + shape.filepath">
             </div>
         </div>
     </div>
