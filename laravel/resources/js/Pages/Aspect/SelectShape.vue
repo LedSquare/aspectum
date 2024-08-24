@@ -17,19 +17,21 @@ const setActiveCategory = (categoryId) => {
 //color code is $blue
 let activeCategoryStyle = 'border-bottom: solid 4px rgba(193, 218, 253, 1)'
 
-const shapeImgElement = ref()
-const shapeSlotElement = ref()
+// const shapeImgElement = ref()
+// const shapeSlotElement = ref()
 
-onMounted(() => {
-    /**
-     * get proportions from source shape element
-     */
-    const { width, height } = shapeImgElement.value[0].getBoundingClientRect()
-    shapeSlotElement.value.style.width = `${width}px`
-    shapeSlotElement.value.style.height = `${height}px`
-})
+// onMounted(() => {
+//     /**
+//      * get proportions from source shape element
+//      */
+//     const { width, height } = shapeImgElement.value[0].getBoundingClientRect()
+//     shapeSlotElement.value.style.width = `${width}px`
+//     shapeSlotElement.value.style.height = `${height}px`
+// })
 
-
+const activeShapes = () => {
+    return props.data.shape_categories.find(category => category.id === activeCategory.value).shapes
+}
 
 </script>
 <template>
@@ -50,9 +52,11 @@ onMounted(() => {
             </div>
         </div>
         <div class="grid-shapes">
-            <div v-for="shape in data.shape_categories.find(category => category.id === activeCategory).shapes">
-                <img class="shape" ref="shapeImgElement" alt="some image" :src="'/' + shape.filepath">
-            </div>
+            <draggable :list="activeShapes()" group="shapes" @change="log">
+                <div v-for="shape in activeShapes()">
+                    <img class="shape" ref="shapeImgElement" alt="some image" :src="'/' + shape.filepath">
+                </div>
+            </draggable>
         </div>
     </div>
 </template>
