@@ -5,7 +5,7 @@ import { ref } from 'vue';
 
 const props = defineProps({
     title: String,
-    data: Array,
+    data: Array | Object,
     aspect_id: Number,
 });
 

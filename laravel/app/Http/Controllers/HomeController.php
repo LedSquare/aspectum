@@ -16,4 +16,9 @@ class HomeController extends Controller
             'title' => 'Стартовая страница',
         ]);
     }
+
+    public function test(): Response
+    {
+        return Inertia::render('Draggable', []);
+    }
 }

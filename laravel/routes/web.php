@@ -24,5 +24,6 @@ Auth::routes();
 
 Route::controller(HomeController::class)->name('home')->group(function () {
     Route::get('/', 'index');
+    Route::get('test', 'test');
 });
 
