@@ -1,12 +1,12 @@
 <script setup>
-import { Head } from '@inertiajs/inertia-vue3';
-import NextStep from '../../Components/Aspect/Buttons/NextStep.vue';
-import { ref, onMounted } from 'vue';
-import { draggable } from 'vuedraggable'
+import { Head } from '@inertiajs/inertia-vue3'
+import NextStep from '@/Components/Aspect/Buttons/NextStep.vue'
+import { ref, onMounted } from 'vue'
+import draggable from 'vuedraggable'
 
 const props = defineProps({
     title: String,
-    data: Array,
+    data: Array | Object,
     aspect_id: Number,
 });
 
@@ -14,30 +14,34 @@ const activeCategory = ref(1);
 const setActiveCategory = (categoryId) => {
     activeCategory.value = categoryId
 }
-//color code is $blue
+// color code is $blue
 let activeCategoryStyle = 'border-bottom: solid 4px rgba(193, 218, 253, 1)'
 
-// const shapeImgElement = ref()
-// const shapeSlotElement = ref()
 
-// onMounted(() => {
-//     /**
-//      * get proportions from source shape element
-//      */
-//     const { width, height } = shapeImgElement.value[0].getBoundingClientRect()
-//     shapeSlotElement.value.style.width = `${width}px`
-//     shapeSlotElement.value.style.height = `${height}px`
-// })
+const shapeImgElement = ref()
+const shapeSlotElement = ref()
 
-const activeShapes = () => {
+onMounted(() => {
+    /**
+     * get proportions from source shape element
+     */
+    const { width, height } = shapeImgElement.value[0].getBoundingClientRect()
+    shapeSlotElement.value.style.width = `${width}px`
+    shapeSlotElement.value.style.height = `${height}px`
+})
+
+const getActiveShapes = () => {
     return props.data.shape_categories.find(category => category.id === activeCategory.value).shapes
 }
+const activeShapes = ref(getActiveShapes())
 
 </script>
+
 <template>
 
     <Head title="Фигуры"></Head>
     <div class="aspect-frame">
+
         <div class="shape-slots">
             <div class="shape-slot" ref="shapeSlotElement">
 
@@ -51,13 +55,12 @@ const activeShapes = () => {
                 </h2>
             </div>
         </div>
-        <div class="grid-shapes">
-            <draggable :list="activeShapes()" group="shapes" @change="log">
-                <div v-for="shape in activeShapes()">
-                    <img class="shape" ref="shapeImgElement" alt="some image" :src="'/' + shape.filepath">
-                </div>
-            </draggable>
-        </div>
+        <draggable class="grid-shapes" v-model="activeShapes" group="shapes" item-key="id">
+            <template #item="{ element }">
+                <img class="shape" ref="shapeImgElement" alt="some image" :src="'/' + element.filepath">
+            </template>
+        </draggable>
+        <!-- </div> -->
     </div>
 </template>
 
