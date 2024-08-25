@@ -48,7 +48,7 @@ const moodProcent = ref(0)
 }
 
 .input-range {
-    -webkit-appearance: none;
+    --webkit-appearance: none;
     width: 90%;
     background-color: $blue;
     border-radius: 1rem;
