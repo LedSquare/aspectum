@@ -17,13 +17,12 @@ const setActiveCategory = (categoryId) => {
 // color code is $blue
 let activeCategoryStyle = 'border-bottom: solid 4px rgba(193, 218, 253, 1)'
 
-
 const shapeImgElement = ref()
 const shapeSlotElement = ref()
 
 onMounted(() => {
     /**
-     * get proportions from source shape element
+     * get proportions from source shape element for slot
      */
     const { width, height } = shapeImgElement.value[0].getBoundingClientRect()
     shapeSlotElement.value.style.width = `${width}px`
