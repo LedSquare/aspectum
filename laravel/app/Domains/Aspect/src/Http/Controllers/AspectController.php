@@ -31,6 +31,7 @@ class AspectController extends Controller
     public function next(ActionFormRequest $request, Aspect $aspect): RedirectResponse
     {
         $data = $request->validated();
+        dd($data);
         $aspectUnit = $aspect->getUnit();
         return $aspectUnit->nextStep($data);
     }

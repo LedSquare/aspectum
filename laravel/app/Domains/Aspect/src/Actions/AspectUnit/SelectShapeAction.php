@@ -11,7 +11,7 @@ class SelectShapeAction implements AspectActionInterface
 {
     public function action(array $data, AspectUnitInterface $aspectUnit): mixed
     {
-        return 'asd';
+        dd($data);
     }
 
     public function getParameters(AspectUnitInterface $aspectUnit): mixed

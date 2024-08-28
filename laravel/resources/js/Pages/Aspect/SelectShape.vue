@@ -1,8 +1,8 @@
 <script setup>
 import { Head } from '@inertiajs/inertia-vue3'
 import NextStep from '@/Components/Aspect/Buttons/NextStep.vue'
-import { ref, onMounted } from 'vue'
-import draggable from 'vuedraggable'
+import ErrorMessage from '@/Components/Errors/ErrorMessage.vue';
+import { ref, onMounted, computed, toRef } from 'vue'
 
 const props = defineProps({
     title: String,
@@ -10,57 +10,129 @@ const props = defineProps({
     aspect_id: Number,
 });
 
+const shape_categories = toRef(props.data.shape_categories)
+
 const activeCategory = ref(1);
 const setActiveCategory = (categoryId) => {
     activeCategory.value = categoryId
 }
+
 // color code is $blue
 let activeCategoryStyle = 'border-bottom: solid 4px rgba(193, 218, 253, 1)'
-
 const shapeImgElement = ref()
 const shapeSlotElement = ref()
-
 onMounted(() => {
     /**
      * get proportions from source shape element for slot
      */
     const { width, height } = shapeImgElement.value[0].getBoundingClientRect()
-    shapeSlotElement.value.style.width = `${width}px`
-    shapeSlotElement.value.style.height = `${height}px`
+    shapeSlotElement.value.forEach(element => {
+        element.style.width = `${width + 4}px`
+        element.style.height = `${height + 4}px`
+    });
+
 })
 
-const getActiveShapes = () => {
-    return props.data.shape_categories.find(category => category.id === activeCategory.value).shapes
+const getActiveCategoryIndex = computed(() => {
+    return shape_categories.value.findIndex(category => category.id === activeCategory.value)
+})
+
+const getActiveShapes = computed(() => {
+    return shape_categories.value.find(category => category.id === activeCategory.value).shapes
+})
+
+/**
+ * Draggable-------------
+ */
+
+const slots = ref(Array(8).fill(null))
+
+const onStartShapes = (event, shape) => {
+    event.dataTransfer.dropEffect = 'move'
+    event.dataTransfer.effectAllowed = 'move'
+    event.dataTransfer.setData('itemId', shape.id)
 }
-const activeShapes = ref(getActiveShapes())
+
+function swapSlots(dragged, repleceable) {
+    const temp = slots.value[repleceable]
+    slots.value[repleceable] = slots.value[dragged]
+    slots.value[dragged] = temp
+}
+
+const onStartSlots = (event, dragIndex) => {
+    event.dataTransfer.dropEffect = 'move'
+    event.dataTransfer.effectAllowed = 'move'
+    event.dataTransfer.setData('dragIndex', dragIndex)
+}
+
+const onDrop = (event, slotIndex) => {
+    const itemId = Number(event.dataTransfer.getData('itemId'))
+    if(itemId) {
+        const item = getActiveShapes.value.find((shape) => shape.id === itemId)
+        slots.value[slotIndex] = item
+        shape_categories.value[getActiveCategoryIndex.value].shapes =
+            shape_categories.value[getActiveCategoryIndex.value].shapes.filter(shape => shape.id !== itemId)
+        return
+    } else {
+        const dragIndex = Number(event.dataTransfer.getData('dragIndex'))
+        if(dragIndex === null){
+            throw new Error("Идентификатор перемещаемого слота пустой");
+        }
+        swapSlots(dragIndex, slotIndex)
+    }
+}
+
+
+function validate(result){
+    if(result.some(item => item === null)){
+        throw new Error('Результат имеет пустую ячейку')
+    }
+    return result
+}
+
 
 </script>
 
 <template>
 
     <Head title="Фигуры"></Head>
-    <div class="aspect-frame">
 
+    <div class="aspect-frame">
         <div class="shape-slots">
-            <div class="shape-slot" ref="shapeSlotElement">
+            <div class="shape-slot" ref="shapeSlotElement"
+            v-for="(slot, index) in slots" :key="slot?.id"
+            @drop="onDrop($event, index)"
+            @dragstart="onStartSlots($event, index)"
+            @dragenter.prevent
+            @dragover.prevent
+            >
+                <div v-if="slot === null"></div>
+                <img v-else class="shape" ref="shapeImgElement" alt="" :src="'/' + slot.filepath">
 
             </div>
         </div>
         <div class="tabs-rows">
             <div class="category-tab" @click="setActiveCategory(shape_category.id)"
-                v-for="shape_category in data.shape_categories" :key="shape_category.id">
+                v-for="shape_category in shape_categories" :key="shape_category.id">
                 <h2 id="get-style" :style="[activeCategory === shape_category.id ? activeCategoryStyle : '']">
                     {{ shape_category.name }}
                 </h2>
             </div>
         </div>
-        <draggable class="grid-shapes" v-model="activeShapes" group="shapes" item-key="id">
-            <template #item="{ element }">
-                <img class="shape" ref="shapeImgElement" alt="some image" :src="'/' + element.filepath">
-            </template>
-        </draggable>
-        <!-- </div> -->
+        <div class="grid-shapes">
+            <div class="shape" v-for="shape in getActiveShapes"
+            draggable="true"
+            @dragstart="onStartShapes($event, shape)"
+            >
+                <img class="shape" ref="shapeImgElement" alt="some image" :src="'/' + shape.filepath">
+            </div>
+        </div>
+
+        <NextStep :aspect_data="slots" :aspect_id="props.aspect_id"/>
+        <!-- :validate="validate" -->
+
     </div>
+
 </template>
 
 <style lang="scss" scoped>
@@ -88,11 +160,23 @@ h2 {
 .shape {
     width: 90;
     height: 90;
+    cursor:pointer;
 }
 
 .grid-shapes {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
+}
+
+.shape-slots{
+    display: flex;
+    flex-wrap: wrap;
+
+    .shape-slot{
+        background-color: $body-background;
+        margin: 1rem 4px;
+        border: 2px solid rgba($color: $blue-gray-hover, $alpha: 1.0)
+    }
 }
 </style>
