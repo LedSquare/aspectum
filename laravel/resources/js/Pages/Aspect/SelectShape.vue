@@ -1,5 +1,5 @@
 <script setup>
-import { Head } from '@inertiajs/inertia-vue3'
+import { Head } from '@inertiajs/vue3'
 import NextStep from '@/Components/Aspect/Buttons/NextStep.vue'
 import ErrorMessage from '@/Components/Errors/ErrorMessage.vue';
 import { ref, onMounted, computed, toRef } from 'vue'
@@ -67,7 +67,7 @@ const onStartSlots = (event, dragIndex) => {
 
 const onDrop = (event, slotIndex) => {
     const itemId = Number(event.dataTransfer.getData('itemId'))
-    if(itemId) {
+    if (itemId) {
         const item = getActiveShapes.value.find((shape) => shape.id === itemId)
         slots.value[slotIndex] = item
         shape_categories.value[getActiveCategoryIndex.value].shapes =
@@ -75,7 +75,7 @@ const onDrop = (event, slotIndex) => {
         return
     } else {
         const dragIndex = Number(event.dataTransfer.getData('dragIndex'))
-        if(dragIndex === null){
+        if (dragIndex === null) {
             throw new Error("Идентификатор перемещаемого слота пустой");
         }
         swapSlots(dragIndex, slotIndex)
@@ -83,8 +83,8 @@ const onDrop = (event, slotIndex) => {
 }
 
 
-function validate(result){
-    if(result.some(item => item === null)){
+function validate(result) {
+    if (result.some(item => item === null)) {
         throw new Error('Результат имеет пустую ячейку')
     }
     return result
@@ -99,13 +99,9 @@ function validate(result){
 
     <div class="aspect-frame">
         <div class="shape-slots">
-            <div class="shape-slot" ref="shapeSlotElement"
-            v-for="(slot, index) in slots" :key="slot?.id"
-            @drop="onDrop($event, index)"
-            @dragstart="onStartSlots($event, index)"
-            @dragenter.prevent
-            @dragover.prevent
-            >
+            <div class="shape-slot" ref="shapeSlotElement" v-for="(slot, index) in slots" :key="slot?.id"
+                @drop="onDrop($event, index)" @dragstart="onStartSlots($event, index)" @dragenter.prevent
+                @dragover.prevent>
                 <div v-if="slot === null"></div>
                 <img v-else class="shape" ref="shapeImgElement" alt="" :src="'/' + slot.filepath">
 
@@ -120,15 +116,13 @@ function validate(result){
             </div>
         </div>
         <div class="grid-shapes">
-            <div class="shape" v-for="shape in getActiveShapes"
-            draggable="true"
-            @dragstart="onStartShapes($event, shape)"
-            >
+            <div class="shape" v-for="shape in getActiveShapes" draggable="true"
+                @dragstart="onStartShapes($event, shape)">
                 <img class="shape" ref="shapeImgElement" alt="some image" :src="'/' + shape.filepath">
             </div>
         </div>
 
-        <NextStep :aspect_data="slots" :aspect_id="props.aspect_id"/>
+        <NextStep :aspect_data="slots" :aspect_id="props.aspect_id" />
         <!-- :validate="validate" -->
 
     </div>
@@ -160,7 +154,7 @@ h2 {
 .shape {
     width: 90;
     height: 90;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .grid-shapes {
@@ -169,11 +163,11 @@ h2 {
     gap: 1rem;
 }
 
-.shape-slots{
+.shape-slots {
     display: flex;
     flex-wrap: wrap;
 
-    .shape-slot{
+    .shape-slot {
         background-color: $body-background;
         margin: 1rem 4px;
         border: 2px solid rgba($color: $blue-gray-hover, $alpha: 1.0)

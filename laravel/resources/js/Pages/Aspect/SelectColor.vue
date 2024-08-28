@@ -1,5 +1,5 @@
 <script setup>
-import { Head } from '@inertiajs/inertia-vue3'
+import { Head } from '@inertiajs/vue3'
 import NextStep from '@/Components/Aspect/Buttons/NextStep.vue'
 import WordModal from '@/Components/Aspect/Modals/WordColorModal.vue'
 
@@ -53,7 +53,7 @@ const setColorOfWord = (emitWord, emitColor) => {
             @selectColor="setColorOfWord" />
 
         <div class="word-color-box">
-            <div @click="clickWord(word)" class="word" v-for="(word, id) in  data.words " :key="word.id">
+            <div @click="clickWord(word)" class="word" v-for="(word, id) in data.words " :key="word.id">
                 <div :style="['color: ' + (word.colorCode ? word.colorCode + '; cursor: default' : 'white')]">
                     {{ word.name }}
                 </div>

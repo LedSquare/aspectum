@@ -1,5 +1,5 @@
 <script setup>
-import { useForm } from '@inertiajs/inertia-vue3'
+import { useForm, router } from '@inertiajs/vue3'
 import { ref, toRaw } from 'vue'
 import ErrorMessage from '@/Components/Errors/ErrorMessage.vue';
 
@@ -8,6 +8,7 @@ const props = defineProps({
     aspect_data: { type: Array, required: true },
     // validate: {type: Function, required: false}
 });
+
 
 
 const form = useForm({
@@ -30,8 +31,8 @@ function storeAspect() {
     //         return
     //     }
     // }
-
-    form.post(route('aspect.store', form.aspect_id))
+    router.post(`aspect/next-step/${props.aspect_id.value}`, props.aspect_data)
+    // form.post(route('aspect.store', form.aspect_id))
 }
 
 

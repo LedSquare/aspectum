@@ -1,5 +1,5 @@
 <script setup>
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 import NextStep from '../../Components/Aspect/Buttons/NextStep.vue';
 import { ref } from 'vue';
 

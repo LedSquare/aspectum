@@ -2,6 +2,9 @@ import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 
+// "@inertiajs/inertia": "^0.11.1",
+// "@inertiajs/inertia-vue3": "^0.6.0",
+
 export default defineConfig({
     server: {
         host: '0.0.0.0',

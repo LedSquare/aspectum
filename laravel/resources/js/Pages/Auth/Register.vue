@@ -1,6 +1,6 @@
 <script setup>
 import InputGroup from '../../Components/Forms/InputGroup.vue';
-import { Head, useForm } from '@inertiajs/inertia-vue3'
+import { Head, useForm } from '@inertiajs/vue3'
 
 const props = defineProps({
     title: String
