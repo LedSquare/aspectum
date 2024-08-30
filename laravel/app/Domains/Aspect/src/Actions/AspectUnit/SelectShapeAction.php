@@ -5,13 +5,24 @@ namespace Aspect\Actions\AspectUnit;
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Models\Stages\Shape\ShapeCategory;
+use Aspect\Units\DTO\WordDTO;
 use Inertia\Inertia;
 
 class SelectShapeAction implements AspectActionInterface
 {
     public function action(array $data, AspectUnitInterface $aspectUnit): mixed
     {
-        dd($data);
+        $collection = collect();
+        $shapes = $data['aspect_data'];
+        $words = $aspectUnit->getWordsDTO();
+        foreach ($words as $index => $word) {
+            $word->shapeId = $shapes[$index]['name'];
+        }
+        die;
+        $aspectUnit->words[$aspectUnit->currentStep] = $collection;
+
+
+        return $aspectUnit;
     }
 
     public function getParameters(AspectUnitInterface $aspectUnit): mixed
@@ -19,6 +30,7 @@ class SelectShapeAction implements AspectActionInterface
         return Inertia::render('Aspect/SelectShape', [
             'aspect_id' => $aspectUnit->aspectId,
             'data' => [
+                'words' => $aspectUnit->getWordsDTO(),
                 'shape_categories' => ShapeCategory::with('shapes')->get(),
             ],
         ]);

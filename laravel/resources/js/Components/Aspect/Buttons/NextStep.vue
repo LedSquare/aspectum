@@ -1,19 +1,13 @@
 <script setup>
 import { useForm, router } from '@inertiajs/vue3'
-import { ref, toRaw } from 'vue'
+import { ref, onMounted } from 'vue'
 import ErrorMessage from '@/Components/Errors/ErrorMessage.vue';
 
 const props = defineProps({
     aspect_id: Number,
     aspect_data: { type: Array, required: true },
-    // validate: {type: Function, required: false}
-});
-
-
-
-const form = useForm({
-    aspect_id: props.aspect_id,
-    aspect_data: props.aspect_data,
+    example: {required:false},
+    validate: {type: Function, required: false}
 });
 
 const errorMessage = ref(null)
@@ -22,26 +16,31 @@ const clearMessage = () => {
     errorMessage.value = null
 }
 
-function storeAspect() {
-    // if(props.validate){
-    //     try {
-    //         props.validate(props.aspect_data)
-    //     } catch (error) {
-    //         errorMessage.value = error.message
-    //         return
-    //     }
-    // }
-    router.post(`aspect/next-step/${props.aspect_id.value}`, props.aspect_data)
-    // form.post(route('aspect.store', form.aspect_id))
+
+const storeAspect = () => {
+    if(props.validate){
+        try {
+            props.validate(props.aspect_data)
+        } catch (error) {
+            errorMessage.value = error.message
+            return
+        }
+    }
+
+    const form = useForm({
+        aspect_id: props.aspect_id,
+        aspect_data: props.aspect_data,
+    });
+    form.post(route('aspect.store', props.aspect_id))
 }
 
 
 </script>
 <template>
     <div class="button-box">
-        <!-- <ErrorMessage :message="errorMessage" @clearMessage="clearMessage"/> -->
+        <ErrorMessage :message="errorMessage" @clearMessage="clearMessage"/>
 
-        <button @click="storeAspect()" class="step-button">
+        <button @click="storeAspect" class="step-button">
             Следующий шаг
         </button>
     </div>

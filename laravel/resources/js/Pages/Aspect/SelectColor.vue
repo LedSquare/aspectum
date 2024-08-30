@@ -50,7 +50,7 @@ const setColorOfWord = (emitWord, emitColor) => {
     <Head title="Цвет" />
     <div class="aspect-frame">
         <WordModal :modalSwitch="modalSwitch" :colors="props.data.colors" :word="clickedWord" @offModal="offModal"
-            @selectColor="setColorOfWord" />
+            @selectColor="setColorOfWord"/>
 
         <div class="word-color-box">
             <div @click="clickWord(word)" class="word" v-for="(word, id) in data.words " :key="word.id">

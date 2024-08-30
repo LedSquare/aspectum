@@ -10,6 +10,7 @@ use Aspect\Exceptions\AspectDomainException;
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Models\Aspect;
+use Aspect\Units\DTO\WordDTO;
 use Inertia\Response;
 
 class AspectV1Unit implements AspectUnitInterface
@@ -67,6 +68,32 @@ class AspectV1Unit implements AspectUnitInterface
 
     }
 
+    /**
+     *
+     * @param integer|null $wordsIndex
+     * @return \Illuminate\Support\Collection<WordDTO>
+     */
+    public function getWordsDTO(int $wordsIndex = null): \Illuminate\Support\Collection
+    {
+        $collection = collect();
+        $wordsIndex
+            ? $wordsFromUnit = $this->words[$wordsIndex]
+            : $wordsFromUnit = end($this->words);
+
+        foreach ($wordsFromUnit as $word) {
+            $collection->push(
+                new WordDTO(
+                    id: $word['id'],
+                    order: $word['order'],
+                    name: $word['name'],
+                    colorCode: $word['colorCode'],
+                    shapeId: $word['shapeId'],
+                )
+            );
+        }
+        return $collection;
+    }
+
     public function saveUnit($instance): bool
     {
         $aspect = Aspect::findOrFail($instance->aspectId);
@@ -86,8 +113,9 @@ class AspectV1Unit implements AspectUnitInterface
         $actionClass = $this->getActionClassFromCurrentStep();
 
         $actionClass->action($data, $this);
-
-        $this->currentStep += 1;
+        if ($this->currentStep < 3) {
+            $this->currentStep += 1;
+        }
 
         $this->saveUnit($this);
 
@@ -99,6 +127,7 @@ class AspectV1Unit implements AspectUnitInterface
     {
         return new AspectV1Unit::$steps[$this->currentStep];
     }
+
 
     // public function incrementStep(): void
     // {

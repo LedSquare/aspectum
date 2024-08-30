@@ -2,6 +2,7 @@
 
 namespace Aspect\Interfaces\Units;
 
+use Aspect\Units\DTO\WordDTO;
 use Inertia\Response;
 
 /**
@@ -19,5 +20,9 @@ interface AspectUnitInterface
 
     public function nextStep(array $data): mixed;
 
-    // public function selectStepOption(array $data, bool $store = null): Response;
+    /**
+     * @return \Illuminate\Support\Collection<WordDTO>
+     */
+    public function getWordsDTO(int $wordsIndex = null): \Illuminate\Support\Collection;
+
 }

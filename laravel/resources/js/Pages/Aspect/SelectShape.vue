@@ -3,6 +3,7 @@ import { Head } from '@inertiajs/vue3'
 import NextStep from '@/Components/Aspect/Buttons/NextStep.vue'
 import ErrorMessage from '@/Components/Errors/ErrorMessage.vue';
 import { ref, onMounted, computed, toRef } from 'vue'
+import _ from 'lodash'
 
 const props = defineProps({
     title: String,
@@ -10,7 +11,11 @@ const props = defineProps({
     aspect_id: Number,
 });
 
-const shape_categories = toRef(props.data.shape_categories)
+const clonedProps = _.cloneDeep(props)
+
+console.log(clonedProps.data.words)
+// JSON.parse(JSON.stringify(props))
+const shape_categories = ref(clonedProps.data.shape_categories)
 
 const activeCategory = ref(1);
 const setActiveCategory = (categoryId) => {
@@ -70,6 +75,7 @@ const onDrop = (event, slotIndex) => {
     if (itemId) {
         const item = getActiveShapes.value.find((shape) => shape.id === itemId)
         slots.value[slotIndex] = item
+        // console.log(shape_categories.value[getActiveCategoryIndex.value])
         shape_categories.value[getActiveCategoryIndex.value].shapes =
             shape_categories.value[getActiveCategoryIndex.value].shapes.filter(shape => shape.id !== itemId)
         return
@@ -81,7 +87,6 @@ const onDrop = (event, slotIndex) => {
         swapSlots(dragIndex, slotIndex)
     }
 }
-
 
 function validate(result) {
     if (result.some(item => item === null)) {
@@ -103,7 +108,7 @@ function validate(result) {
                 @drop="onDrop($event, index)" @dragstart="onStartSlots($event, index)" @dragenter.prevent
                 @dragover.prevent>
                 <div v-if="slot === null"></div>
-                <img v-else class="shape" ref="shapeImgElement" alt="" :src="'/' + slot.filepath">
+                <img v-if="slot && slot.filepath" class="shape" ref="shapeImgElement" alt="" :src="'/' + slot.filepath">
 
             </div>
         </div>
@@ -122,8 +127,7 @@ function validate(result) {
             </div>
         </div>
 
-        <NextStep :aspect_data="slots" :aspect_id="props.aspect_id" />
-        <!-- :validate="validate" -->
+        <NextStep :validate="validate" :aspect_data="slots" :aspect_id="props.aspect_id" />
 
     </div>
 
