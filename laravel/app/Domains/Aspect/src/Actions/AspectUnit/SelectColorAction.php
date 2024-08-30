@@ -32,8 +32,8 @@ class SelectColorAction implements AspectActionInterface
     public function getParameters(AspectUnitInterface $aspectUnit): mixed
     {
         return Inertia::render('Aspect/SelectColor', [
+            'aspect_id' => $aspectUnit->aspectId,
             'data' => [
-                'aspect_id' => $aspectUnit->aspectId,
                 'colors' => Color::all(),
                 'words' => end($aspectUnit->words),
             ]

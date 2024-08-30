@@ -11,9 +11,9 @@ const props = defineProps({
     aspect_id: Number,
 });
 
-const deletedColors = ref([]);
+const deletedColors = ref([])
 const modalSwitch = ref(false)
-const clickedWord = ref(null);
+const clickedWord = ref(null)
 
 const emit = defineEmits(['rollIndexInModal'])
 
@@ -59,9 +59,8 @@ const setColorOfWord = (emitWord, emitColor) => {
                 </div>
             </div>
 
-
         </div>
-        <NextStep :aspect_data="props.data.words" :aspect_id="props.data.aspect_id"></NextStep>
+        <NextStep :aspect_data="props.data.words" :aspect_id="props.aspect_id"></NextStep>
     </div>
 
 </template>
