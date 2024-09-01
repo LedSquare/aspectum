@@ -12,15 +12,21 @@ class SelectShapeAction implements AspectActionInterface
 {
     public function action(array $data, AspectUnitInterface $aspectUnit): mixed
     {
-        $collection = collect();
-        $shapes = $data['aspect_data'];
-        $words = $aspectUnit->getWordsDTO();
-        foreach ($words as $index => $word) {
-            $word->shapeId = $shapes[$index]['name'];
-        }
-        die;
-        $aspectUnit->words[$aspectUnit->currentStep] = $collection;
+        $dataWords = $data['aspect_data'];
+        $wordsDTO = collect();
 
+        foreach ($dataWords as $word) {
+            $wordsDTO->push(
+                new WordDTO(
+                    id: $word['id'],
+                    order: $word['order'],
+                    name: $word['name'],
+                    colorCode: $word['colorCode'],
+                    shapeId: $word['shapeId'],
+                )
+            );
+        }
+        $aspectUnit->words[$aspectUnit->currentStep] = $wordsDTO;
 
         return $aspectUnit;
     }

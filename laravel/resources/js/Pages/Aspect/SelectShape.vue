@@ -13,9 +13,8 @@ const props = defineProps({
 
 const clonedProps = _.cloneDeep(props)
 
-console.log(clonedProps.data.words)
-// JSON.parse(JSON.stringify(props))
 const shape_categories = ref(clonedProps.data.shape_categories)
+const words = ref(clonedProps.data.words)
 
 const activeCategory = ref(1);
 const setActiveCategory = (categoryId) => {
@@ -60,8 +59,11 @@ const onStartShapes = (event, shape) => {
 
 function swapSlots(dragged, repleceable) {
     const temp = slots.value[repleceable]
+    words.value[repleceable].shapeId = slots.value[dragged].id
+    words.value[dragged].shapeId = temp.id
     slots.value[repleceable] = slots.value[dragged]
     slots.value[dragged] = temp
+
 }
 
 const onStartSlots = (event, dragIndex) => {
@@ -75,7 +77,7 @@ const onDrop = (event, slotIndex) => {
     if (itemId) {
         const item = getActiveShapes.value.find((shape) => shape.id === itemId)
         slots.value[slotIndex] = item
-        // console.log(shape_categories.value[getActiveCategoryIndex.value])
+        words.value[slotIndex].shapeId = item.id
         shape_categories.value[getActiveCategoryIndex.value].shapes =
             shape_categories.value[getActiveCategoryIndex.value].shapes.filter(shape => shape.id !== itemId)
         return
@@ -89,12 +91,11 @@ const onDrop = (event, slotIndex) => {
 }
 
 function validate(result) {
-    if (result.some(item => item === null)) {
+    if (result.some(item => item.shapeId === null)) {
         throw new Error('Результат имеет пустую ячейку')
     }
     return result
 }
-
 
 </script>
 
@@ -104,13 +105,20 @@ function validate(result) {
 
     <div class="aspect-frame">
         <div class="shape-slots">
-            <div class="shape-slot" ref="shapeSlotElement" v-for="(slot, index) in slots" :key="slot?.id"
+            <div class="shape-container" v-for="(slot, index) in slots" :key="slot?.id">
+                <div class="shape-slot"
+                ref="shapeSlotElement"
                 @drop="onDrop($event, index)" @dragstart="onStartSlots($event, index)" @dragenter.prevent
-                @dragover.prevent>
-                <div v-if="slot === null"></div>
-                <img v-if="slot && slot.filepath" class="shape" ref="shapeImgElement" alt="" :src="'/' + slot.filepath">
-
+                @dragover.prevent
+                >
+                    <div v-if="slot === null"></div>
+                    <img v-if="slot && slot.filepath" class="shape" ref="shapeImgElement" alt="" :src="'/' + slot.filepath">
+                </div>
+                <div class="word">
+                    {{ words[index].name }}
+                </div>
             </div>
+
         </div>
         <div class="tabs-rows">
             <div class="category-tab" @click="setActiveCategory(shape_category.id)"
@@ -127,7 +135,7 @@ function validate(result) {
             </div>
         </div>
 
-        <NextStep :validate="validate" :aspect_data="slots" :aspect_id="props.aspect_id" />
+        <NextStep :validate="validate" :aspect_data="words" :aspect_id="props.aspect_id" />
 
     </div>
 
@@ -170,6 +178,15 @@ h2 {
 .shape-slots {
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 2rem;
+
+    .shape-container{
+        margin: 1rem 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: $blue-light;
+    }
 
     .shape-slot {
         background-color: $body-background;
