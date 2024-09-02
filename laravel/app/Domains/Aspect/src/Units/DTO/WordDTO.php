@@ -4,15 +4,27 @@ namespace Aspect\Units\DTO;
 
 final class WordDTO
 {
+
     public function __construct(
         public int $id,
         public int $order,
         public string $name,
         public ?string $colorCode,
         public ?int $shapeId,
+        public ?string $shapeColorCode,
     ) {
     }
 
-
+    public static function make(array $wordData, int $index): self
+    {
+        return new WordDTO(
+            $wordData['id'],
+            $index,
+            $wordData['name'],
+            $wordData['colorCode'] ?? null,
+            $wordData['shapeId'] ?? null,
+            $wordData['shapeColorCode'] ?? null,
+        );
+    }
 
 }

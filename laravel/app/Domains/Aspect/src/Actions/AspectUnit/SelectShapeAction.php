@@ -15,15 +15,9 @@ class SelectShapeAction implements AspectActionInterface
         $dataWords = $data['aspect_data'];
         $wordsDTO = collect();
 
-        foreach ($dataWords as $word) {
+        foreach ($dataWords as $index => $word) {
             $wordsDTO->push(
-                new WordDTO(
-                    id: $word['id'],
-                    order: $word['order'],
-                    name: $word['name'],
-                    colorCode: $word['colorCode'],
-                    shapeId: $word['shapeId'],
-                )
+                WordDTO::make($word, $index)
             );
         }
         $aspectUnit->words[$aspectUnit->currentStep] = $wordsDTO;

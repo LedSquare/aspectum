@@ -2,14 +2,16 @@
 import { Head } from '@inertiajs/vue3'
 import NextStep from '@/Components/Aspect/Buttons/NextStep.vue'
 import WordModal from '@/Components/Aspect/Modals/WordColorModal.vue'
-
-import { ref } from 'vue';
+import { ref } from 'vue'
+import _ from 'lodash'
 
 const props = defineProps({
     title: String,
     data: Array | Object,
     aspect_id: Number,
 });
+
+const clonedProps = _.cloneDeep(props)
 
 const deletedColors = ref([])
 const modalSwitch = ref(false)
@@ -51,7 +53,6 @@ const setColorOfWord = (emitWord, emitColor) => {
     <div class="aspect-frame">
         <WordModal :modalSwitch="modalSwitch" :colors="props.data.colors" :word="clickedWord" @offModal="offModal"
             @selectColor="setColorOfWord"/>
-
         <div class="word-color-box">
             <div @click="clickWord(word)" class="word" v-for="(word, id) in data.words " :key="word.id">
                 <div :style="['color: ' + (word.colorCode ? word.colorCode + '; cursor: default' : 'white')]">

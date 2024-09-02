@@ -11,6 +11,7 @@ const props = defineProps({
 
 const selectedWords = ref([])
 
+
 function addWord(word) {
     const index = selectedWords.value.findIndex((item) => item === word);
 

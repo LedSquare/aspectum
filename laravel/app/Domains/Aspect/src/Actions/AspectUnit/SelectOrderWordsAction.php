@@ -4,24 +4,18 @@ namespace Aspect\Actions\AspectUnit;
 
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
-use Aspect\Models\Stages\Color;
 use Aspect\Units\DTO\WordDTO;
 use Inertia\Inertia;
 
-class SelectColorAction implements AspectActionInterface
+class SelectOrderWordsAction implements AspectActionInterface
 {
     public function action(array $data, AspectUnitInterface $aspectUnit): mixed
     {
         $collection = collect();
+
         foreach ($data['aspect_data'] as $index => $word) {
             $collection->push(
-                new WordDTO(
-                    $word['id'],
-                    $index,
-                    $word['name'],
-                    $word['colorCode'],
-                    null,
-                )
+                WordDTO::make($word, $index)
             );
         }
         $aspectUnit->words[$aspectUnit->currentStep] = $collection;
@@ -31,12 +25,12 @@ class SelectColorAction implements AspectActionInterface
 
     public function getParameters(AspectUnitInterface $aspectUnit): mixed
     {
-        return Inertia::render('Aspect/SelectColor', [
-            'aspect_id' => $aspectUnit->aspectId,
+        return Inertia::render('Aspect/SelectOrderWords', [
             'data' => [
-                'colors' => Color::all(),
-                'words' => end($aspectUnit->words),
-            ]
+                'words' => $aspectUnit->getWordsDTO()
+            ],
+            'aspect_id' => $aspectUnit->aspectId,
+            'title' => 'Приоритет понятий'
         ]);
     }
 }
