@@ -3,6 +3,7 @@
 namespace Aspect\Units;
 
 use Aspect\Actions\AspectUnit\MoodLevelAction;
+use Aspect\Actions\AspectUnit\SelectColorShapeAction;
 use Aspect\Actions\AspectUnit\SelectColorWordAction;
 use Aspect\Actions\AspectUnit\SelectOrderShapesAction;
 use Aspect\Actions\AspectUnit\SelectOrderWordsAction;
@@ -31,7 +32,8 @@ class AspectV1Unit implements AspectUnitInterface
         SelectShapeAction::class,
         SelectOrderWordsAction::class,
         SelectColorWordAction::class,
-        SelectOrderShapesAction::class
+        SelectOrderShapesAction::class,
+        SelectColorShapeAction::class,
     ];
 
     public array $moodLevels;
@@ -92,7 +94,7 @@ class AspectV1Unit implements AspectUnitInterface
                     name: $word['name'],
                     colorCode: $word['colorCode'],
                     shapeId: $word['shapeId'],
-                    shapeColorCode: $word['shapeColorCode']
+                    shapeColorCode: $word['shapeColorCode'],
                 )
             );
         }
@@ -118,7 +120,7 @@ class AspectV1Unit implements AspectUnitInterface
         $actionClass = $this->getActionClassFromCurrentStep();
 
         $actionClass->action($data, $this);
-        if ($this->currentStep < 5) {
+        if ($this->currentStep < 6) {
             $this->currentStep += 1;
         }
 

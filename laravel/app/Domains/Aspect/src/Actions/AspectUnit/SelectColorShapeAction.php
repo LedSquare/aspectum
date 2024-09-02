@@ -28,7 +28,7 @@ class SelectColorShapeAction implements AspectActionInterface
     {
         $words = $aspectUnit->getWordsDTO();
 
-        return Inertia::render('Aspect/SelectColor', [
+        return Inertia::render('Aspect/SelectColorShape', [
             'aspect_id' => $aspectUnit->aspectId,
             'data' => [
                 'colors' => Color::all(),

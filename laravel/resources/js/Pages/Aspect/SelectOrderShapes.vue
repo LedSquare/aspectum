@@ -66,11 +66,6 @@ const findShape = (word) => {
 </template>
 
 <style lang="scss" scoped>
-.tabs-rows {
-    display: flex;
-    flex-direction: row;
-
-}
 
 h2 {
     font-size: 1.2rem;
