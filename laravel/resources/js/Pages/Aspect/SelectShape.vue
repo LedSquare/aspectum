@@ -67,6 +67,14 @@ function swapSlots(dragged, repleceable) {
 
 }
 
+function returnShape(slotIndex){
+    const slot = slots.value[slotIndex]
+    if(slot !== null){
+        shape_categories.value.find(category => category.id === slot.a_shape_category_id).shapes
+            .push(slot)
+    }
+    return
+}
 const onStartSlots = (event, dragIndex) => {
     event.dataTransfer.dropEffect = 'move'
     event.dataTransfer.effectAllowed = 'move'
@@ -76,6 +84,7 @@ const onStartSlots = (event, dragIndex) => {
 const onDrop = (event, slotIndex) => {
     const itemId = Number(event.dataTransfer.getData('itemId'))
     if (itemId) {
+        returnShape(slotIndex)
         const item = getActiveShapes.value.find((shape) => shape.id === itemId)
         slots.value[slotIndex] = item
         words.value[slotIndex].shapeId = item.id
