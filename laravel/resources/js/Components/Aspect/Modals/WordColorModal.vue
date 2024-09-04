@@ -36,7 +36,7 @@
 </template>
 <script setup>
 
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted} from 'vue';
 import QuestionIcon from '@/Components/svg/icons/QuestionIcon.vue'
 
 const props = defineProps({
@@ -107,11 +107,6 @@ const onWheel = (e) => {
         rightRollColor()
 }
 
-
-function find(element, findedElement){
-    element === findedElement
-    return 'ok';
-}
 
 </script>
 
