@@ -13,7 +13,6 @@ const props = defineProps({
 
 const clonedProps = _.cloneDeep(props)
 const modalSwitch = ref(false)
-const selectedShape = ref(null)
 const selectedWord = ref(null)
 
 const words = ref(clonedProps.data.words)
@@ -23,11 +22,13 @@ const shapes = ref(clonedProps.data.shapes)
 
 
 const findShape = (word) => {
+    if(word === null)
+        return null
+
     return shapes.value.find(shape => shape.id === word.shapeId)
 }
 
 const select = (word) => {
-    selectedShape.value = findShape(word)
     selectedWord.value = word
     modalSwitch.value = !modalSwitch.value
 }
@@ -40,8 +41,9 @@ const setColor = (wordId, emitColor) => {
     const word = words.value.find(word => word.id === wordId)
     word.shapeColorCode = emitColor.hex_code
 
-    colors.value.filter(color => color.id !== emitColor.id)
+    colors.value = colors.value.filter(color => color.id !== emitColor.id)
     offModal()
+
 }
 
 </script>
@@ -50,8 +52,8 @@ const setColor = (wordId, emitColor) => {
     <Head title="Цвет" />
     <div class="aspect-frame">
         <ShapeModal :modalSwitch="modalSwitch"
-        :colors="props.data.colors"
-        :word="words[0]" :shape="shapes[0]"
+        :colors="colors"
+        :word="selectedWord" :shape="findShape(selectedWord)"
         @offModal="offModal"
         @selectColor="setColor"
         />

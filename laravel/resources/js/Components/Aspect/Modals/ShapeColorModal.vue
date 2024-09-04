@@ -1,6 +1,6 @@
 <script setup>
 
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import QuestionIcon from '@/Components/svg/icons/QuestionIcon.vue'
 
 const props = defineProps({
@@ -15,7 +15,21 @@ const rollIndex = ref(null)
 
 const onOffModal = () => {
     emit('offModal')
+    rollIndex.value = null
 }
+
+const handleKeyEscape = (event) => {
+    if (event.key === 'Escape')
+        onOffModal()
+}
+
+onMounted(() => {
+    window.addEventListener('keydown', handleKeyEscape)
+})
+
+onUnmounted(() => {
+    window.addEventListener('keydown', handleKeyEscape)
+})
 
 const onSelectColor = (word, color) => {
     rollIndex.value = null
@@ -78,7 +92,15 @@ const onWheel = (e) => {
                         <div @click="leftRollColor" class="arrow">
                             &#8249
                         </div>
-                        <img :key="rollIndex" :style="['background: ' + colors[rollIndex]?.hex_code]" @wheel="onWheel" alt="" :src="'/' + shape.filepath">
+
+                        <div v-if="shape === null"></div>
+                        <img v-else
+                        :key="rollIndex"
+                        :style="['background: ' + colors[rollIndex]?.hex_code]"
+                        @wheel="onWheel"
+                        alt="?"
+                        :src="'/' + shape?.filepath">
+
                         <div class="arrow" @click="rightRollColor">
                             &#8250
                         </div>
@@ -127,6 +149,9 @@ const onWheel = (e) => {
     align-items: center;
     display: flex;
 
+    img{
+        border-radius: 10%;
+    }
 
     >div {
         cursor: pointer;

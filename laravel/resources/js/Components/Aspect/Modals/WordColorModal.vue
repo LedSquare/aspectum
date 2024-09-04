@@ -50,7 +50,22 @@ const rollIndex = ref(null)
 
 const onOffModal = () => {
     emit('offModal')
+    rollIndex.value = null
 }
+
+const handleKeyEscape = (event) => {
+    if (event.key === 'Escape')
+        onOffModal()
+}
+
+onMounted(() => {
+    window.addEventListener('keydown', handleKeyEscape)
+})
+
+onUnmounted(() => {
+    window.addEventListener('keydown', handleKeyEscape)
+})
+
 
 const onSelectColor = (word, color) => {
     rollIndex.value = null
