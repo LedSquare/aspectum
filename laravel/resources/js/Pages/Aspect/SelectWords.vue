@@ -24,6 +24,13 @@ function addWord(word) {
         selectedWords.value.push(word);
     }
 }
+
+function validate(words){
+    if (words.length < 8){
+        throw new Error('Количество понятий должно ровняться 8')
+    }
+    return words
+}
 </script>
 
 <template>
@@ -48,7 +55,7 @@ function addWord(word) {
                 </div>
             </div>
         </div>
-        <NextStep :aspect_data="selectedWords" :aspect_id="aspect_id"></NextStep>
+        <NextStep :validate="validate" :aspect_data="selectedWords" :aspect_id="aspect_id"></NextStep>
     </div>
 
 
