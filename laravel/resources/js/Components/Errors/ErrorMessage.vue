@@ -1,26 +1,58 @@
 <script setup>
-import {ref} from 'vue'
+import {onUnmounted, watch} from 'vue'
 
 const props = defineProps({
     message: String,
 })
 
 const emit = defineEmits(['clearMessage'])
+let timerId = null
 
 const onClear = () =>{
     emit('clearMessage')
 }
 
+const startTimer = () => {
+    if(timerId) {
+        clearTimeout(timerId)
+    }
+    timerId =  setTimeout(() => {
+        onClear()
+    }, 4000);
+}
+
+watch(() => props.message, (newMessage) =>{
+    if(newMessage){
+        startTimer()
+    }
+})
+
+onUnmounted(() => {
+    clearTimeout(timerId)
+})
+
 </script>
 
 <template>
-  <div v-if="message" class="error">
-    <p>{{ message }}</p>
-    <button @click="onClear">Закрыть</button>
-  </div>
+    <transition name="modal-animation">
+        <div v-if="message" class="error">
+        <p>{{ message }}</p>
+        <button @click="onClear">Закрыть</button>
+        </div>
+    </transition>
 </template>
 
 <style lang="scss" scoped>
+
+.modal-animation-enter-active,
+.modal-animation-leave-active {
+    transition: opacity 0.3s cubic-bezier(0.52, 0.02, 0.19, 1.02);
+}
+
+.modal-animation-enter-from,
+.modal-animation-leave-to {
+    opacity: 0;
+}
 
 
 .error {
