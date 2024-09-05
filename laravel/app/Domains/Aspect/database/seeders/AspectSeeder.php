@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace App\Domains\Aspect\database\seeders;
 
 use App\Domains\Aspect\database\factories\AspectFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
