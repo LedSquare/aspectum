@@ -35,6 +35,7 @@ class SelectWordsAction implements AspectActionInterface
         return Inertia::render('Aspect/SelectWords', [
             'data' => $words,
             'aspect_id' => $aspectUnit->aspectId,
+            'title' => __('Выбор понятий'),
         ]);
     }
 }

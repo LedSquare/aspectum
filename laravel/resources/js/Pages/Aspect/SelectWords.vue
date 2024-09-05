@@ -25,8 +25,8 @@ function addWord(word) {
     }
 }
 
-function validate(words){
-    if (words.length < 8){
+function validate(words) {
+    if (words.length < 8) {
         throw new Error('Количество понятий должно ровняться 8')
     }
     return words
@@ -35,10 +35,12 @@ function validate(words){
 
 <template>
 
-    <Head title="Выбор понятий" />
+    <Head :title="title" />
     <div class="aspect-frame">
+        <h2>
+            {{ title }}
+        </h2>
         <div class="word-box">
-
             <div class="left-box">
                 <div class="word" @click="addWord(word)" v-if="data" v-for="word in data" :key="word.id">
                     {{ word.name }}

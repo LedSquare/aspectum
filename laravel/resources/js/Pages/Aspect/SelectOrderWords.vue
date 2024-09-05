@@ -1,7 +1,7 @@
 <script setup>
 import { Head } from '@inertiajs/vue3'
 import NextStep from '@/Components/Aspect/Buttons/NextStep.vue'
-import {ref} from 'vue'
+import { ref } from 'vue'
 import _ from 'lodash'
 
 const props = defineProps({
@@ -33,27 +33,25 @@ const onDrop = (event, replaceIndex) => {
 </script>
 
 <template>
-    <Head title="Приоритет понятий" />
 
+    <Head :title="title" />
     <div class="aspect-frame">
+        <h2>
+            {{ title }}
+        </h2>
         <div class="words">
-            <div class="word" v-for="(word, index) in words" :key="word.id"
-                draggable="true"
-                @dragstart="onStart($event, index)"
-                @drop="onDrop($event, index)"
-                @dragenter.prevent
-                @dragover.prevent
-                >
+            <div class="word" v-for="(word, index) in words" :key="word.id" draggable="true"
+                @dragstart="onStart($event, index)" @drop="onDrop($event, index)" @dragenter.prevent @dragover.prevent>
                 {{ word.name }}
             </div>
         </div>
-        <NextStep :aspect_data="words" :aspect_id="clonedProps.aspect_id"/>
+        <NextStep :aspect_data="words" :aspect_id="clonedProps.aspect_id" />
     </div>
 </template>
 
 
 <style lang="scss" scoped>
-.word{
+.word {
     display: flex;
     flex-direction: column;
     margin: 0.5rem;
@@ -62,4 +60,3 @@ const onDrop = (event, replaceIndex) => {
     cursor: pointer;
 }
 </style>
-

@@ -34,7 +34,7 @@ class SelectOrderShapesAction implements AspectActionInterface
                 'shapes' => Shape::whereIn('id', $words->pluck('shapeId'))->get(),
             ],
             'aspect_id' => $aspectUnit->aspectId,
-            'title' => 'Приоритет понятий'
+            'title' => __('Установка приоритетов символов')
         ]);
     }
 }

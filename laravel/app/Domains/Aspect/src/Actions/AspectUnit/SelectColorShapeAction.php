@@ -34,7 +34,8 @@ class SelectColorShapeAction implements AspectActionInterface
                 'colors' => Color::all(),
                 'words' => $words,
                 'shapes' => Shape::whereIn('id', $words->pluck('shapeId'))->get(),
-            ]
+            ],
+            'title' => __('Окраска символов')
         ]);
     }
 }

@@ -20,6 +20,7 @@ class MoodLevelAction implements AspectActionInterface
         return Inertia::render('Aspect/MoodLevel', [
             'data' => [],
             'aspect_id' => $aspectUnit->aspectId,
+            'title' => __('Определение уровня психосоматического состояния')
         ]);
     }
 }

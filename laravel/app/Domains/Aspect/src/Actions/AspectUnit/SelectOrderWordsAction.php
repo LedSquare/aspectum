@@ -30,7 +30,7 @@ class SelectOrderWordsAction implements AspectActionInterface
                 'words' => $aspectUnit->getWordsDTO()
             ],
             'aspect_id' => $aspectUnit->aspectId,
-            'title' => 'Приоритет понятий'
+            'title' => __('Установка приоритетов понятий')
         ]);
     }
 }

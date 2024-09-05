@@ -67,9 +67,9 @@ function swapSlots(dragged, repleceable) {
 
 }
 
-function returnShape(slotIndex){
+function returnShape(slotIndex) {
     const slot = slots.value[slotIndex]
-    if(slot !== null){
+    if (slot !== null) {
         shape_categories.value.find(category => category.id === slot.a_shape_category_id).shapes
             .push(slot)
     }
@@ -111,18 +111,19 @@ function validate(result) {
 
 <template>
 
-    <Head title="Фигуры"></Head>
+    <Head :title="title"></Head>
 
     <div class="aspect-frame">
+        <h2>
+            {{ title }}
+        </h2>
         <div class="shape-slots">
             <div class="shape-container" v-for="(slot, index) in slots" :key="slot?.id">
-                <div class="shape-slot"
-                ref="shapeSlotElement"
-                @drop="onDrop($event, index)" @dragstart="onStartSlots($event, index)" @dragenter.prevent
-                @dragover.prevent
-                >
+                <div class="shape-slot" ref="shapeSlotElement" @drop="onDrop($event, index)"
+                    @dragstart="onStartSlots($event, index)" @dragenter.prevent @dragover.prevent>
                     <div v-if="slot === null"></div>
-                    <img v-if="slot && slot.filepath" class="shape" ref="shapeImgElement" alt="" :src="'/' + slot.filepath">
+                    <img v-if="slot && slot.filepath" class="shape" ref="shapeImgElement" alt=""
+                        :src="'/' + slot.filepath">
                 </div>
                 <div class="word">
                     {{ words[index].name }}
@@ -133,9 +134,9 @@ function validate(result) {
         <div class="tabs-rows">
             <div class="category-tab" @click="setActiveCategory(shape_category.id)"
                 v-for="shape_category in shape_categories" :key="shape_category.id">
-                <h2 id="get-style" :style="[activeCategory === shape_category.id ? activeCategoryStyle : '']">
+                <h3 id="get-style" :style="[activeCategory === shape_category.id ? activeCategoryStyle : '']">
                     {{ shape_category.name }}
-                </h2>
+                </h3>
             </div>
         </div>
         <div class="grid-shapes">
@@ -156,13 +157,6 @@ function validate(result) {
     display: flex;
     flex-direction: row;
 
-}
-
-h2 {
-    font-size: 1.2rem;
-    color: $blue-gray;
-    border-bottom: solid 4px rgba($color: $blue, $alpha: 0);
-    border-radius: 0.1rem;
 }
 
 .category-tab {
@@ -190,7 +184,7 @@ h2 {
     flex-wrap: wrap;
     margin-bottom: 2rem;
 
-    .shape-container{
+    .shape-container {
         margin: 1rem 4px;
         display: flex;
         flex-direction: column;

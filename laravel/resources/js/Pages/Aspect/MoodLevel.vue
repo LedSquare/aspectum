@@ -15,14 +15,10 @@ const moodProcent = ref(0)
 </script>
 <template>
 
-    <Head title="Уровень настроения" />
+    <Head :title="title" />
     <div class="aspect-frame">
-        <h3>
-            Оцените свой
-        </h3>
-        <br>
         <h2>
-            Уровень комфортности
+            {{ title }}
         </h2>
         <div class="mood-level-box">
             <input class="input-range" type="range" v-model="moodProcent" min="0" max="100" @input="updatePercent">
@@ -36,9 +32,10 @@ const moodProcent = ref(0)
 </template>
 
 <style lang="scss" scoped>
-h3{
+h3 {
     color: $blue-gray;
 }
+
 .mood-level-box {
     width: 400px;
     height: 500px;

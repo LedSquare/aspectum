@@ -1,13 +1,12 @@
 <script setup>
-import { useForm, router } from '@inertiajs/vue3'
-import { ref, onMounted } from 'vue'
+import { useForm } from '@inertiajs/vue3'
+import { ref } from 'vue'
 import ErrorMessage from '@/Components/Errors/ErrorMessage.vue';
 
 const props = defineProps({
     aspect_id: Number,
     aspect_data: { type: Array, required: true },
-    example: {required:false},
-    validate: {type: Function, required: false}
+    validate: { type: Function, required: false }
 });
 
 const errorMessage = ref(null)
@@ -17,7 +16,7 @@ const clearMessage = () => {
 }
 
 const storeAspect = () => {
-    if(props.validate){
+    if (props.validate) {
         try {
             props.validate(props.aspect_data)
         } catch (error) {
@@ -37,7 +36,7 @@ const storeAspect = () => {
 </script>
 <template>
     <div class="button-box">
-        <ErrorMessage :message="errorMessage" @clearMessage="clearMessage"/>
+        <ErrorMessage :message="errorMessage" @clearMessage="clearMessage" />
 
         <button @click="storeAspect" class="step-button">
             Следующий шаг
@@ -47,7 +46,7 @@ const storeAspect = () => {
 
 <style lang="scss" scoped>
 .button-box {
-    margin-top: 1em;
+    margin-top: 3rem;
     margin-bottom: 0.1em;
 }
 

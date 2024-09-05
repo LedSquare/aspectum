@@ -30,7 +30,8 @@ class SelectColorWordAction implements AspectActionInterface
             'data' => [
                 'colors' => Color::all(),
                 'words' => $aspectUnit->getWordsDTO(),
-            ]
+            ],
+            'title' => __('Окраска понятий')
         ]);
     }
 }

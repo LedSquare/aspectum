@@ -33,6 +33,7 @@ class SelectShapeAction implements AspectActionInterface
                 'words' => $aspectUnit->getWordsDTO(),
                 'shape_categories' => ShapeCategory::with('shapes')->get(),
             ],
+            'title' => __('Символизация понятий')
         ]);
     }
 }

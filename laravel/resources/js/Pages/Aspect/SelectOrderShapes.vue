@@ -1,8 +1,7 @@
 <script setup>
 import { Head } from '@inertiajs/vue3'
 import NextStep from '@/Components/Aspect/Buttons/NextStep.vue'
-import ErrorMessage from '@/Components/Errors/ErrorMessage.vue'
-import { ref, onMounted, computed, toRef } from 'vue'
+import { ref } from 'vue'
 import _ from 'lodash'
 
 
@@ -40,21 +39,19 @@ const findShape = (word) => {
 
 <template>
 
-    <Head title="Приоритет символов"></Head>
+    <Head :title="title"></Head>
 
     <div class="aspect-frame">
-        <h2>Расставьте символы по красоте</h2>
+        <h2>
+            {{ title }}
+        </h2>
         <div class="shape-slots">
             <div class="shape-container" v-for="(word, index) in words" :key="word.id">
-                <div class="shape-slot"
-                ref="shapeSlotElement"
-                @dragstart="onStart($event, index)"
-                @drop="onDrop($event, index)"
-                @dragenter.prevent
-                @dragover.prevent
-                >
-                <img v-if="findShape(word)" class="shape" ref="shapeImgElement" alt="" :src="'/' + findShape(word).filepath">
-                <div v-else> ? </div>
+                <div class="shape-slot" ref="shapeSlotElement" @dragstart="onStart($event, index)"
+                    @drop="onDrop($event, index)" @dragenter.prevent @dragover.prevent>
+                    <img v-if="findShape(word)" class="shape" ref="shapeImgElement" alt=""
+                        :src="'/' + findShape(word).filepath">
+                    <div v-else> ? </div>
                 </div>
             </div>
         </div>
@@ -66,14 +63,6 @@ const findShape = (word) => {
 </template>
 
 <style lang="scss" scoped>
-
-h2 {
-    font-size: 1.2rem;
-    color: $blue-gray;
-    border-bottom: solid 4px rgba($color: $blue, $alpha: 0);
-    border-radius: 0.1rem;
-}
-
 .shape {
     width: 90;
     height: 90;
@@ -85,7 +74,7 @@ h2 {
     flex-wrap: wrap;
     margin-bottom: 2rem;
 
-    .shape-container{
+    .shape-container {
         margin: 1rem 4px;
         display: flex;
         flex-direction: column;

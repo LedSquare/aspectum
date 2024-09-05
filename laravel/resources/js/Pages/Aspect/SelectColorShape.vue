@@ -22,7 +22,7 @@ const shapes = ref(clonedProps.data.shapes)
 
 
 const findShape = (word) => {
-    if(word === null)
+    if (word === null)
         return null
 
     return shapes.value.find(shape => shape.id === word.shapeId)
@@ -43,29 +43,25 @@ const setColor = (wordId, emitColor) => {
 
     colors.value = colors.value.filter(color => color.id !== emitColor.id)
     offModal()
+    console.log(words)
 
 }
 
 </script>
 <template>
 
-    <Head title="Цвет" />
+    <Head :title="title" />
     <div class="aspect-frame">
-        <ShapeModal :modalSwitch="modalSwitch"
-        :colors="colors"
-        :word="selectedWord" :shape="findShape(selectedWord)"
-        @offModal="offModal"
-        @selectColor="setColor"
-        />
+        <h2>
+            {{ title }}
+        </h2>
+        <ShapeModal :modalSwitch="modalSwitch" :colors="colors" :word="selectedWord" :shape="findShape(selectedWord)"
+            @offModal="offModal" @selectColor="setColor" />
         <div class="shape-slots">
             <div class="shape-slot" v-for="(word, index) in words" :key="word.id">
-            <img v-if="findShape(word)"
-            @click="select(word)"
-            :style="['background: ' + word.shapeColorCode ?? '']"
-            class="shape"
-            alt="" :src="'/' + findShape(word).filepath"
-            >
-            <div v-else> ? </div>
+                <img v-if="findShape(word)" @click="select(word)" :style="['background: ' + word.shapeColorCode ?? '']"
+                    class="shape" alt="" :src="'/' + findShape(word).filepath">
+                <div v-else> ? </div>
             </div>
         </div>
         <NextStep :aspect_data="words" :aspect_id="props.aspect_id"></NextStep>
@@ -74,14 +70,6 @@ const setColor = (wordId, emitColor) => {
 </template>
 
 <style lang="scss" scoped>
-
-h2 {
-    font-size: 1.2rem;
-    color: $blue-gray;
-    border-bottom: solid 4px rgba($color: $blue, $alpha: 0);
-    border-radius: 0.1rem;
-}
-
 .shape {
     width: 90;
     height: 90;
