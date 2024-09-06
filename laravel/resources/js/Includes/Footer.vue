@@ -37,7 +37,9 @@ import { Link } from "@inertiajs/vue3"
 }
 
 footer {
-    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 28px;
     display: flex;
     background-color: $body-background;
     height: 165px;

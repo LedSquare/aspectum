@@ -48,7 +48,7 @@ import HomeIcon from '../Components/svg/icons/HomeIcon.vue'
 
 <style lang="scss" scoped>
 header {
-    padding-top: 32px;
+    padding-top: 28px;
     display: flex;
     background-color: $body-background;
 
