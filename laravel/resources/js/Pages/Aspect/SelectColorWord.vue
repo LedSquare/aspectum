@@ -1,9 +1,9 @@
 <script setup>
-import { Head } from '@inertiajs/vue3'
-import NextStep from '@/Components/Aspect/Buttons/NextStep.vue'
-import WordModal from '@/Components/Aspect/Modals/WordColorModal.vue'
-import { ref } from 'vue'
-import _ from 'lodash'
+import { Head } from "@inertiajs/vue3";
+import NextStep from "@/Components/Aspect/Buttons/NextStep.vue";
+import WordModal from "@/Components/Aspect/Modals/WordColorModal.vue";
+import { ref } from "vue";
+import _ from "lodash";
 
 const props = defineProps({
     title: String,
@@ -11,62 +11,87 @@ const props = defineProps({
     aspect_id: Number,
 });
 
-const clonedProps = _.cloneDeep(props)
+const clonedProps = _.cloneDeep(props);
 
-const deletedColors = ref([])
-const modalSwitch = ref(false)
-const clickedWord = ref(null)
+const deletedColors = ref([]);
+const modalSwitch = ref(false);
+const clickedWord = ref(null);
 
-const emit = defineEmits(['rollIndexInModal'])
+const emit = defineEmits(["rollIndexInModal"]);
 
 const clickWord = (word) => {
-    if (word.colorCode !== (null)) {
-        return
+    if (word.colorCode !== null) {
+        return;
     }
 
-    modalSwitch.value = !modalSwitch.value
-    clickedWord.value = word
-}
-
+    modalSwitch.value = !modalSwitch.value;
+    clickedWord.value = word;
+};
 
 const offModal = () => {
-    modalSwitch.value = false
-}
+    modalSwitch.value = false;
+};
 
 const setColorOfWord = (emitWord, emitColor) => {
-    modalSwitch.value = false
+    modalSwitch.value = false;
 
-    const word = props.data.words.find(word => word.id === emitWord.id)
-    word.colorCode = emitColor.hex_code
+    const word = props.data.words.find((word) => word.id === emitWord.id);
+    word.colorCode = emitColor.hex_code;
 
-    const findedColor = props.data.colors.find(color => color.id === emitColor.id)
-    deletedColors.value.push(findedColor)
-    props.data.colors = props.data.colors.filter(color => color.id !== findedColor.id)
+    const findedColor = props.data.colors.find(
+        (color) => color.id === emitColor.id
+    );
+    deletedColors.value.push(findedColor);
+    props.data.colors = props.data.colors.filter(
+        (color) => color.id !== findedColor.id
+    );
+};
 
+function validate(result) {
+    if (result.some((item) => item.colorCode === null)) {
+        throw new Error("Одно или несколько понятий не окрашены");
+    }
+    return;
 }
-
-
 </script>
 <template>
-
-    <Head :title="title" />
     <div class="aspect-frame">
+        <Head :title="title" />
         <h2>
             {{ title }}
         </h2>
-        <WordModal :modalSwitch="modalSwitch" :colors="props.data.colors" :word="clickedWord" @offModal="offModal"
-            @selectColor="setColorOfWord" />
+        <WordModal
+            :modalSwitch="modalSwitch"
+            :colors="props.data.colors"
+            :word="clickedWord"
+            @offModal="offModal"
+            @selectColor="setColorOfWord"
+        />
         <div class="word-color-box">
-            <div @click="clickWord(word)" class="word" v-for="(word, id) in data.words " :key="word.id">
-                <div :style="['color: ' + (word.colorCode ? word.colorCode + '; cursor: default' : 'white')]">
+            <div
+                @click="clickWord(word)"
+                class="word"
+                v-for="word in data.words"
+                :key="word.id"
+            >
+                <div
+                    :style="[
+                        'color: ' +
+                            (word.colorCode
+                                ? word.colorCode + '; cursor: default'
+                                : 'white'),
+                    ]"
+                >
                     {{ word.name }}
                 </div>
             </div>
-
         </div>
-        <NextStep :aspect_data="props.data.words" :aspect_id="props.aspect_id"></NextStep>
+        <NextStep
+            :validate="validate"
+            :aspect_data="props.data.words"
+            :aspect_id="props.aspect_id"
+        ></NextStep>
     </div>
-
 </template>
 
 <style lang="scss" scoped>
@@ -99,7 +124,7 @@ const setColorOfWord = (emitWord, emitColor) => {
         transition: 0.2s ease-in-out;
     }
 
-    >div {
+    > div {
         cursor: pointer;
     }
 }
