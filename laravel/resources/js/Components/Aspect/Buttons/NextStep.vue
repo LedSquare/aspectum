@@ -59,7 +59,7 @@ const storeAspect = () => {
     font-weight: 700;
     cursor: pointer;
     border: 2px solid $blue;
-    color: black;
+    color: $blue-gray;
     border-radius: 10px;
     transition:
         background-color 0.3s,

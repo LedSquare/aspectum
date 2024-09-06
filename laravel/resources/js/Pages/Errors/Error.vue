@@ -11,7 +11,7 @@ const props = defineProps({
     <div class="error-code">
         <h1>{{ code }}</h1>
     </div>
-    <div style="display: flex; flex-direction: column; justify-content: center; " v-for="(error, key) in errors">
+    <div style="display: flex; flex-direction: column; justify-content: center; " v-for="(error, key) in errors" :key="error">
         <h3>Объект ошибки: {{ key }}</h3>
         <p style="margin: 0.5em;">
             {{ error }}

@@ -40,14 +40,14 @@ footer {
     padding: 10px;
     display: flex;
     background-color: $body-background;
-    height: $header-footer-height;
+    height: 165px;
 
     >div {
         display: flex;
         width: 1180;
         height: 100%;
         padding: 0px 10px;
-        border-radius: 10px;
+        border-radius: 24px;
         font-size: 12px;
         background-color: $blocks-background;
         justify-content: space-between;

@@ -12,7 +12,7 @@
 </template>
 <style lang="scss" scoped>
 .svg {
-    width: 40px;
+    width: 32px;
     transition: 0.2s ease-in-out;
     stroke: $blue-gray;
     fill: $blue-gray;
@@ -20,8 +20,7 @@
 
     &:hover {
         stroke: $blue-gray-hover;
-        fill: #57677e;
-        width: 41px;
+        fill: $blue;
         transition: 0.2s ease-in-out;
     }
 }

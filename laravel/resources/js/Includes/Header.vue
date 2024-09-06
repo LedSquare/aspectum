@@ -48,18 +48,17 @@ import HomeIcon from '../Components/svg/icons/HomeIcon.vue'
 
 <style lang="scss" scoped>
 header {
-    padding: 0px 10px;
+    padding-top: 32px;
     display: flex;
     background-color: $body-background;
-    height: $header-footer-height;
 
 
     >div {
         display: flex;
         width: 1180;
-        height: 100%;
+        height: 72px;
         padding: 0px 10px;
-        border-radius: 10px;
+        border-radius: 24px;
         background-color: $blocks-background;
     }
 
@@ -87,15 +86,16 @@ header {
     display: flex;
     flex-direction: column-reverse;
     height: 80%;
+    justify-content: center;
 
     >p {
-        color: $blue-gray-hover;
+        color: $blue;
         font-weight: bolder;
     }
 }
 
 .logo-mini {
-    width: 95px;
-    height: 65px;
+    width: 85px;
+    height: 55px;
 }
 </style>

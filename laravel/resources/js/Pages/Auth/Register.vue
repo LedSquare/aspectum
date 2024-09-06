@@ -1,10 +1,10 @@
 <script setup>
-import InputGroup from '../../Components/Forms/InputGroup.vue';
-import { Head, useForm } from '@inertiajs/vue3'
+import InputGroup from "../../Components/Forms/InputGroup.vue";
+import { Head, useForm } from "@inertiajs/vue3";
 
 const props = defineProps({
-    title: String
-})
+    title: String,
+});
 
 const form = useForm({
     username: null,
@@ -12,33 +12,65 @@ const form = useForm({
     phone: null,
     password: null,
     password_confirmation: null,
-    gender: 'муж',
-})
+    gender: "муж",
+});
 
 function register() {
-    form.post(route('register'))
+    form.post(route("register"));
 }
-
 </script>
 <template>
     <!-- TODO: Решить вопрос с маской -->
-    <!-- < vue - phone - input > </vue-phone-input> -->
 
-    <Head :title="title" />
     <div class="form-box">
+        <Head :title="title" />
         <div class="form-value">
             <form @click.prevent="register" method="POST">
                 <h2>Регистрация</h2>
-                <input-group :error="form.errors.username" v-model="form.username" id="username" type="text"
-                    :required="true"> Логин </input-group>
-                <input-group :error="form.errors.email" v-model="form.email" id="email" type="email" :required="true">
-                    Почта </input-group>
-                <input-group :error="form.errors.phone" v-model="form.phone" id="phone" type="text" :required="false">
-                    Телефон </input-group>
-                <input-group :error="form.errors.password" v-model="form.password" id="password" type="password"
-                    :required="true"> Пароль </input-group>
-                <input-group :error="form.errors.password_confirmation" v-model="form.password_confirmation"
-                    id="password_confirmation" type="password_confirmation" :required="true"> Подтверждение пароля
+                <input-group
+                    :error="form.errors.username"
+                    v-model="form.username"
+                    id="username"
+                    type="text"
+                    :required="true"
+                >
+                    Логин
+                </input-group>
+                <input-group
+                    :error="form.errors.email"
+                    v-model="form.email"
+                    id="email"
+                    type="email"
+                    :required="true"
+                >
+                    Почта
+                </input-group>
+                <input-group
+                    :error="form.errors.phone"
+                    v-model="form.phone"
+                    id="phone"
+                    type="text"
+                    :required="false"
+                >
+                    Телефон
+                </input-group>
+                <input-group
+                    :error="form.errors.password"
+                    v-model="form.password"
+                    id="password"
+                    type="password"
+                    :required="true"
+                >
+                    Пароль
+                </input-group>
+                <input-group
+                    :error="form.errors.password_confirmation"
+                    v-model="form.password_confirmation"
+                    id="password_confirmation"
+                    type="password_confirmation"
+                    :required="true"
+                >
+                    Подтверждение пароля
                 </input-group>
 
                 <select v-model="form.gender" id="gender">
