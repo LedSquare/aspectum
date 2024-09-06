@@ -3,6 +3,7 @@
 namespace Aspect\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Aspect\Http\Requests\Core\ActionFormRequest;
 use Aspect\Models\Aspect;
 use Aspect\Units\AspectV1Unit;
@@ -13,7 +14,7 @@ class AspectController extends Controller
 {
     public function start()
     {
-        $user = auth()->user();
+        $user = User::find(auth()->id());
 
         if ($aspect = $user->aspects->last()) {
             $aspectUnit = AspectV1Unit::makeInstance($aspect);

@@ -21,8 +21,8 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        if(auth()->user()){
-            return redirect($this->redirectTo);
+        if (auth()->user()) {
+            return redirect()->route('profile.user');
         }
         return Inertia::render('Auth/Login', [
             'title' => 'Облик - Вход',

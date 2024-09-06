@@ -7,7 +7,7 @@ use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Units\DTO\WordDTO;
 use Inertia\Inertia;
 
-class SelectOrderColorShapesWordsAction implements AspectActionInterface
+class SelectNewOrderColorsWords implements AspectActionInterface
 {
     public function action(array $data, AspectUnitInterface $aspectUnit): mixed
     {
@@ -26,7 +26,7 @@ class SelectOrderColorShapesWordsAction implements AspectActionInterface
     {
         $words = $aspectUnit->getWordsDTO();
 
-        return Inertia::render('Aspect/SelectOrderColorShapesWords', [
+        return Inertia::render('Aspect/SelectNewOrderColorsWords', [
             'aspect_id' => $aspectUnit->aspectId,
             'data' => [
                 'words' => $words,

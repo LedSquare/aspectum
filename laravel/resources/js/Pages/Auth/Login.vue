@@ -47,15 +47,13 @@ function login() {
                         ><input id="forget" type="checkbox" />Запомнить<a
                             href="#"
                             >, забыли пароль?</a
-                        ></label
-                    >
+                        >
+                    </label>
                 </div>
                 <button type="submit">Войти</button>
                 <div class="register-box">
                     <p>
-                        <Link :href="route('register')"
-                            >Зарегистрироваться</Link
-                        >
+                        <Link :href="route('register')">Зарегистрироваться</Link>
                     </p>
                 </div>
             </form>

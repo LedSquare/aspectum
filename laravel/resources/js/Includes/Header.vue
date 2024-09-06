@@ -1,7 +1,6 @@
 <script setup>
-import { Link } from "@inertiajs/vue3"
-import ProfileIcon from '../Components/svg/icons/ProfileIcon.vue'
-import HomeIcon from '../Components/svg/icons/HomeIcon.vue'
+import { Link } from "@inertiajs/vue3";
+import ProfileIcon from '../Components/svg/icons/ProfileIcon.vue';
 
 </script>
 <template>

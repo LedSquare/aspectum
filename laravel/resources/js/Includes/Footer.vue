@@ -1,6 +1,5 @@
 <script setup>
 import TelegramIcon from '../Components/svg/icons/socials/TelegramIcon.vue';
-import { Link } from "@inertiajs/vue3"
 
 </script>
 <template>

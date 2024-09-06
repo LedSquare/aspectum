@@ -15,6 +15,7 @@ class HomeController extends Controller
     {
         return Inertia::render('Home', [
             'title' => 'Стартовая страница',
+            'user' => auth()->user()
         ]);
     }
 

@@ -1,11 +1,9 @@
 <?php
 
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\CustomController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Profile\ProfileUserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +22,11 @@ Auth::routes();
 
 Route::controller(HomeController::class)->name('home')->group(function () {
     Route::get('/', 'index');
-    Route::get('test', 'test');
 });
 
+Route::controller(ProfileUserController::class)
+    ->name('profile')
+    ->middleware('auth')
+    ->group(function () {
+        Route::get('profile', 'index')->name('.user');
+    });
