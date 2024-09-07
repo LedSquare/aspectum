@@ -123,7 +123,7 @@ class AspectV1Unit implements AspectUnitInterface
         $actionClass = $this->getActionClassFromCurrentStep();
 
         $actionClass->action($data, $this);
-        if ($this->currentStep < 8) {
+        if ($this->currentStep < 7) {
             $this->currentStep += 1;
         }
 
