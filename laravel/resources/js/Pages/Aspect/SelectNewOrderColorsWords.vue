@@ -31,31 +31,28 @@ const onDrop = (event, replaceIndex) => {
 
 <template>
     <div class="aspect-frame">
+
         <Head :title="title" />
         <h2>
             {{ title }}
         </h2>
         <div style="display: flex; flex-direction: row; gap: 1rem">
             <div id="left" class="word-colors-box">
-                <div
-                    :style="['background-color: ' + word.colorCode]"
+                <div :style="['background-color: ' + word.colorCode]"
                     class="color-box"
-                    v-for="(word, index) in leftWords"
-                    :key="word.id"
+                    v-for="(word, index) in leftWords" :key="word.id"
                     draggable="true"
                     @dragstart="onStart($event, index)"
                     @drop="onDrop($event, index)"
                     @dragenter.prevent
-                    @dragover.prevent
-                ></div>
+                    @dragover.prevent>
+                </div>
             </div>
             <div id="right" class="shape-colors-box">
-                <div
-                    class="color-box"
+                <div class="color-box"
                     :style="['background-color: ' + word.shapeColorCode]"
-                    v-for="word in rigthWords"
-                    :key="word.id"
-                ></div>
+                    v-for="word in rigthWords" :key="word.id">
+                </div>
             </div>
         </div>
         <NextStep :aspect_data="leftWords" :aspect_id="clonedProps.aspect_id" />
@@ -65,7 +62,7 @@ const onDrop = (event, replaceIndex) => {
 
 <style lang="scss" scoped>
 .word-colors-box {
-    > div {
+    >div {
         cursor: pointer;
     }
 }

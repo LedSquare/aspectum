@@ -114,33 +114,19 @@ function validate(result) {
 
 <template>
     <div class="aspect-frame">
+
         <Head :title="title"></Head>
 
         <h2>
             {{ title }}
         </h2>
         <div class="shape-slots">
-            <div
-                class="shape-container"
-                v-for="(slot, index) in slots"
-                :key="slot?.id"
-            >
-                <div
-                    class="shape-slot"
-                    ref="shapeSlotElement"
-                    @drop="onDrop($event, index)"
-                    @dragstart="onStartSlots($event, index)"
-                    @dragenter.prevent
-                    @dragover.prevent
-                >
+            <div class="shape-container" v-for="(slot, index) in slots" :key="slot?.id">
+                <div class="shape-slot" ref="shapeSlotElement" @drop="onDrop($event, index)"
+                    @dragstart="onStartSlots($event, index)" @dragenter.prevent @dragover.prevent>
                     <div v-if="slot === null"></div>
-                    <img
-                        v-if="slot && slot.filepath"
-                        class="shape"
-                        ref="shapeImgElement"
-                        alt=""
-                        :src="'/' + slot.filepath"
-                    />
+                    <img v-if="slot && slot.filepath" class="shape" ref="shapeImgElement" alt=""
+                        :src="'/' + slot.filepath" />
                 </div>
                 <div class="word">
                     {{ words[index].name }}
@@ -148,46 +134,25 @@ function validate(result) {
             </div>
         </div>
         <div class="tabs-rows">
-            <div
-                class="category-tab"
-                @click="setActiveCategory(shape_category.id)"
-                v-for="shape_category in shape_categories"
-                :key="shape_category.id"
-            >
-                <h3
-                    id="get-style"
-                    :style="[
-                        activeCategory === shape_category.id
-                            ? activeCategoryStyle
-                            : '',
-                    ]"
-                >
+            <div class="category-tab" @click="setActiveCategory(shape_category.id)"
+                v-for="shape_category in shape_categories" :key="shape_category.id">
+                <h3 id="get-style" :style="[
+                    activeCategory === shape_category.id
+                        ? activeCategoryStyle
+                        : '',
+                ]">
                     {{ shape_category.name }}
                 </h3>
             </div>
         </div>
         <div class="grid-shapes">
-            <div
-                class="shape"
-                v-for="shape in getActiveShapes"
-                draggable="true"
-                @dragstart="onStartShapes($event, shape)"
-                :key="shape.id"
-            >
-                <img
-                    class="shape"
-                    ref="shapeImgElement"
-                    alt="some image"
-                    :src="'/' + shape.filepath"
-                />
+            <div class="shape" v-for="shape in getActiveShapes" draggable="true"
+                @dragstart="onStartShapes($event, shape)" :key="shape.id">
+                <img class="shape" ref="shapeImgElement" alt="some image" :src="'/' + shape.filepath" />
             </div>
         </div>
 
-        <NextStep
-            :validate="validate"
-            :aspect_data="words"
-            :aspect_id="props.aspect_id"
-        />
+        <NextStep :validate="validate" :aspect_data="words" :aspect_id="props.aspect_id" />
     </div>
 </template>
 
@@ -221,9 +186,11 @@ function validate(result) {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 2rem;
+    width: 98%;
+    justify-content: center;
 
     .shape-container {
-        margin: 1rem 4px;
+        margin: 1rem 8px;
         display: flex;
         flex-direction: column;
         align-items: center;
