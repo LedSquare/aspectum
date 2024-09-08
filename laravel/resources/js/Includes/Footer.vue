@@ -42,6 +42,7 @@ footer {
     display: flex;
     background-color: $body-background;
     height: 165px;
+    flex-shrink: 0;
 
     >div {
         display: flex;

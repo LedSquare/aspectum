@@ -50,7 +50,7 @@ header {
     padding-top: 28px;
     display: flex;
     background-color: $body-background;
-
+    flex-shrink: 0;
 
     >div {
         display: flex;
