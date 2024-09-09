@@ -21,7 +21,7 @@ const form = useForm({
 })
 
 const update = () => {
-    form.post('profile.update')
+    form.post(route('profile.update'))
 }
 
 

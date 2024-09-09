@@ -26,7 +26,9 @@ Route::controller(HomeController::class)->name('home')->group(function () {
 
 Route::controller(ProfileUserController::class)
     ->name('profile')
+    ->prefix('profile')
     ->middleware('auth')
     ->group(function () {
-        Route::get('profile', 'index')->name('.user');
+        Route::get('', 'index')->name('.user');
+        Route::post('', 'update')->name('.update');
     });
