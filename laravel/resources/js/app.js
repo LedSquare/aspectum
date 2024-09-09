@@ -3,6 +3,7 @@ import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
 import { InertiaProgress } from '@inertiajs/progress'
+import VueTheMask from 'vue-the-mask'
 
 import Layout from './Layouts/Layout.vue'
 
@@ -23,9 +24,10 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .mixin({ methods: { route } })
             .use(plugin)
+            .use(VueTheMask)
             .mount(el)
     },
-});
+})
 
 
 
