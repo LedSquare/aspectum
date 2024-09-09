@@ -8,11 +8,12 @@ use Aspect\Http\Requests\Core\ActionFormRequest;
 use Aspect\Models\Aspect;
 use Aspect\Units\AspectV1Unit;
 use Illuminate\Http\RedirectResponse;
+use Inertia\Inertia;
 use Inertia\Response;
 
 class AspectController extends Controller
 {
-    public function start()
+    public function start(): RedirectResponse
     {
         $user = User::find(auth()->id());
 
@@ -40,5 +41,15 @@ class AspectController extends Controller
     {
         $aspectUnit = $aspect->getUnit();
         return $aspectUnit->getStepParameters();
+    }
+
+    public function list(): Response
+    {
+        $user = User::find(auth()->id());
+
+        return Inertia::render('Aspect/Aspects', [
+            'title' => __('Список обликов'),
+            'data' => $user->aspects,
+        ]);
     }
 }

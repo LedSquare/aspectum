@@ -16,20 +16,18 @@ import ProfileIcon from '../Components/svg/icons/ProfileIcon.vue';
                 <ul>
                     <li>
                         <Link :href="route('home')">
-                        Главная
-                        <!-- if width is small <home-icon /> -->
+                            Главная
+                        </Link>
+                    </li>
+                    <li>
+                        <Link :href="route('aspect.list')">
+                            История
                         </Link>
                     </li>
                     <li>
                         <a>Контакты</a>
                     </li>
                 </ul>
-
-                <!-- TODO: Удалить, временный блок -->
-                <!-- @if ($user = auth()->user())
-                <div style="display: flex;" class="flex-c"> Пользователь:{{ " $user->firstname $user->lastname " }}
-                </div>
-                @endif -->
 
                 <ul class="auth-ul">
 
