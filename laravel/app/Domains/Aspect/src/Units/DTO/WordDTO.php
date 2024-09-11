@@ -9,9 +9,9 @@ final class WordDTO
         public int $id,
         public int $order,
         public string $name,
-        public ?string $colorCode,
-        public ?int $shapeId,
-        public ?string $shapeColorCode,
+        public ?string $colorCode = null,
+        public ?int $shapeId = null,
+        public ?string $shapeColorCode = null,
     ) {
     }
 
