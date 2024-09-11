@@ -7,7 +7,7 @@ import _ from 'lodash'
 
 const props = defineProps({
     title: String,
-    data: Array || Object,
+    data: Array | Object,
     aspect_id: Number,
 });
 
