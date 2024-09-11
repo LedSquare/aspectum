@@ -2,6 +2,7 @@
 
 namespace App\Domains\Aspect\database\factories;
 
+use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Models\Aspect;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,7 +20,7 @@ class AspectFactory extends Factory
     public function definition(): array
     {
         return [
-
+            'aspect_unit' => null
         ];
     }
 }

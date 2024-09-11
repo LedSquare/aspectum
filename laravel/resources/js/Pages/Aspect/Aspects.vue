@@ -3,20 +3,32 @@ import { Head } from '@inertiajs/vue3';
 
 const props = defineProps({
     title: String,
-    data: {type: Array | Object, required: true},
+    resource: {type: [Array, Object], required: true},
 })
 </script>
 
 <template>
     <div class="aspect-list-contrainer">
         <Head :title="title"/>
-        <div v-if="data.length !== 0">
-            <div v-for="aspect in data" :key="aspect.id">
-                <p>id: {{ aspect.id }}</p>
-                <p>user_id: {{ aspect.user_id }}</p>
-                <p>created: {{ aspect.created_at }}</p>
-                <p>updated: {{ aspect.updated_at }}</p>
-            </div>
+        <div class="aspects" v-if="resource.data.length !== 0">
+        <table>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>user_id</th>
+                    <th>created</th>
+                    <th>updated</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="aspect in resource.data" :key="aspect.id">
+                    <td>{{ aspect.id }}</td>
+                    <td>{{ aspect.user_id }}</td>
+                    <td>{{ aspect.created_at }}</td>
+                    <td>{{ aspect.updated_at }}</td>
+                </tr>
+            </tbody>
+        </table>
         </div>
         <div v-else class="empty">
             <h2>
@@ -34,6 +46,27 @@ const props = defineProps({
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.aspects{
+    display: flex;
+    min-height: 50vh;
+    width: 99%;
+}
+
+table{
+    width: 100%;
+    height: fit-content;
+}
+tr{
+    height: 40px
+};
+td, th{
+    border: 3px solid white;
+    background: $body-background;
+}
+th{
+    background: $blue;
 }
 
 </style>
