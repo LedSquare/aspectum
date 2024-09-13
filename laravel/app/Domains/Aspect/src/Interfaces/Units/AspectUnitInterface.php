@@ -6,6 +6,8 @@ use Aspect\Units\DTO\WordDTO;
 use Inertia\Response;
 
 /**
+ * @template T
+ *
  * @property int $aspectId
  * @property int $currentStep
  * @property array $words

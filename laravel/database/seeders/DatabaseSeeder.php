@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Domains\Aspect\database\seeders\AspectSeeder;
 use App\Domains\Aspect\database\seeders\Color\ColorSeeder;
 use App\Domains\Aspect\database\seeders\MoodLevelSeeder;
 use App\Domains\Aspect\database\seeders\Shape\ShapeCategorySeeder;
@@ -25,6 +26,7 @@ class DatabaseSeeder extends Seeder
             ColorSeeder::class,
             ShapeCategorySeeder::class,
             ShapeSeeder::class,
+            AspectSeeder::class,
         ]);
     }
 }

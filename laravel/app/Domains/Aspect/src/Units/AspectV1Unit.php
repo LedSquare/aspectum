@@ -3,6 +3,7 @@
 namespace Aspect\Units;
 
 use Aspect\Actions\AspectUnit\MoodLevelAction;
+use Aspect\Actions\AspectUnit\ReportAction;
 use Aspect\Actions\AspectUnit\SelectColorShapeAction;
 use Aspect\Actions\AspectUnit\SelectColorWordAction;
 use Aspect\Actions\AspectUnit\SelectNewOrderColorsWords;
@@ -17,6 +18,10 @@ use Aspect\Models\Aspect;
 use Aspect\Units\DTO\WordDTO;
 use Inertia\Response;
 
+/**
+ * @template T of AspectUnitInterface
+ * @template-implements AspectUnitInterface<T>
+ */
 class AspectV1Unit implements AspectUnitInterface
 {
 
@@ -36,7 +41,7 @@ class AspectV1Unit implements AspectUnitInterface
         SelectOrderShapesAction::class,
         SelectColorShapeAction::class,
         SelectNewOrderColorsWords::class,
-        // FinalAction::class,
+        ReportAction::class,
     ];
 
     public array $moodLevels;
@@ -123,7 +128,7 @@ class AspectV1Unit implements AspectUnitInterface
         $actionClass = $this->getActionClassFromCurrentStep();
 
         $actionClass->action($data, $this);
-        if ($this->currentStep < 7) {
+        if ($this->currentStep < 8) {
             $this->currentStep += 1;
         }
 

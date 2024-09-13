@@ -6,7 +6,7 @@ use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Inertia\Inertia;
 
-class FinalAction implements AspectActionInterface
+class ReportAction implements AspectActionInterface
 {
     public function action(array $data, AspectUnitInterface $aspectUnit): mixed
     {
@@ -16,8 +16,11 @@ class FinalAction implements AspectActionInterface
 
     public function getParameters(AspectUnitInterface $aspectUnit): mixed
     {
-        return Inertia::render('Aspect/MoodLevel', [
-            'data' => [],
+        return Inertia::render(component: 'Aspect/Report', props: [
+            'data' => [
+                'words' => $aspectUnit->words,
+                'moodLevels' => $aspectUnit->moodLevels,
+            ],
             'aspect_id' => $aspectUnit->aspectId,
             'title' => __('Результат Облика')
         ]);

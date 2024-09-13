@@ -11,7 +11,7 @@ const props = defineProps({
     <div class="aspect-list-contrainer">
         <Head :title="title"/>
         <div class="aspects" v-if="resource.data.length !== 0">
-        <table>
+        <table class="">
             <thead>
                 <tr>
                     <th>id</th>

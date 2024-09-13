@@ -17,7 +17,7 @@ class SelectShapeAction implements AspectActionInterface
 
         foreach ($dataWords as $index => $word) {
             $wordsDTO->push(
-                WordDTO::make($word, $index)
+                values: WordDTO::make(wordData: $word, index: $index)
             );
         }
         $aspectUnit->words[$aspectUnit->currentStep] = $wordsDTO;
