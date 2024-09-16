@@ -14,22 +14,22 @@ class AspectSeeder extends Seeder
      */
     public function run(): void
     {
-        $testUser = User::first();
-        $aspects = AspectFactory::new()->count(5)->create([
-            'user_id' => $testUser->id,
-        ]);
+        // $testUser = User::first();
+        // $aspects = AspectFactory::new()->count(5)->create([
+        //     'user_id' => $testUser->id,
+        // ]);
 
-        foreach ($aspects as $aspect) {
-            $unit = AspectUnitFactory::fake($aspect);
-            dd(
-                $unit->words[0],
-                $unit->words[2],
-                $unit->words[3],
-                $unit->words[4],
-                $unit->words[5],
-            );
-            $unit->saveUnit($unit);
-        }
+        // foreach ($aspects as $aspect) {
+        //     $unit = AspectUnitFactory::fake($aspect);
+        //     dd(
+        //         $unit->words[0],
+        //         $unit->words[2],
+        //         $unit->words[3],
+        //         $unit->words[4],
+        //         $unit->words[5],
+        //     );
+        //     $unit->saveUnit($unit);
+        // }
 
     }
 }
