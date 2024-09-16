@@ -18,7 +18,7 @@ class ReportAction implements AspectActionInterface
     {
         return Inertia::render(component: 'Aspect/Report', props: [
             'data' => [
-                'words' => $aspectUnit->words,
+                'words' => array_values($aspectUnit->words),
                 'moodLevels' => $aspectUnit->moodLevels,
             ],
             'aspect_id' => $aspectUnit->aspectId,
