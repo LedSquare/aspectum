@@ -1,8 +1,7 @@
 <script setup>
 import { Head } from "@inertiajs/vue3";
 import NextStep from "@/Components/Aspect/Buttons/NextStep.vue";
-import ErrorMessage from "@/Components/Errors/ErrorMessage.vue";
-import { ref, onMounted, computed, toRef } from "vue";
+import { ref, onMounted, computed } from "vue";
 import _ from "lodash";
 
 const props = defineProps({
