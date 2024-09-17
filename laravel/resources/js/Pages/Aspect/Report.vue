@@ -1,6 +1,7 @@
 <script setup>
 import _ from 'lodash'
 import { nextTick, onMounted, ref } from 'vue'
+import { Head } from '@inertiajs/vue3'
 
 const props = defineProps({
     aspect_id: Number,
@@ -11,15 +12,24 @@ const props = defineProps({
 const cloned = _.cloneDeep(props)
 const words = ref(cloned.data.words)
 
+/**
+ * SVG styles
+ */
 const wordsDiv = ref()
 const svgWidth = ref()
 const svgHeight = ref()
 const firstHalfHeightSvg = ref()
-
 const svgShow = ref(false)
 
-onMounted(() =>{
+const strokeColor = (word) => {
+    if(word.colorCode === null || undefined){
+        return '#3b4655' // $blue-gray: #3b4655; (_variables.scss)
+    }
 
+    return word.colorCode
+}
+
+onMounted(() =>{
     const { width, height } = wordsDiv.value[0].getBoundingClientRect()
     svgWidth.value = width
     svgHeight.value = height
@@ -51,12 +61,8 @@ const getPathData = (word, wordIndex, nextStepIndex) => {
 
 <template>
     <div class="report-frame">
-        <svg width="500" height="500">
-            <path d="
-                M 40 100
-                C 70 100 150 100 200 60
-            " fill="none" stroke="black" stroke-width="3px"/>
-        </svg>
+        <Head :title="title"/>
+
         <div class="mood-levels">
 
         </div>
@@ -64,7 +70,10 @@ const getPathData = (word, wordIndex, nextStepIndex) => {
             <div class="step" v-for="(step, stepIndex) in words" :key="stepIndex">
                 <div ref="wordsDiv" class="words">
                     <div
-                    class="word" v-for="(word) in step" :key="word.id" :style="['color:' + word.colorCode]"
+                        class="word"
+                        v-for="(word) in step"
+                        :key="word.id"
+                        :style="['color:' + word.colorCode]"
                     >
                         {{ word.name }}
                     </div>
@@ -72,11 +81,11 @@ const getPathData = (word, wordIndex, nextStepIndex) => {
                 <div class="arrows">
                     <svg v-if="svgShow" :width="svgWidth" :height="svgHeight">
                         <path
-                        v-for="(word, wordIndex) in step"
-                        :d="getPathData(word, wordIndex, stepIndex + 1)"
-                        :key="word.id"
-                        stroke="black"
-                        stroke-width="2px"
+                            v-for="(word, wordIndex) in step"
+                            :d="getPathData(word, wordIndex, stepIndex + 1)"
+                            :key="word.id"
+                            :stroke="strokeColor(word)"
+                            stroke-width="2px"
                         />
                     </svg>
                 </div>
@@ -90,7 +99,6 @@ const getPathData = (word, wordIndex, nextStepIndex) => {
     display: flex;
     flex-direction: column;
     width:100%;
-    overflow-x: auto;
 }
 
 .mood-levels{
@@ -104,12 +112,24 @@ const getPathData = (word, wordIndex, nextStepIndex) => {
     width: 100%;
     display: flex;
     border-bottom: 2px solid black;
+    overflow-x: auto;
+
     .step{
         display: flex;
         flex-direction: row;
         margin: 10px;
     }
 }
+
+.word{
+    font-size: 20px;
+    font-weight: bold;
+    color: $blue-gray;
+    text-shadow: 1px 1px 1px $blue-gray;
+}
+
+
+
 .arrows{
     margin-left: 10px;
 }
