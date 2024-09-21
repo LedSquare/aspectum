@@ -2,6 +2,7 @@
 import _ from 'lodash'
 import { nextTick, onMounted, ref } from 'vue'
 import { Head } from '@inertiajs/vue3'
+import BrainIcon from '../../Components/svg/icons/BrainIcon.vue';
 
 const props = defineProps({
     aspect_id: Number,
@@ -20,10 +21,10 @@ const words = ref(cloned.data.words)
 <template>
     <div class="report-frame">
         <Head :title="title"/>
-
-        <div class="mood-levels">
-
+        <div class="brain-icon">
+            <BrainIcon />
         </div>
+
         <div class="steps">
             <div class="step" v-for="(step, stepIndex) in words" :key="stepIndex">
                 <div ref="wordsDiv" class="words">
@@ -32,14 +33,14 @@ const words = ref(cloned.data.words)
                         v-for="(word) in step"
                         :key="word.id"
                         :style="['color:' + word.colorCode]"
-                    >
+                        >
                         {{ word.name }}
                     </div>
                 </div>
                 <div class="arrows">
                     <svg v-if="svgShow" :width="svgWidth" :height="svgHeight">
                         <path
-                            v-for="(word, wordIndex) in step"
+                        v-for="(word, wordIndex) in step"
                             :d="getPathData(word, wordIndex, stepIndex + 1)"
                             :key="word.id"
                             :stroke="strokeColor(word)"
@@ -49,6 +50,10 @@ const words = ref(cloned.data.words)
                 </div>
             </div>
         </div>
+
+        <div class="mood-levels">
+
+        </div>
     </div>
 </template>
 
@@ -57,6 +62,11 @@ const words = ref(cloned.data.words)
     display: flex;
     flex-direction: column;
     width:100%;
+    align-items: center;
+}
+
+.brain-icon{
+    margin-bottom: 2rem;
 }
 
 .mood-levels{
