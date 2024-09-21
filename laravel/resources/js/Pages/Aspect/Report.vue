@@ -12,48 +12,6 @@ const props = defineProps({
 const cloned = _.cloneDeep(props)
 const words = ref(cloned.data.words)
 
-/**
- * SVG styles
- */
-const wordsDiv = ref()
-const svgWidth = ref()
-const svgHeight = ref()
-const firstHalfHeightSvg = ref()
-const svgShow = ref(false)
-
-const strokeColor = (word) => {
-    if(word.colorCode === null || undefined){
-        return '#3b4655' // $blue-gray: #3b4655; (_variables.scss)
-    }
-
-    return word.colorCode
-}
-
-onMounted(() =>{
-    const { width, height } = wordsDiv.value[0].getBoundingClientRect()
-    svgWidth.value = width
-    svgHeight.value = height
-    firstHalfHeightSvg.value = svgHeight.value / 8 / 2
-
-    svgShow.value = true
-})
-
-
-
-const getPathData = (word, wordIndex, nextStepIndex) => {
-
-    let result = svgHeight.value / 8
-    wordIndex += 1
-
-    const findedWords = words.value[nextStepIndex]
-    if(findedWords === undefined || null){
-        return
-    }
-
-    const nextWordIndex = findedWords.findIndex(item => item.id === word.id)
-
-    return `M 0 ${(result * wordIndex) - firstHalfHeightSvg.value} L ${svgWidth.value} ${result * nextWordIndex + firstHalfHeightSvg.value}`
-}
 
 
 
