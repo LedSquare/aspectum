@@ -7,8 +7,6 @@ use Aspect\Units\AspectV1Unit;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Support\Collection;
 
 /**
  * Fields
@@ -20,6 +18,8 @@ use Illuminate\Support\Collection;
  *
  * Realtions
  * @property \Aspect\Models\AspectType $type
+ *
+ * @method AspectUnitInterface getUnit()
  */
 class Aspect extends Model
 {
@@ -49,6 +49,9 @@ class Aspect extends Model
     //     return $this->hasOne(AspectType::class, 'type_id');
     // }
 
+    /**
+     * @return \Aspect\Interfaces\Units\AspectUnitInterface
+     */
     public function getUnit(): AspectUnitInterface
     {
         return AspectV1Unit::makeInstance($this);

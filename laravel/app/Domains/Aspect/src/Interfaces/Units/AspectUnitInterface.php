@@ -27,4 +27,6 @@ interface AspectUnitInterface
      */
     public function getWordsDTO(int $wordsIndex = null): \Illuminate\Support\Collection;
 
+    public function report(): array;
+
 }

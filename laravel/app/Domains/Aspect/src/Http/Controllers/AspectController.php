@@ -5,7 +5,7 @@ namespace Aspect\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Aspect\Http\Requests\Core\ActionFormRequest;
-use Aspect\Http\Resources\AspectResource;
+use Aspect\Http\Resources\AspectListResource;
 use Aspect\Models\Aspect;
 use Aspect\Units\AspectV1Unit;
 use Illuminate\Http\RedirectResponse;
@@ -50,7 +50,15 @@ class AspectController extends Controller
 
         return Inertia::render('Aspect/Aspects', [
             'title' => __('Список обликов'),
-            'resource' => AspectResource::collection($user->aspects),
+            'resource' => AspectListResource::collection($user->aspects),
         ]);
+    }
+
+    public function report(Aspect $aspect): Response
+    {
+        $aspectUnit = $aspect->getUnit();
+        $data = $aspectUnit->report();
+
+        return Inertia::render('Aspect/Report', $data);
     }
 }

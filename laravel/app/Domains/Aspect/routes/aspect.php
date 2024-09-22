@@ -12,4 +12,5 @@ Route::controller(AspectController::class)
         Route::post('next-step/{aspect}', 'next')->name('.store');
         Route::get('current/{aspect}', 'current')->name('.current');
         Route::get('aspects', 'list')->name('.list');
+        Route::get('report/{aspect}', 'report')->name('.report');
     });

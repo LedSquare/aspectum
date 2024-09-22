@@ -3,7 +3,6 @@
 namespace Aspect\Units;
 
 use Aspect\Actions\AspectUnit\MoodLevelAction;
-use Aspect\Actions\AspectUnit\ReportAction;
 use Aspect\Actions\AspectUnit\SelectColorShapeAction;
 use Aspect\Actions\AspectUnit\SelectColorWordAction;
 use Aspect\Actions\AspectUnit\SelectNewOrderColorsWords;
@@ -41,7 +40,6 @@ class AspectV1Unit implements AspectUnitInterface
         SelectOrderShapesAction::class,
         SelectColorShapeAction::class,
         SelectNewOrderColorsWords::class,
-        ReportAction::class,
     ];
 
     public array $moodLevels;
@@ -58,6 +56,11 @@ class AspectV1Unit implements AspectUnitInterface
     ) {
     }
 
+    /**
+     * @param \Aspect\Models\Aspect $aspect
+     * @throws \Aspect\Exceptions\AspectDomainException
+     * @return \Aspect\Units\AspectV1Unit
+     */
     public static function makeInstance(Aspect $aspect): self
     {
         $instance = new self();
@@ -92,7 +95,7 @@ class AspectV1Unit implements AspectUnitInterface
         $collection = collect();
         $wordsIndex
             ? $wordsFromUnit = $this->words[$wordsIndex]
-            : $wordsFromUnit = end($this->words);
+            : $wordsFromUnit = end(array: $this->words);
 
         foreach ($wordsFromUnit as $word) {
             $collection->push(
@@ -128,9 +131,8 @@ class AspectV1Unit implements AspectUnitInterface
         $actionClass = $this->getActionClassFromCurrentStep();
 
         $actionClass->action($data, $this);
-        if ($this->currentStep < 8) {
-            $this->currentStep += 1;
-        }
+
+        $this->incrementStep();
 
         $this->saveUnit($this);
 
@@ -144,13 +146,24 @@ class AspectV1Unit implements AspectUnitInterface
     }
 
 
-    // public function incrementStep(): void
-    // {
-    //     $this->currentStep += 1;
+    public function incrementStep(): void
+    {
+        if ($this->currentStep < $this->totalSteps) {
+            $this->currentStep += 1;
+        } elseif ($this->currentStep === $this->totalSteps) {
+            $this->isEnded = true;
+        }
+    }
 
-    //     if ($this->currentStep === $this->totalSteps) {
-    //         // Finish
-    //     }
-
-    // }
+    public function report(): array
+    {
+        return [
+            'data' => [
+                'words' => array_values($this->words),
+                'moodLevels' => $this->moodLevels,
+            ],
+            'aspect_id' => $this->aspectId,
+            'title' => __('Результат Облика')
+        ];
+    }
 }
