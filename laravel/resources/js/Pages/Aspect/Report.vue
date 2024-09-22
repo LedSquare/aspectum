@@ -21,7 +21,6 @@ const words = ref(cloned.data.words)
 <template>
     <div class="report-frame">
         <Head :title="title"/>
-
         <div class="brain-icon">
             <BrainIcon />
         </div>
@@ -37,6 +36,17 @@ const words = ref(cloned.data.words)
                         >
                         {{ word.name }}
                     </div>
+                </div>
+                <div class="arrows">
+                    <svg v-if="svgShow" :width="svgWidth" :height="svgHeight">
+                        <path
+                        v-for="(word, wordIndex) in step"
+                            :d="getPathData(word, wordIndex, stepIndex + 1)"
+                            :key="word.id"
+                            :stroke="strokeColor(word)"
+                            stroke-width="2px"
+                        />
+                    </svg>
                 </div>
             </div>
         </div>
