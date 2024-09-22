@@ -1,9 +1,11 @@
 <?php
 
 namespace Aspect\Units\DTO;
+use Aspect\Enums\Units\BrainSideEnum;
 
 final class WordAspectObject
 {
+    public BrainSideEnum $brainSide;
 
     public function __construct(
         public int $id,
@@ -25,6 +27,11 @@ final class WordAspectObject
             $wordData['shapeId'] ?? null,
             $wordData['shapeColorCode'] ?? null,
         );
+    }
+
+    public function side(BrainSideEnum $side): void
+    {
+        $this->brainSide = $side;
     }
 
 }
