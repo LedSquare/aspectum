@@ -7,7 +7,7 @@ use Aspect\Models\Aspect;
 use Aspect\Models\Stages\Color;
 use Aspect\Models\Stages\Shape\Shape;
 use Aspect\Models\Stages\Word\Word;
-use Aspect\Units\DTO\WordDTO;
+use Aspect\Units\DTO\WordAspectObject;
 
 final class AspectUnitFactory
 {
@@ -26,7 +26,7 @@ final class AspectUnitFactory
         $collection = collect();
         foreach ($words as $index => $word) {
             $collection->push(
-                new WordDTO(
+                new WordAspectObject(
                     id: $word->id,
                     order: $index,
                     name: $word->name,

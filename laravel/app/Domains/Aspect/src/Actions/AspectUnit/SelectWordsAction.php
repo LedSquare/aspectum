@@ -5,7 +5,7 @@ namespace Aspect\Actions\AspectUnit;
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Models\Stages\Word\Word;
-use Aspect\Units\DTO\WordDTO;
+use Aspect\Units\DTO\WordAspectObject;
 use Inertia\Inertia;
 
 class SelectWordsAction implements AspectActionInterface
@@ -16,7 +16,7 @@ class SelectWordsAction implements AspectActionInterface
 
         foreach ($data['aspect_data'] as $index => $word) {
             $collection->push(
-                WordDTO::make($word, $index)
+                WordAspectObject::make($word, $index)
             );
         }
         $aspectUnit->words[$aspectUnit->currentStep] = $collection;
@@ -29,7 +29,7 @@ class SelectWordsAction implements AspectActionInterface
         $words = collect();
         foreach (Word::all()->toArray() as $index => $word) {
             $words->push(
-                WordDTO::make($word, $index),
+                WordAspectObject::make($word, $index),
             );
         }
         return Inertia::render('Aspect/SelectWords', [

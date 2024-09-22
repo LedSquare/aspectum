@@ -15,7 +15,7 @@ use Aspect\Exceptions\AspectDomainException;
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Models\Aspect;
-use Aspect\Units\DTO\WordDTO;
+use Aspect\Units\DTO\WordAspectObject;
 use Inertia\Response;
 
 /**
@@ -85,7 +85,7 @@ class AspectV1Unit implements AspectUnitInterface
     /**
      *
      * @param integer|null $wordsIndex
-     * @return \Illuminate\Support\Collection<WordDTO>
+     * @return \Illuminate\Support\Collection<WordAspectObject>
      */
     public function getWordsDTO(int $wordsIndex = null): \Illuminate\Support\Collection
     {
@@ -96,7 +96,7 @@ class AspectV1Unit implements AspectUnitInterface
 
         foreach ($wordsFromUnit as $word) {
             $collection->push(
-                new WordDTO(
+                new WordAspectObject(
                     id: $word['id'],
                     order: $word['order'],
                     name: $word['name'],

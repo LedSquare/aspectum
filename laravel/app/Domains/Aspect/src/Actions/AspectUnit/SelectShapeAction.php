@@ -5,7 +5,7 @@ namespace Aspect\Actions\AspectUnit;
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Models\Stages\Shape\ShapeCategory;
-use Aspect\Units\DTO\WordDTO;
+use Aspect\Units\DTO\WordAspectObject;
 use Inertia\Inertia;
 
 class SelectShapeAction implements AspectActionInterface
@@ -17,7 +17,7 @@ class SelectShapeAction implements AspectActionInterface
 
         foreach ($dataWords as $index => $word) {
             $wordsDTO->push(
-                values: WordDTO::make(wordData: $word, index: $index)
+                values: WordAspectObject::make(wordData: $word, index: $index)
             );
         }
         $aspectUnit->words[$aspectUnit->currentStep] = $wordsDTO;

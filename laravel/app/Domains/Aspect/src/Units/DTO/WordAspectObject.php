@@ -2,7 +2,7 @@
 
 namespace Aspect\Units\DTO;
 
-final class WordDTO
+final class WordAspectObject
 {
 
     public function __construct(
@@ -17,7 +17,7 @@ final class WordDTO
 
     public static function make(array $wordData, int $index): self
     {
-        return new WordDTO(
+        return new WordAspectObject(
             $wordData['id'],
             $index,
             $wordData['name'],
