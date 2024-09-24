@@ -1,6 +1,6 @@
 FROM nginx:1.17-alpine
 
-COPY ./docker/nginx/conf.d /etc/nginx/conf.d
+COPY ./docker/nginx/conf.d/default-dev.conf /etc/nginx/conf.d/default.conf
 
 RUN apk --no-cache add bash
 

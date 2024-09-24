@@ -2,21 +2,30 @@ import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 
-// "@inertiajs/inertia": "^0.11.1",
-// "@inertiajs/inertia-vue3": "^0.6.0",
-
 export default defineConfig({
     server: {
-        host: '0.0.0.0',
+        host: true,
         port: 3000,
+        strictPort: true,
+
         hmr: {
-            host: 'aspect.local'
+            host: 'localhost'
         },
+
+        // cors: {
+        //     origin: 'http://localhost',
+        // },
 
         watch: {
             usePolling: true
         },
     },
+    preview: {
+        host: true,
+        port: 3001,
+        strictPort: true,
+    },
+    base: './',
     css: {
         preprocessorOptions: {
             scss: {
