@@ -1,18 +1,16 @@
 FROM node:20
-# Create app directory
+
 WORKDIR /app
 
 COPY laravel/package*.json /app/
 
 RUN npm install
-# If you are building your code for production
-#RUN npm ci --omit=dev && npm run build
+
 COPY laravel/ /app
 
 RUN npm run build
 
 # RUN npm install -g serve
 
-# ENTRYPOINT [ "npm", "run", "dev" ]
 # ENTRYPOINT [ "serve", "-s", "public/build" ]
 ENTRYPOINT [ "npm", "run", "serve"]
