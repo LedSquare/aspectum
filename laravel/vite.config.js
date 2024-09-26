@@ -9,16 +9,16 @@ export default defineConfig({
         port: 3000,
         strictPort: true,
 
-        // hmr: {
-        //     host: 'localhost'
-        // },
+        hmr: {
+            host: 'localhost'
+        },
         watch: {
             usePolling: true
         },
 
-        cors: {
-            origin: 'http://46.147.218.41:81',
-        },
+        // cors: {
+        //     origin: 'http://46.147.218.41:81',
+        // },
 
     },
     preview: {
