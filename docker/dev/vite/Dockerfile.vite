@@ -9,10 +9,10 @@ RUN npm install
 #RUN npm ci --omit=dev && npm run build
 COPY laravel/ /app
 
-# RUN npm run build
+RUN npm run build
 
 # RUN npm install -g serve
 
-ENTRYPOINT [ "npm", "run", "dev" ]
+# ENTRYPOINT [ "npm", "run", "dev" ]
 # ENTRYPOINT [ "serve", "-s", "public/build" ]
-# ENTRYPOINT [ "npm", "run", "serve" ]
+ENTRYPOINT [ "npm", "run", "serve"]

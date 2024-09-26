@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
+import path from 'path';
 
 export default defineConfig({
     server: {
@@ -8,17 +9,17 @@ export default defineConfig({
         port: 3000,
         strictPort: true,
 
-        hmr: {
-            host: 'localhost'
-        },
-
-        // cors: {
-        //     origin: 'http://localhost',
+        // hmr: {
+        //     host: 'localhost'
         // },
-
         watch: {
             usePolling: true
         },
+
+        cors: {
+            origin: 'http://46.147.218.41:81',
+        },
+
     },
     preview: {
         host: true,
@@ -32,6 +33,7 @@ export default defineConfig({
                 additionalData: `
                     @import "./resources/scss/_variables.scss";
                 `,
+                includePaths: [path.resolve(__dirname, 'resources/scss')],
             },
         },
     },
@@ -39,8 +41,12 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/js/app.js',
+                'resources/scss/app.scss'
+                // 'public/build/assets/app-9f25df27.js',
+                // 'public/build/assets/app-12e35062.css',p
             ],
             refresh: true,
+            buildDirectory: 'public/build'
         }),
         vue({
             template: {
@@ -61,6 +67,10 @@ export default defineConfig({
             },
         }),
     ],
-
+    build: {
+        outDir: 'public/build',
+        manifest: 'asset.json',
+        sourcemap: true,
+    },
 
 });
