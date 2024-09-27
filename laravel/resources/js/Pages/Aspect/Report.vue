@@ -15,7 +15,6 @@ const words = ref(cloned.data.words)
 
 
 
-
 </script>
 
 <template>
@@ -24,10 +23,12 @@ const words = ref(cloned.data.words)
         <div class="brain-icon">
             <BrainIcon />
         </div>
-
-        <div class="steps">
+        <h1>
+            Облик № {{ aspect_id }} закончен !
+        </h1>
+        <!-- <div class="steps">
             <div class="step" v-for="(step, stepIndex) in words" :key="stepIndex">
-                <div ref="wordsDiv" class="words">
+                <div class="words">
                     <div
                         class="word"
                         v-for="(word) in step"
@@ -42,7 +43,7 @@ const words = ref(cloned.data.words)
 
         <div class="mood-levels">
 
-        </div>
+        </div> -->
     </div>
 </template>
 

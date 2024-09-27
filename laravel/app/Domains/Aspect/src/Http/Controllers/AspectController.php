@@ -16,7 +16,8 @@ class AspectController extends Controller
 {
     public function start(): RedirectResponse
     {
-        $user = User::find(auth()->id());
+        /** @var \App\Models\User */
+        $user = auth()->user();
 
         if ($aspect = $user->aspects->last()) {
             $aspectUnit = AspectV1Unit::makeInstance($aspect);
@@ -38,9 +39,12 @@ class AspectController extends Controller
         return $aspectUnit->nextStep($data);
     }
 
-    public function current(Aspect $aspect): Response
+    public function current(Aspect $aspect): Response|RedirectResponse
     {
         $aspectUnit = $aspect->getUnit();
+        if ($aspectUnit->isEnded) {
+            return redirect()->route('aspect.report', $aspectUnit->aspectId);
+        }
         return $aspectUnit->getStepParameters();
     }
 

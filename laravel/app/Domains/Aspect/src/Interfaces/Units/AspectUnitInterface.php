@@ -12,6 +12,7 @@ use Inertia\Response;
  * @property int $currentStep
  * @property array $words
  * @property array $moodLevels
+ * @property boolean $isEnded
  * @staticvar \Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface[] $steps
  */
 interface AspectUnitInterface

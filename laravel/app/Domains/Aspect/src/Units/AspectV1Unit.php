@@ -15,6 +15,7 @@ use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Models\Aspect;
 use Aspect\Units\DTO\WordAspectObject;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 
 /**
@@ -35,12 +36,19 @@ class AspectV1Unit implements AspectUnitInterface
         SelectWordsAction::class,
         MoodLevelAction::class,
         SelectShapeAction::class,
+        MoodLevelAction::class,
         SelectOrderWordsAction::class,
+        MoodLevelAction::class,
         SelectColorWordAction::class,
+        MoodLevelAction::class,
         SelectOrderShapesAction::class,
+        MoodLevelAction::class,
         SelectColorShapeAction::class,
+        MoodLevelAction::class,
         SelectNewOrderColorsWords::class,
     ];
+
+    private readonly array $brainMap;
 
     public array $moodLevels;
 
@@ -48,8 +56,7 @@ class AspectV1Unit implements AspectUnitInterface
 
     public int $currentStep = 0;
 
-    public int $totalSteps = 3;
-
+    public readonly int $totalSteps;
 
     public bool $isEnded = false;
     private function __construct(
@@ -68,6 +75,8 @@ class AspectV1Unit implements AspectUnitInterface
         if (!$aspect->aspect_unit) {
             $instance->aspectId = $aspect->id;
             $instance->userId = $aspect->user_id;
+            $instance->totalSteps = count(self::$steps) - 1;
+
 
             if (!$instance->saveUnit($instance)) {
                 throw new AspectDomainException('Возникла проблема при создании облика', 400);
@@ -82,7 +91,6 @@ class AspectV1Unit implements AspectUnitInterface
             }
         }
         return $instance;
-
     }
 
     /**
@@ -126,7 +134,7 @@ class AspectV1Unit implements AspectUnitInterface
         return $actionClass->getParameters($this);
     }
 
-    public function nextStep(array $data): mixed
+    public function nextStep(array $data): RedirectResponse
     {
         $actionClass = $this->getActionClassFromCurrentStep();
 

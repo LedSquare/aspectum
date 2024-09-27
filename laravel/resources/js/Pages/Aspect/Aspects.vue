@@ -18,6 +18,7 @@ const props = defineProps({
                     <th>user_id</th>
                     <th>created</th>
                     <th>updated</th>
+                    <th>ended</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,6 +27,8 @@ const props = defineProps({
                     <td>{{ aspect.user_id }}</td>
                     <td>{{ aspect.created_at }}</td>
                     <td>{{ aspect.updated_at }}</td>
+                    <td>{{ aspect.isEnded }}</td>
+                    {{ console.log(aspect.isEnded) }}
                 </tr>
             </tbody>
         </table>
