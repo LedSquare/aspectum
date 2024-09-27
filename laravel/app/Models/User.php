@@ -18,7 +18,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $name $gender
  * @property string $name $phone
  *
- * @method App\Models\Aspect\Aspect|Illuminate\Database\Eloquent\Collection aspects()
+ * @property \Illuminate\Database\Eloquent\Collection<Aspect> $aspects
  */
 class User extends Authenticatable
 {
