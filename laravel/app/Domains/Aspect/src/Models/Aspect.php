@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property int $user_id
  * @property int $type_id
+ * @property boolean $isEnded
  * @property \Aspect\Interfaces\Units\AspectUnitInterface $aspect_unit
  * @property \App\Models\User $user
  *
@@ -31,12 +32,14 @@ class Aspect extends Model
         'user_id',
         // 'type_id',
         'aspect_unit',
+        'isEnded',
     ];
 
     protected $casts = [
         'user_id' => 'integer',
         // 'type_id' => 'integer',
         'aspect_unit' => 'array',
+        'isEnded' => 'boolean',
     ];
 
     public function user(): BelongsTo

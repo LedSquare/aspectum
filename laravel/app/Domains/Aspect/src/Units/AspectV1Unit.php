@@ -124,6 +124,7 @@ class AspectV1Unit implements AspectUnitInterface
     {
         $aspect = Aspect::findOrFail($instance->aspectId);
         $aspect->aspect_unit = $instance;
+        $aspect->isEnded = $instance->isEnded;
 
         return $aspect->save();
     }

@@ -19,6 +19,7 @@ class AspectListResource extends JsonResource
             'user_id' => $this->user_id,
             'created_at' => $this->created_at->format('Y-m-d'),
             'updated_at' => $this->updated_at->format('Y-m-d'),
+            'isEnded' => $this->isEnded,
         ];
     }
 }

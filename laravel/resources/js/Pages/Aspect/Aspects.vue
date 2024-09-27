@@ -28,7 +28,7 @@ const props = defineProps({
                     <td>{{ aspect.created_at }}</td>
                     <td>{{ aspect.updated_at }}</td>
                     <td>{{ aspect.isEnded }}</td>
-                    {{ console.log(aspect.isEnded) }}
+                    {{ console.log(aspect) }}
                 </tr>
             </tbody>
         </table>
