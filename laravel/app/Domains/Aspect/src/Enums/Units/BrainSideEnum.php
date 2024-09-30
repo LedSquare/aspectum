@@ -6,4 +6,5 @@ enum BrainSideEnum
 {
     case right;
     case left;
+    case synth;
 }

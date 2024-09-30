@@ -1,6 +1,7 @@
 <?php
 
 use Aspect\Http\Controllers\AspectController;
+use Aspect\Http\Controllers\AspectIsActiveController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,3 +15,7 @@ Route::controller(AspectController::class)
         Route::get('aspects', 'list')->name('.list');
         Route::get('report/{aspect}', 'report')->name('.report');
     });
+
+Route::get('is-active', AspectIsActiveController::class)
+    ->middleware('auth')
+    ->name('aspect.is-active');

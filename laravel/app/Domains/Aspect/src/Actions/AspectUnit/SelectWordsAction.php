@@ -2,6 +2,7 @@
 
 namespace Aspect\Actions\AspectUnit;
 
+use Aspect\Enums\Units\BrainSideEnum;
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Models\Stages\Word\Word;
@@ -10,8 +11,11 @@ use Inertia\Inertia;
 
 class SelectWordsAction implements AspectActionInterface
 {
+    private BrainSideEnum $side = BrainSideEnum::left;
+
     public function action(array $data, AspectUnitInterface $aspectUnit): mixed
     {
+        /** @var \Illuminate\Support\Collection<WordAspectObject> */
         $collection = collect();
 
         foreach ($data['aspect_data'] as $index => $word) {
@@ -19,13 +23,14 @@ class SelectWordsAction implements AspectActionInterface
                 WordAspectObject::make($word, $index)
             );
         }
-        $aspectUnit->words[$aspectUnit->currentStep] = $collection;
 
+        $aspectUnit->words[$aspectUnit->currentStep] = $collection;
         return $aspectUnit;
     }
 
     public function getParameters(AspectUnitInterface $aspectUnit): mixed
     {
+        /** @var \Illuminate\Support\Collection<WordAspectObject> */
         $words = collect();
         foreach (Word::all()->toArray() as $index => $word) {
             $words->push(

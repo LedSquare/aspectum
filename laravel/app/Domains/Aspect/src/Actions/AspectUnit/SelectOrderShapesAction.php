@@ -2,6 +2,7 @@
 
 namespace Aspect\Actions\AspectUnit;
 
+use Aspect\Enums\Units\BrainSideEnum;
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Models\Stages\Shape\Shape;
@@ -10,6 +11,9 @@ use Inertia\Inertia;
 
 class SelectOrderShapesAction implements AspectActionInterface
 {
+
+    public BrainSideEnum $side = BrainSideEnum::right;
+
     public function action(array $data, AspectUnitInterface $aspectUnit): mixed
     {
         $collection = collect();

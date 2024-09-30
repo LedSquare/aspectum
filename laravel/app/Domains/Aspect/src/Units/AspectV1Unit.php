@@ -48,10 +48,16 @@ class AspectV1Unit implements AspectUnitInterface
         SelectNewOrderColorsWords::class,
     ];
 
-    private readonly array $brainMap;
+    /**
+     * @var int<\Aspect\Enums\Units\BrainSideEnum>[]
+     */
+    public array $brainMap;
 
     public array $moodLevels;
 
+    /**
+     * @var \Illuminate\Support\Collection<WordAspectObject>[]
+     */
     public array $words;
 
     public int $currentStep = 0;
@@ -93,6 +99,21 @@ class AspectV1Unit implements AspectUnitInterface
         return $instance;
     }
 
+    private function setBrainSideFromAction(AspectActionInterface $action): void
+    {
+        if (isset($action->side)) {
+            $this->brainMap[$this->currentStep] = $action->side->name;
+        }
+    }
+
+    /**
+     * @return int<\Aspect\Enums\Units\BrainSideEnum>[]
+     */
+    public function getBrainMap(): array
+    {
+        return array_values($this->brainMap);
+    }
+
     /**
      *
      * @param integer|null $wordsIndex
@@ -100,24 +121,11 @@ class AspectV1Unit implements AspectUnitInterface
      */
     public function getWordsDTO(int $wordsIndex = null): \Illuminate\Support\Collection
     {
-        $collection = collect();
         $wordsIndex
             ? $wordsFromUnit = $this->words[$wordsIndex]
             : $wordsFromUnit = end(array: $this->words);
 
-        foreach ($wordsFromUnit as $word) {
-            $collection->push(
-                new WordAspectObject(
-                    id: $word['id'],
-                    order: $word['order'],
-                    name: $word['name'],
-                    colorCode: $word['colorCode'],
-                    shapeId: $word['shapeId'],
-                    shapeColorCode: $word['shapeColorCode'],
-                )
-            );
-        }
-        return $collection;
+        return collect($wordsFromUnit);
     }
 
     public function saveUnit($instance): bool
@@ -140,6 +148,8 @@ class AspectV1Unit implements AspectUnitInterface
         $actionClass = $this->getActionClassFromCurrentStep();
 
         $actionClass->action($data, $this);
+
+        $this->setBrainSideFromAction($actionClass);
 
         $this->incrementStep();
 

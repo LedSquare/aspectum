@@ -2,6 +2,7 @@
 
 namespace Aspect\Actions\AspectUnit;
 
+use Aspect\Enums\Units\BrainSideEnum;
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Models\Stages\Color;
@@ -11,6 +12,8 @@ use Inertia\Inertia;
 
 class SelectColorShapeAction implements AspectActionInterface
 {
+    public BrainSideEnum $side = BrainSideEnum::right;
+
     public function action(array $data, AspectUnitInterface $aspectUnit): mixed
     {
         $collection = collect();
