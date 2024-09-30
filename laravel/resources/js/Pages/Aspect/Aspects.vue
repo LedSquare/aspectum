@@ -1,10 +1,15 @@
 <script setup>
-import { Head } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 
 const props = defineProps({
     title: String,
     resource: {type: [Array, Object], required: true},
 })
+
+const aspectReport = (aspectId) => {
+
+    router.visit('report/' + aspectId)
+}
 </script>
 
 <template>
@@ -14,22 +19,17 @@ const props = defineProps({
         <table class="">
             <thead>
                 <tr>
-                    <th>id</th>
-                    <th>user_id</th>
-                    <th>created</th>
-                    <th>updated</th>
-                    <th>ended</th>
+                    <th>Номер</th>
+                    <th>Дата прохождения</th>
+                    <th>Закончен</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="aspect in resource.data" :key="aspect.id">
+                <tr class="tr-link" @click="aspectReport(aspect.id)" v-for="aspect in resource.data" :key="aspect.id">
                     <td>{{ aspect.id }}</td>
-                    <td>{{ aspect.user_id }}</td>
                     <td>{{ aspect.created_at }}</td>
-                    <td>{{ aspect.updated_at }}</td>
                     <td>{{ aspect.isEnded }}</td>
-                    {{ console.log(aspect) }}
-                </tr>
+                    </tr>
             </tbody>
         </table>
         </div>
@@ -43,6 +43,10 @@ const props = defineProps({
 
 
 <style lang="scss" scoped>
+.tr-link{
+    cursor: pointer;
+}
+
 .empty{
     width: 100%;
     height: 70vh;

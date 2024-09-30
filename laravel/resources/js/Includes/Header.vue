@@ -5,7 +5,7 @@ import ProfileIcon from '../Components/svg/icons/ProfileIcon.vue';
 </script>
 <template>
     <header class="flex-c">
-        <div>
+        <div class="user-select-none">
             <nav>
                 <ul>
                     <img class="logo-mini" src="../../../public/images/asp-small-logo.png" alt="Нет картинки">
@@ -44,6 +44,11 @@ import ProfileIcon from '../Components/svg/icons/ProfileIcon.vue';
 
 
 <style lang="scss" scoped>
+
+.user-select-none{
+    user-select: none;
+}
+
 header {
     padding-top: 28px;
     display: flex;

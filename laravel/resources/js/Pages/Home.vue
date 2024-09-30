@@ -1,8 +1,9 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3'
+import { Head, Link, router } from '@inertiajs/vue3'
 
 const props = defineProps({
     title: String,
+    isActive: Boolean
 })
 
 </script>
@@ -13,7 +14,7 @@ const props = defineProps({
     <div class="start-page flex-c">
         <h1>Облик</h1>
         <Link :href="route('aspect.start')" as="button" class="start-button">
-        Начать
+            Начать
         </Link>
     </div>
 </template>
