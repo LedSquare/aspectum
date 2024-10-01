@@ -4,13 +4,14 @@ namespace Aspect\Actions\AspectUnit;
 
 use Aspect\Enums\Units\BrainSideEnum;
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
+use Aspect\Interfaces\UnitResponses\ResponseInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Units\DTO\WordAspectObject;
-use Inertia\Inertia;
+use Aspect\Units\Responses\AspectInertiaResponse;
 
 class SelectOrderWordsAction implements AspectActionInterface
 {
-    public BrainSideEnum $side = BrainSideEnum::right;
+    public BrainSideEnum $side = BrainSideEnum::left;
 
     public function action(array $data, AspectUnitInterface $aspectUnit): mixed
     {
@@ -27,14 +28,17 @@ class SelectOrderWordsAction implements AspectActionInterface
         return $aspectUnit;
     }
 
-    public function getParameters(AspectUnitInterface $aspectUnit): mixed
+    public function getParameters(AspectUnitInterface $aspectUnit): ResponseInterface
     {
-        return Inertia::render('Aspect/SelectOrderWords', [
-            'data' => [
-                'words' => $aspectUnit->getWordsDTO()
-            ],
-            'aspect_id' => $aspectUnit->aspectId,
-            'title' => __('Установка приоритетов понятий')
-        ]);
+        return new AspectInertiaResponse(
+            component: 'Aspect/SelectOrderWords',
+            data: [
+                'data' => [
+                    'words' => $aspectUnit->getWordsFromUnit()
+                ],
+                'aspect_id' => $aspectUnit->aspectId,
+                'title' => __('Установка приоритетов понятий')
+            ]
+        );
     }
 }

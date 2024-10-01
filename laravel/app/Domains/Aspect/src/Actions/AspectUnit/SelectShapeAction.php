@@ -4,10 +4,11 @@ namespace Aspect\Actions\AspectUnit;
 
 use Aspect\Enums\Units\BrainSideEnum;
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
+use Aspect\Interfaces\UnitResponses\ResponseInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Models\Stages\Shape\ShapeCategory;
 use Aspect\Units\DTO\WordAspectObject;
-use Inertia\Inertia;
+use Aspect\Units\Responses\AspectInertiaResponse;
 
 class SelectShapeAction implements AspectActionInterface
 {
@@ -28,15 +29,19 @@ class SelectShapeAction implements AspectActionInterface
         return $aspectUnit;
     }
 
-    public function getParameters(AspectUnitInterface $aspectUnit): mixed
+    public function getParameters(AspectUnitInterface $aspectUnit): ResponseInterface
     {
-        return Inertia::render('Aspect/SelectShape', [
-            'aspect_id' => $aspectUnit->aspectId,
-            'data' => [
-                'words' => $aspectUnit->getWordsDTO(),
-                'shape_categories' => ShapeCategory::with('shapes')->get(),
-            ],
-            'title' => __('Символизация понятий')
-        ]);
+
+        return new AspectInertiaResponse(
+            component: 'Aspect/SelectShape',
+            data: [
+                'aspect_id' => $aspectUnit->aspectId,
+                'data' => [
+                    'words' => $aspectUnit->getWordsFromUnit(),
+                    'shape_categories' => ShapeCategory::with('shapes')->get(),
+                ],
+                'title' => __('Символизация понятий')
+            ]
+        );
     }
 }

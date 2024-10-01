@@ -3,9 +3,9 @@
 namespace Aspect\Actions\AspectUnit;
 
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
+use Aspect\Interfaces\UnitResponses\ResponseInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
-use Aspect\Models\Stages\MoodLevel;
-use Inertia\Inertia;
+use Aspect\Units\Responses\AspectInertiaResponse;
 
 class MoodLevelAction implements AspectActionInterface
 {
@@ -15,12 +15,15 @@ class MoodLevelAction implements AspectActionInterface
         return $aspectUnit;
     }
 
-    public function getParameters(AspectUnitInterface $aspectUnit): mixed
+    public function getParameters(AspectUnitInterface $aspectUnit): ResponseInterface
     {
-        return Inertia::render('Aspect/MoodLevel', [
-            'data' => [],
-            'aspect_id' => $aspectUnit->aspectId,
-            'title' => __('Определение уровня психосоматического состояния')
-        ]);
+        return new AspectInertiaResponse(
+            component: 'Aspect/MoodLevel',
+            data: [
+                'data' => [],
+                'aspect_id' => $aspectUnit->aspectId,
+                'title' => __('Определение уровня психосоматического состояния')
+            ]
+        );
     }
 }

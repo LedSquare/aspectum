@@ -2,8 +2,8 @@
 
 namespace Aspect\Interfaces\Units;
 
+use Aspect\Interfaces\UnitResponses\ResponseInterface;
 use Aspect\Units\DTO\WordAspectObject;
-use Inertia\Response;
 
 /**
  * @template T
@@ -19,14 +19,14 @@ interface AspectUnitInterface
 {
     public function saveUnit($instance): bool;
 
-    public function getStepParameters(): Response;
+    public function getStepParameters(): ResponseInterface;
 
     public function nextStep(array $data): mixed;
 
     /**
      * @return \Illuminate\Support\Collection<WordAspectObject>
      */
-    public function getWordsDTO(int $wordsIndex = null): \Illuminate\Support\Collection;
+    public function getWordsFromUnit(int $wordsIndex = null): \Illuminate\Support\Collection;
 
     public function report(): array;
 

@@ -12,14 +12,13 @@ use Aspect\Actions\AspectUnit\SelectShapeAction;
 use Aspect\Actions\AspectUnit\SelectWordsAction;
 use Aspect\Exceptions\AspectDomainException;
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
+use Aspect\Interfaces\UnitResponses\ResponseInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Models\Aspect;
 use Aspect\Units\DTO\WordAspectObject;
-use Illuminate\Http\RedirectResponse;
-use Inertia\Response;
 
 /**
- * @template T of AspectUnitInterface
+ * @template T of self
  * @template-implements AspectUnitInterface<T>
  */
 class AspectV1Unit implements AspectUnitInterface
@@ -99,6 +98,28 @@ class AspectV1Unit implements AspectUnitInterface
         return $instance;
     }
 
+    public function nextStep(array $data): self
+    {
+        $actionClass = $this->getActionClassFromCurrentStep();
+
+        $actionClass->action($data, $this);
+
+        $this->setBrainSideFromAction($actionClass);
+
+        $this->incrementStep();
+
+        $this->saveUnit($this);
+
+        return $this;
+
+    }
+
+    public function getStepParameters(): ResponseInterface
+    {
+        $actionClass = $this->getActionClassFromCurrentStep();
+        return $actionClass->getParameters($this);
+    }
+
     private function setBrainSideFromAction(AspectActionInterface $action): void
     {
         if (isset($action->side)) {
@@ -119,7 +140,7 @@ class AspectV1Unit implements AspectUnitInterface
      * @param integer|null $wordsIndex
      * @return \Illuminate\Support\Collection<WordAspectObject>
      */
-    public function getWordsDTO(int $wordsIndex = null): \Illuminate\Support\Collection
+    public function getWordsFromUnit(int $wordsIndex = null): \Illuminate\Support\Collection
     {
         $wordsIndex
             ? $wordsFromUnit = $this->words[$wordsIndex]
@@ -135,28 +156,6 @@ class AspectV1Unit implements AspectUnitInterface
         $aspect->isEnded = $instance->isEnded;
 
         return $aspect->save();
-    }
-
-    public function getStepParameters(): Response
-    {
-        $actionClass = $this->getActionClassFromCurrentStep();
-        return $actionClass->getParameters($this);
-    }
-
-    public function nextStep(array $data): RedirectResponse
-    {
-        $actionClass = $this->getActionClassFromCurrentStep();
-
-        $actionClass->action($data, $this);
-
-        $this->setBrainSideFromAction($actionClass);
-
-        $this->incrementStep();
-
-        $this->saveUnit($this);
-
-        return redirect()->route('aspect.current', $this->aspectId);
-
     }
 
     protected function getActionClassFromCurrentStep(): AspectActionInterface

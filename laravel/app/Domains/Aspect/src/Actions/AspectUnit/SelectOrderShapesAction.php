@@ -4,10 +4,11 @@ namespace Aspect\Actions\AspectUnit;
 
 use Aspect\Enums\Units\BrainSideEnum;
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
+use Aspect\Interfaces\UnitResponses\ResponseInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Models\Stages\Shape\Shape;
 use Aspect\Units\DTO\WordAspectObject;
-use Inertia\Inertia;
+use Aspect\Units\Responses\AspectInertiaResponse;
 
 class SelectOrderShapesAction implements AspectActionInterface
 {
@@ -28,17 +29,21 @@ class SelectOrderShapesAction implements AspectActionInterface
         return $aspectUnit;
     }
 
-    public function getParameters(AspectUnitInterface $aspectUnit): mixed
+    public function getParameters(AspectUnitInterface $aspectUnit): ResponseInterface
     {
-        $words = $aspectUnit->getWordsDTO();
+        $words = $aspectUnit->getWordsFromUnit();
 
-        return Inertia::render('Aspect/SelectOrderShapes', [
-            'data' => [
-                'words' => $words,
-                'shapes' => Shape::whereIn('id', $words->pluck('shapeId'))->get(),
-            ],
-            'aspect_id' => $aspectUnit->aspectId,
-            'title' => __('Установка приоритетов символов')
-        ]);
+        return new AspectInertiaResponse(
+            component: 'Aspect/SelectOrderShapes',
+            data: [
+                'data' => [
+                    'words' => $words,
+                    'shapes' => Shape::whereIn('id', $words->pluck('shapeId'))->get(),
+                ],
+                'aspect_id' => $aspectUnit->aspectId,
+                'title' => __('Установка приоритетов символов')
+            ]
+        );
+
     }
 }

@@ -4,9 +4,10 @@ namespace Aspect\Actions\AspectUnit;
 
 use Aspect\Enums\Units\BrainSideEnum;
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
+use Aspect\Interfaces\UnitResponses\ResponseInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Units\DTO\WordAspectObject;
-use Inertia\Inertia;
+use Aspect\Units\Responses\AspectInertiaResponse;
 
 class SelectNewOrderColorsWords implements AspectActionInterface
 {
@@ -25,16 +26,18 @@ class SelectNewOrderColorsWords implements AspectActionInterface
         return $aspectUnit;
     }
 
-    public function getParameters(AspectUnitInterface $aspectUnit): mixed
+    public function getParameters(AspectUnitInterface $aspectUnit): ResponseInterface
     {
-        $words = $aspectUnit->getWordsDTO();
-
-        return Inertia::render('Aspect/SelectNewOrderColorsWords', [
-            'aspect_id' => $aspectUnit->aspectId,
-            'data' => [
-                'words' => $words,
-            ],
-            'title' => __('Мозаика полушарий')
-        ]);
+        $words = $aspectUnit->getWordsFromUnit();
+        return new AspectInertiaResponse(
+            component: 'Aspect/SelectNewOrderColorsWords',
+            data: [
+                'aspect_id' => $aspectUnit->aspectId,
+                'data' => [
+                    'words' => $words,
+                ],
+                'title' => __('Мозаика полушарий')
+            ]
+        );
     }
 }

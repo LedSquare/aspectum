@@ -4,10 +4,11 @@ namespace Aspect\Actions\AspectUnit;
 
 use Aspect\Enums\Units\BrainSideEnum;
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
+use Aspect\Interfaces\UnitResponses\ResponseInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Models\Stages\Color;
 use Aspect\Units\DTO\WordAspectObject;
-use Inertia\Inertia;
+use Aspect\Units\Responses\AspectInertiaResponse;
 
 class SelectColorWordAction implements AspectActionInterface
 {
@@ -26,15 +27,18 @@ class SelectColorWordAction implements AspectActionInterface
         return $aspectUnit;
     }
 
-    public function getParameters(AspectUnitInterface $aspectUnit): mixed
+    public function getParameters(AspectUnitInterface $aspectUnit): ResponseInterface
     {
-        return Inertia::render('Aspect/SelectColorWord', [
-            'aspect_id' => $aspectUnit->aspectId,
-            'data' => [
-                'colors' => Color::all(),
-                'words' => $aspectUnit->getWordsDTO(),
-            ],
-            'title' => __('Окраска понятий')
-        ]);
+        return new AspectInertiaResponse(
+            component: 'Aspect/SelectColorWord',
+            data: [
+                'aspect_id' => $aspectUnit->aspectId,
+                'data' => [
+                    'colors' => Color::all(),
+                    'words' => $aspectUnit->getWordsFromUnit(),
+                ],
+                'title' => __('Окраска понятий')
+            ]
+        );
     }
 }

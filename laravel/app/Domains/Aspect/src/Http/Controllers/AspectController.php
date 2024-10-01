@@ -36,7 +36,9 @@ class AspectController extends Controller
     {
         $data = $request->validated();
         $aspectUnit = $aspect->getUnit();
-        return $aspectUnit->nextStep($data);
+        $aspectUnit->nextStep($data);
+
+        return redirect()->route('aspect.current', $aspectUnit->aspectId);
     }
 
     public function current(Aspect $aspect): Response|RedirectResponse
@@ -45,7 +47,10 @@ class AspectController extends Controller
         if ($aspectUnit->isEnded) {
             return redirect()->route('aspect.report', $aspectUnit->aspectId);
         }
-        return $aspectUnit->getStepParameters();
+
+        /** @var \Aspect\Units\Responses\AspectInertiaResponse */
+        $inertiaResponse = $aspectUnit->getStepParameters();
+        return Inertia::render($inertiaResponse->component, $inertiaResponse->data);
     }
 
     public function list(): Response

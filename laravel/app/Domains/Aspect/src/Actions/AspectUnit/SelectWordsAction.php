@@ -4,14 +4,15 @@ namespace Aspect\Actions\AspectUnit;
 
 use Aspect\Enums\Units\BrainSideEnum;
 use Aspect\Interfaces\Actions\AspectUnit\AspectActionInterface;
+use Aspect\Interfaces\UnitResponses\ResponseInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Models\Stages\Word\Word;
 use Aspect\Units\DTO\WordAspectObject;
-use Inertia\Inertia;
+use Aspect\Units\Responses\AspectInertiaResponse;
 
 class SelectWordsAction implements AspectActionInterface
 {
-    private BrainSideEnum $side = BrainSideEnum::left;
+    public BrainSideEnum $side = BrainSideEnum::left;
 
     public function action(array $data, AspectUnitInterface $aspectUnit): mixed
     {
@@ -28,7 +29,7 @@ class SelectWordsAction implements AspectActionInterface
         return $aspectUnit;
     }
 
-    public function getParameters(AspectUnitInterface $aspectUnit): mixed
+    public function getParameters(AspectUnitInterface $aspectUnit): ResponseInterface
     {
         /** @var \Illuminate\Support\Collection<WordAspectObject> */
         $words = collect();
@@ -37,10 +38,13 @@ class SelectWordsAction implements AspectActionInterface
                 WordAspectObject::make($word, $index),
             );
         }
-        return Inertia::render('Aspect/SelectWords', [
-            'data' => $words,
-            'aspect_id' => $aspectUnit->aspectId,
-            'title' => __('Выбор понятий'),
-        ]);
+        return new AspectInertiaResponse(
+            component: 'Aspect/SelectWords',
+            data: [
+                'data' => $words,
+                'aspect_id' => $aspectUnit->aspectId,
+                'title' => __('Выбор понятий'),
+            ]
+        );
     }
 }
