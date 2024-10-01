@@ -10,33 +10,41 @@ const props = defineProps({
 });
 
 const errorMessage = ref(null)
+const buttonIsDisabled =  ref(false)
 
 const clearMessage = () => {
     errorMessage.value = null
 }
 
 const storeAspect = () => {
-    if (props.validate) {
-        try {
-            props.validate(props.aspect_data)
-        } catch (error) {
-            errorMessage.value = error.message
-            return
+    if(!buttonIsDisabled.value){
+        if (props.validate) {
+            try {
+                props.validate(props.aspect_data)
+            } catch (error) {
+                errorMessage.value = error.message
+                return
+            }
         }
-    }
 
-    const form = useForm({
-        aspect_id: props.aspect_id,
-        aspect_data: props.aspect_data,
-    });
-    form.post(route('aspect.store', props.aspect_id))
+        const form = useForm({
+            aspect_id: props.aspect_id,
+            aspect_data: props.aspect_data,
+        });
+        form.post(route('aspect.store', props.aspect_id))
+        buttonIsDisabled.value = true;
+
+        setTimeout(() => {
+            buttonIsDisabled.value = false;
+        }, 1000)
+    }
 }
 
 
 </script>
 <template>
     <div class="button-box">
-        <ErrorMessage :message="errorMessage" @clearMessage="clearMessage" />
+        <ErrorMessage :message="errorMessage" :disabled="buttonIsDisabled" @clearMessage="clearMessage" />
 
         <button @click="storeAspect" class="step-button">
             Следующий шаг

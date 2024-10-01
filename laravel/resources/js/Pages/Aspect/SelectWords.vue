@@ -40,13 +40,10 @@ function validate(words) {
         <h2>
             {{ title }}
         </h2>
-        <div class="word-box">
+        <div class="word-box" v-if="data">
             <div class="left-box">
-                <div class="word" @click="addWord(word)" v-if="data" v-for="word in data" :key="word.id">
+                <div class="word" @click="addWord(word)" v-for="word in data" :key="word.id">
                     {{ word.name }}
-                </div>
-                <div v-else>
-                    Понятий нет в базе данных, либо произошла другая ошибка
                 </div>
             </div>
             <div class="right-box" id="selected-words-box">
@@ -56,6 +53,10 @@ function validate(words) {
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div v-else>
+                    Понятий нет в базе данных, либо произошла другая ошибка
         </div>
         <NextStep :validate="validate" :aspect_data="selectedWords" :aspect_id="aspect_id"></NextStep>
     </div>
