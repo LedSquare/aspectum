@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             'firstname' => 'Тест',
             'lastname' => 'Тестов',
             'fathername' => 'Тестович',
-            'gender' => 'мужской',
+            'gender' => 'муж',
             'email' => 'mail@mail.com',
             'password' => '123123',
         ]);

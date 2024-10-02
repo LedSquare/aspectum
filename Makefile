@@ -6,6 +6,7 @@ endif
 setup: 
 	cp .env.example .env; 
 	cp laravel/.env.example laravel/.env;
+	docker network create aspnet
 
 # start deploying
 start-dep: composer npm composer-install dockerInstall build up 
@@ -81,7 +82,7 @@ npm-install:
 migrate:
 	${DOCKER_EXEC_APP} php artisan migrate:fresh $(s)
 
-run-tests:
+run-tests:	
 	read -p "Тип теста? - " type; \
 	if [ -z "$$type" ]; then\
 		type="Feature"; \
@@ -91,3 +92,5 @@ run-tests:
 tinker:
 	docker exec -it ${PROJECT}_php php artisan tinker app/Console/tinker.php
 
+migrate-fresh:
+	docker exec -it ${PROJECT}_php php artisan migrate:fresh --seed

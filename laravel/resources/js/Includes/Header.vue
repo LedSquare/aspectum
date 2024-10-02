@@ -1,30 +1,40 @@
 <script setup>
-import { Link } from "@inertiajs/inertia-vue3"
+import { Link } from "@inertiajs/vue3";
+import ProfileIcon from '../Components/svg/icons/ProfileIcon.vue';
+
 </script>
 <template>
     <header class="flex-c">
-        <div>
+        <div class="user-select-none">
             <nav>
                 <ul>
+                    <img class="logo-mini" src="../../../public/images/asp-small-logo.png" alt="Нет картинки">
+                    <div class="name">
+                        <p>ОБЛИК</p>
+                    </div>
+                </ul>
+                <ul>
                     <li>
-                        <Link :href="route('home')">Домой</Link>
+                        <Link :href="route('home')">
+                            Главная
+                        </Link>
+                    </li>
+                    <li>
+                        <Link :href="route('aspect.list')">
+                            История
+                        </Link>
                     </li>
                     <li>
                         <a>Контакты</a>
                     </li>
                 </ul>
 
-                <!-- TODO: Удалить, временный блок -->
-                <!-- @if ($user = auth()->user())
-                <div style="display: flex;" class="flex-c"> Пользователь:{{ " $user->firstname $user->lastname " }}
-                </div>
-                @endif -->
-
                 <ul class="auth-ul">
 
                     <li>
-                        <!-- TODO: Добавить разные роуты -->
-                        <Link :href="route('login')">Личный кабинет</Link>
+                        <Link :href="route('login')">
+                        <profile-icon />
+                        </Link>
                     </li>
                 </ul>
             </nav>
@@ -32,41 +42,25 @@ import { Link } from "@inertiajs/inertia-vue3"
     </header>
 </template>
 
-<script>
-export default {
-    name: 'Header',
-    components: {
-        Link
-    },
-    created() {
-
-    },
-    data() {
-        return {
-        }
-    },
-    props: {
-
-    },
-    methods: {
-
-    },
-}
-</script>
 
 <style lang="scss" scoped>
+
+.user-select-none{
+    user-select: none;
+}
+
 header {
-    padding: 0px 10px;
+    padding-top: 28px;
     display: flex;
     background-color: $body-background;
-    height: $header-footer-height;
+    flex-shrink: 0;
 
     >div {
         display: flex;
         width: 1180;
-        height: 100%;
+        height: 72px;
         padding: 0px 10px;
-        border-radius: 10px;
+        border-radius: 24px;
         background-color: $blocks-background;
     }
 
@@ -74,9 +68,6 @@ header {
         justify-content: space-between;
     }
 
-    ul>li:first-child {
-        margin-right: 5em;
-    }
 
     .auth-ul>li {
         margin-right: 10px !important;
@@ -88,8 +79,25 @@ header {
         align-items: center;
 
         >li {
-            margin: 10px;
+            margin: 20px;
         }
     }
+}
+
+.name {
+    display: flex;
+    flex-direction: column-reverse;
+    height: 80%;
+    justify-content: center;
+
+    >p {
+        color: $blue;
+        font-weight: bolder;
+    }
+}
+
+.logo-mini {
+    width: 85px;
+    height: 55px;
 }
 </style>

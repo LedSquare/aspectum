@@ -6,7 +6,7 @@ services:
     image: ${PROJECT}_php:${TAG}
     build:
       context: .
-      dockerfile: docker/php/Dockerfile
+      dockerfile: docker/dev/php/Dockerfile
     depends_on:
       - db
     volumes:
@@ -19,9 +19,10 @@ services:
     image: ${PROJECT}_vite:${TAG}
     build:
       context: .
-      dockerfile: docker/vite/Dockerfile.vite
+      dockerfile: docker/dev/vite/Dockerfile.vite
     ports:
       - 3000:3000
+      - 3001:3001
     volumes:
       - ./laravel/:/app
       - /app/node_modules
@@ -33,7 +34,7 @@ services:
     image: ${PROJECT}_nginx:${TAG}
     build:
       context: .
-      dockerfile: docker/nginx/Dockerfile
+      dockerfile: docker/dev/nginx/Dockerfile
     ports:
       - 80:80
     depends_on:
@@ -50,7 +51,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_DATABASE}
     volumes:
-      - ./data/db:/var/lib/postgresql/data:rw
+      - ./data/dev/db:/var/lib/postgresql/data:rw
     container_name: ${PROJECT}_db
     hostname: db
     networks:
@@ -60,7 +61,7 @@ services:
   redis:
     build:
       context: .
-      dockerfile: docker/redis/Dockerfile
+      dockerfile: docker/dev/redis/Dockerfile
     container_name: ${PROJECT}_redis
     image: ${PROJECT}_redis:${TAG}
     hostname: redis
@@ -68,7 +69,7 @@ services:
     ports:
       - "6380:6379"
     volumes:
-      - ./data/redis:/root/redis
+      - ./data/dev/redis:/root/redis
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - REDIS_PORT=6379
@@ -90,7 +91,7 @@ services:
 
 networks:
   appnet:
-    name: appnet
+    name: aspnet
     driver: bridge
     external: true
       

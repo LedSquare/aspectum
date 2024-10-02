@@ -1,5 +1,11 @@
 <script setup>
-import { Head } from '@inertiajs/inertia-vue3'
+import { Head, Link, router } from '@inertiajs/vue3'
+
+const props = defineProps({
+    title: String,
+    isActive: Boolean
+})
+
 </script>
 <template>
 
@@ -7,30 +13,10 @@ import { Head } from '@inertiajs/inertia-vue3'
 
     <div class="start-page flex-c">
         <h1>Облик</h1>
-        <a href="#"><button class="start-button">Начать</button></a>
+        <Link :href="route('aspect.start')" as="button" class="start-button">
+            Начать
+        </Link>
     </div>
 </template>
-
-<script>
-export default {
-    name: 'Home',
-    components: {
-        Head
-    },
-    created() {
-        console.log(this.title);
-    },
-    data() {
-        return {
-        }
-    },
-    props: {
-        title: String,
-    },
-    methods: {
-
-    },
-}
-</script>
 
 <style lang="scss" scoped></style>

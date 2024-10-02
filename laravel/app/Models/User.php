@@ -4,12 +4,13 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Notifications\Notifiable;
+use Aspect\Models\Aspect;
 use Illuminate\Contracts\Database\Query\Builder;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 /**
  * @property integer $id
  * @property string $name $name
@@ -17,7 +18,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $name $gender
  * @property string $name $phone
  *
- * @method App\Models\Aspect\Aspect|Illuminate\Database\Eloquent\Collection aspects()
+ * @property \Illuminate\Database\Eloquent\Collection<Aspect> $aspects
  */
 class User extends Authenticatable
 {
