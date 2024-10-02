@@ -128,14 +128,6 @@ class AspectV1Unit implements AspectUnitInterface
     }
 
     /**
-     * @return int<\Aspect\Enums\Units\BrainSideEnum>[]
-     */
-    public function getBrainMap(): array
-    {
-        return array_values($this->brainMap);
-    }
-
-    /**
      *
      * @param integer|null $wordsIndex
      * @return \Illuminate\Support\Collection<WordAspectObject>
@@ -175,9 +167,19 @@ class AspectV1Unit implements AspectUnitInterface
 
     public function report(): array
     {
+        $steps = [];
+        $sides = array_values($this->brainMap);
+
+        foreach (array_values($this->words) as $key => $words) {
+            $steps[$key] = [
+                'words' => $words,
+                'side' => $sides[$key],
+            ];
+        }
+
         return [
             'data' => [
-                'words' => array_values($this->words),
+                'steps' => $steps,
                 'moodLevels' => $this->moodLevels,
             ],
             'aspect_id' => $this->aspectId,

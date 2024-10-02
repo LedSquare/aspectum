@@ -11,8 +11,9 @@ const props = defineProps({
 })
 
 const cloned = _.cloneDeep(props)
-const words = ref(cloned.data.words)
+const steps = ref(cloned.data.steps)
 
+console.log(steps.value[0].words);
 
 
 </script>
@@ -27,8 +28,9 @@ const words = ref(cloned.data.words)
             Облик № {{ aspect_id }} закончен !
         </h1>
         <!-- <div class="steps">
-            <div class="step" v-for="(step, stepIndex) in words" :key="stepIndex">
+            <div class="step" v-for="(step, stepIndex) in steps" :key="stepIndex">
                 <div class="words">
+                    {{ brainMap[stepIndex] }}
                     <div
                         class="word"
                         v-for="(word) in step"
