@@ -4,14 +4,15 @@ namespace Aspect\Units\DTO;
 
 final class WordAspectObject
 {
+    public ?string $priority;
 
     public function __construct(
-        public int $id,
-        public int $order,
-        public string $name,
-        public ?string $colorCode = null,
-        public ?int $shapeId = null,
-        public ?string $shapeColorCode = null,
+        public readonly int $id,
+        public readonly int $order,
+        public readonly string $name,
+        public readonly ?string $colorCode = null,
+        public readonly ?int $shapeId = null,
+        public readonly ?string $shapeColorCode = null,
     ) {
     }
 

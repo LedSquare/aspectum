@@ -16,6 +16,7 @@ use Aspect\Interfaces\UnitResponses\ResponseInterface;
 use Aspect\Interfaces\Units\AspectUnitInterface;
 use Aspect\Models\Aspect;
 use Aspect\Units\DTO\WordAspectObject;
+use Illuminate\Support\Collection;
 
 /**
  * @template T of self
@@ -128,17 +129,48 @@ class AspectV1Unit implements AspectUnitInterface
     }
 
     /**
+     * @param \Illuminate\Support\Collection<WordAspectObject>
+     * @return void
+     */
+    private function compareAndSetNewPriority(Collection &$words): void
+    {
+        $wordsFromUnit = prev($this->words);
+        if (!$wordsFromUnit) {
+            return;
+        }
+
+        /** @var \Illuminate\Support\Collection<WordAspectObject> */
+        $previosWords = collect($wordsFromUnit);
+
+        $words->each(function ($word) use ($previosWords) {
+            $previosWord = $previosWords->firstWhere('id', '=', $word->id);
+            $priority = match (true) {
+                $word->order == $previosWord->order => null,
+                $word->order > $previosWord->order => '+',
+                $word->order < $previosWord->order => '-',
+            };
+
+            $word->priority = $priority;
+        });
+    }
+
+    /**
      *
      * @param integer|null $wordsIndex
      * @return \Illuminate\Support\Collection<WordAspectObject>
      */
-    public function getWordsFromUnit(int $wordsIndex = null): \Illuminate\Support\Collection
+    public function getWordsFromUnit(int $wordsIndex = null): Collection
     {
         $wordsIndex
             ? $wordsFromUnit = $this->words[$wordsIndex]
             : $wordsFromUnit = end(array: $this->words);
 
-        return collect($wordsFromUnit);
+        $collection = collect();
+
+        foreach ($wordsFromUnit as $key => $word) {
+            $collection->push(WordAspectObject::make($word, $key));
+        }
+        return $collection;
     }
 
     public function saveUnit($instance): bool

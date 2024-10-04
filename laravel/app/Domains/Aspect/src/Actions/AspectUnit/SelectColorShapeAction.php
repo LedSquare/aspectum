@@ -25,7 +25,7 @@ class SelectColorShapeAction implements AspectActionInterface
         }
         $aspectUnit->words[$aspectUnit->currentStep] = $collection;
 
-        return $aspectUnit;
+        return $collection;
     }
 
     public function getParameters(AspectUnitInterface $aspectUnit): ResponseInterface

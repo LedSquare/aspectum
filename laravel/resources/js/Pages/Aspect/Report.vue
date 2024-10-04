@@ -6,6 +6,7 @@ import BrainIcon from '../../Components/svg/icons/BrainIcon.vue';
 
 const props = defineProps({
     aspect_id: Number,
+
     data: {type: [Array, Object], required: true},
     title: String,
 })
@@ -13,7 +14,7 @@ const props = defineProps({
 const cloned = _.cloneDeep(props)
 const steps = ref(cloned.data.steps)
 
-console.log(steps.value[0].words);
+console.log(steps.value[0]);
 
 
 </script>
@@ -27,29 +28,34 @@ console.log(steps.value[0].words);
         <h1>
             Облик № {{ aspect_id }} закончен !
         </h1>
-        <!-- <div class="steps">
+        <div class="steps">
             <div class="step" v-for="(step, stepIndex) in steps" :key="stepIndex">
-                <div class="words">
-                    {{ brainMap[stepIndex] }}
-                    <div
-                        class="word"
-                        v-for="(word) in step"
-                        :key="word.id"
-                        :style="['color:' + word.colorCode]"
-                        >
-                        {{ word.name }}
-                    </div>
-                </div>
+                <!-- <div class="words" v-for=""> -->
+
+                <!-- </div> -->
             </div>
         </div>
 
         <div class="mood-levels">
 
-        </div> -->
+        </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
+
+.words{
+
+}
+
+.brain-left{
+
+}
+
+.brain-rigth{
+
+}
+
 .report-frame{
     display: flex;
     flex-direction: column;
