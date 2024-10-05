@@ -22,6 +22,7 @@ class SelectOrderWordsAction implements AspectActionInterface
                 WordAspectObject::make($word, $index)
             );
         }
+        $aspectUnit->setNewPriority($collection);
         $aspectUnit->words[$aspectUnit->currentStep] = $collection;
 
 

@@ -24,8 +24,8 @@ class SelectWordsAction implements AspectActionInterface
                 WordAspectObject::make($word, $index)
             );
         }
-
         $aspectUnit->words[$aspectUnit->currentStep] = $collection;
+
         return $aspectUnit;
     }
 
@@ -33,6 +33,7 @@ class SelectWordsAction implements AspectActionInterface
     {
         /** @var \Illuminate\Support\Collection<WordAspectObject> */
         $words = collect();
+
         foreach (Word::all()->toArray() as $index => $word) {
             $words->push(
                 WordAspectObject::make($word, $index),

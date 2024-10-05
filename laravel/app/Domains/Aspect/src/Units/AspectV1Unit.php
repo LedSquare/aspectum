@@ -115,6 +115,27 @@ class AspectV1Unit implements AspectUnitInterface
 
     }
 
+    /**
+     * @param \Illuminate\Support\Collection<WordAspectObject> &$words
+     * @return void
+     */
+    public function setNewPriority(Collection &$words): void
+    {
+        $previosWords = $this->getWordsFromUnit();
+
+        $words->each(function ($word) use ($previosWords) {
+            $previosWord = $previosWords->firstWhere('id', '=', $word->id);
+
+            $priority = match (true) {
+                $word->order == $previosWord->order => null,
+                $word->order > $previosWord->order => '+',
+                $word->order < $previosWord->order => '-',
+            };
+
+            $word->priority = $priority;
+        });
+    }
+
     public function getStepParameters(): ResponseInterface
     {
         $actionClass = $this->getActionClassFromCurrentStep();
@@ -129,32 +150,6 @@ class AspectV1Unit implements AspectUnitInterface
     }
 
     /**
-     * @param \Illuminate\Support\Collection<WordAspectObject>
-     * @return void
-     */
-    private function compareAndSetNewPriority(Collection &$words): void
-    {
-        $wordsFromUnit = prev($this->words);
-        if (!$wordsFromUnit) {
-            return;
-        }
-
-        /** @var \Illuminate\Support\Collection<WordAspectObject> */
-        $previosWords = collect($wordsFromUnit);
-
-        $words->each(function ($word) use ($previosWords) {
-            $previosWord = $previosWords->firstWhere('id', '=', $word->id);
-            $priority = match (true) {
-                $word->order == $previosWord->order => null,
-                $word->order > $previosWord->order => '+',
-                $word->order < $previosWord->order => '-',
-            };
-
-            $word->priority = $priority;
-        });
-    }
-
-    /**
      *
      * @param integer|null $wordsIndex
      * @return \Illuminate\Support\Collection<WordAspectObject>
@@ -164,13 +159,15 @@ class AspectV1Unit implements AspectUnitInterface
         $wordsIndex
             ? $wordsFromUnit = $this->words[$wordsIndex]
             : $wordsFromUnit = end(array: $this->words);
+        throw_if(!$wordsFromUnit, new AspectDomainException(__('На предыдущем шаге отсутствуют понятия')));
 
-        $collection = collect();
-
-        foreach ($wordsFromUnit as $key => $word) {
-            $collection->push(WordAspectObject::make($word, $key));
+        $words = collect();
+        foreach ($wordsFromUnit as $index => $word) {
+            $words->push(
+                WordAspectObject::make($word, $index)
+            );
         }
-        return $collection;
+        return $words;
     }
 
     public function saveUnit($instance): bool

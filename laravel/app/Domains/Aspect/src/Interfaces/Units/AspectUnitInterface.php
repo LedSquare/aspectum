@@ -30,4 +30,10 @@ interface AspectUnitInterface
 
     public function report(): array;
 
+    /**
+     * @param \Illuminate\Support\Collection<WordAspectObject> &$words
+     * @return void
+     */
+    public function setNewPriority(\Illuminate\Support\Collection &$words): void;
+
 }
