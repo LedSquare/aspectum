@@ -4,7 +4,7 @@ namespace Aspect\Units\DTO;
 
 final class WordAspectObject
 {
-    public ?string $priority;
+    public ?string $priority = null;
 
     public function __construct(
         public readonly int $id,

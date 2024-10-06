@@ -128,8 +128,8 @@ class AspectV1Unit implements AspectUnitInterface
 
             $priority = match (true) {
                 $word->order == $previosWord->order => null,
-                $word->order > $previosWord->order => '+',
-                $word->order < $previosWord->order => '-',
+                $word->order < $previosWord->order => '+',
+                $word->order > $previosWord->order => '-',
             };
 
             $word->priority = $priority;

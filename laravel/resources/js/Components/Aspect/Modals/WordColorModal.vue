@@ -15,13 +15,13 @@
                 <div class="word">
                     <div class="word-with-arrows">
                         <div @click="leftRollColor" class="arrow">
-                            &#8249
+                            &#8249;
                         </div>
                         <div :key="rollIndex" :style="['color: ' + colors[rollIndex]?.hex_code]" @wheel="onWheel">
                             {{ word?.name }}
                         </div>
                         <div class="arrow" @click="rightRollColor">
-                            &#8250
+                            &#8250;
                         </div>
                     </div>
                 </div>

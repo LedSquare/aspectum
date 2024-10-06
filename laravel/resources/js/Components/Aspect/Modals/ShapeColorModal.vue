@@ -90,7 +90,7 @@ const onWheel = (e) => {
                 <div class="shape">
                     <div class="shape-with-arrows">
                         <div @click="leftRollColor" class="arrow">
-                            &#8249
+                            &#8249;
                         </div>
 
                         <div v-if="shape === null"></div>
@@ -102,7 +102,7 @@ const onWheel = (e) => {
                         :src="'/' + shape?.filepath">
 
                         <div class="arrow" @click="rightRollColor">
-                            &#8250
+                            &#8250;
                         </div>
                     </div>
                 </div>
