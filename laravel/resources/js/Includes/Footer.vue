@@ -4,33 +4,25 @@ import TelegramIcon from '../Components/svg/icons/socials/TelegramIcon.vue';
 </script>
 <template>
     <footer class="flex-c">
-        <div>
-            <div class="left-block">
-                <div class="contacs">
-                    <a target="_blank" href="https://t.me/Ilari29">
-                        <telegram-icon />
-                    </a>
-                </div>
-                <hr>
-                <div>
-                    <p class="polici-text">Продолжая использовать сайт, вы соглашаетесь на использование файлов cookie
-                    </p>
-                </div>
+        <div class="footer-container">
+            <div class="contacs">
+                <a target="_blank" href="https://t.me/Ilari29">
+                    <telegram-icon />
+                </a>
             </div>
-            <div class="right-block">
-                <div>
-
-                </div>
-                <div>
-                    <p class="polici-text">©2024 - Все права защищены</p>
-                </div>
+            <hr>
+            <div class="policies">
+                <p class="polici-text">Продолжая использовать сайт, вы соглашаетесь на использование файлов cookie
+                </p>
+                <p class="polici-text">©2024 - Все права защищены</p>
             </div>
         </div>
-
     </footer>
 </template>
 
 <style lang="scss" scoped>
+
+
 .polici-text {
     color: gray;
 }
@@ -44,20 +36,17 @@ footer {
     height: 165px;
     flex-shrink: 0;
 
-    >div {
+
+
+    .footer-container {
         display: flex;
+        flex-direction: column;
         width: 1180;
         height: 100%;
-        padding: 0px 10px;
+        padding: 10px 15px;
         border-radius: 24px;
         font-size: 12px;
         background-color: $blocks-background;
-        justify-content: space-between;
-    }
-
-    .left-block {
-        display: flex;
-        flex-direction: column;
         justify-content: space-between;
 
         .contacs {
@@ -65,12 +54,14 @@ footer {
             display: flex;
             margin-top: 10px;
         }
+
+        .policies{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
     }
 
-    .right-block {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
+
 }
 </style>

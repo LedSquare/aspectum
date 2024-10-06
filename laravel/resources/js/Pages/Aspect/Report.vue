@@ -59,7 +59,7 @@ const selectSide = (side) => {
             <BrainIcon />
         </div>
         <h1>
-            Облик № {{ aspect_id }} закончен !
+            Облик номер {{ aspect_id }} закончен
         </h1>
         <div class="steps">
             <div class="step-container" :class="[selectSide(step.side)]" v-for="(step, stepIndex) in steps" :key="stepIndex">
