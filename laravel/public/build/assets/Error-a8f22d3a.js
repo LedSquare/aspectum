@@ -1,0 +1,2 @@
+import{_ as l,o as r,c as t,b as e,t as s,F as a,r as _}from"./app-6b6c602d.js";const d={class:"error-code"},i={style:{margin:"0.5em"}},u={__name:"Error",props:{errors:Array,code:Number},setup(o){return(p,m)=>(r(),t(a,null,[e("div",d,[e("h1",null,s(o.code),1)]),(r(!0),t(a,null,_(o.errors,(n,c)=>(r(),t("div",{style:{display:"flex","flex-direction":"column","justify-content":"center"},key:n},[e("h3",null,"Объект ошибки: "+s(c),1),e("p",i,s(n),1)]))),128))],64))}},y=l(u,[["__scopeId","data-v-7e649f1a"]]);export{y as default};
+//# sourceMappingURL=Error-a8f22d3a.js.map

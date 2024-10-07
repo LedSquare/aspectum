@@ -1,0 +1,330 @@
+{
+  "InputGroup.css": {
+    "file": "assets/InputGroup-41a7d07d.css",
+    "src": "InputGroup.css"
+  },
+  "NextStep.css": {
+    "file": "assets/NextStep-5b4f87fa.css",
+    "src": "NextStep.css"
+  },
+  "QuestionIcon.css": {
+    "file": "assets/QuestionIcon-1ea7782e.css",
+    "src": "QuestionIcon.css"
+  },
+  "_InputGroup-8a186358.js": {
+    "css": [
+      "assets/InputGroup-41a7d07d.css"
+    ],
+    "file": "assets/InputGroup-8a186358.js",
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "_NextStep-3314cc88.js": {
+    "css": [
+      "assets/NextStep-5b4f87fa.css"
+    ],
+    "file": "assets/NextStep-3314cc88.js",
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "_QuestionIcon-731eb7a0.js": {
+    "css": [
+      "assets/QuestionIcon-1ea7782e.css"
+    ],
+    "file": "assets/QuestionIcon-731eb7a0.js",
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "_lodash-8a36b9fb.js": {
+    "file": "assets/lodash-8a36b9fb.js",
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "public/images/asp-small-logo.png": {
+    "file": "assets/asp-small-logo-864bf3b5.png",
+    "src": "public/images/asp-small-logo.png"
+  },
+  "resources/fonts/Roboto-Regular.ttf": {
+    "file": "assets/Roboto-Regular-4e147ab6.ttf",
+    "src": "resources/fonts/Roboto-Regular.ttf"
+  },
+  "resources/js/Pages/Aspect/Aspects.css": {
+    "file": "assets/Aspects-c2e50d5e.css",
+    "src": "resources/js/Pages/Aspect/Aspects.css"
+  },
+  "resources/js/Pages/Aspect/Aspects.vue": {
+    "css": [
+      "assets/Aspects-c2e50d5e.css"
+    ],
+    "file": "assets/Aspects-27e657a5.js",
+    "imports": [
+      "resources/js/app.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Aspect/Aspects.vue"
+  },
+  "resources/js/Pages/Aspect/MoodLevel.css": {
+    "file": "assets/MoodLevel-b62b8480.css",
+    "src": "resources/js/Pages/Aspect/MoodLevel.css"
+  },
+  "resources/js/Pages/Aspect/MoodLevel.vue": {
+    "css": [
+      "assets/MoodLevel-b62b8480.css"
+    ],
+    "file": "assets/MoodLevel-e462846b.js",
+    "imports": [
+      "resources/js/app.js",
+      "_NextStep-3314cc88.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Aspect/MoodLevel.vue"
+  },
+  "resources/js/Pages/Aspect/Report.css": {
+    "file": "assets/Report-2a4a5b80.css",
+    "src": "resources/js/Pages/Aspect/Report.css"
+  },
+  "resources/js/Pages/Aspect/Report.vue": {
+    "css": [
+      "assets/Report-2a4a5b80.css"
+    ],
+    "file": "assets/Report-90f30e21.js",
+    "imports": [
+      "_lodash-8a36b9fb.js",
+      "resources/js/app.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Aspect/Report.vue"
+  },
+  "resources/js/Pages/Aspect/SelectColorShape.css": {
+    "file": "assets/SelectColorShape-b48c79d2.css",
+    "src": "resources/js/Pages/Aspect/SelectColorShape.css"
+  },
+  "resources/js/Pages/Aspect/SelectColorShape.vue": {
+    "css": [
+      "assets/SelectColorShape-b48c79d2.css"
+    ],
+    "file": "assets/SelectColorShape-1f6398ca.js",
+    "imports": [
+      "resources/js/app.js",
+      "_NextStep-3314cc88.js",
+      "_QuestionIcon-731eb7a0.js",
+      "_lodash-8a36b9fb.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Aspect/SelectColorShape.vue"
+  },
+  "resources/js/Pages/Aspect/SelectColorWord.css": {
+    "file": "assets/SelectColorWord-c9cadcb1.css",
+    "src": "resources/js/Pages/Aspect/SelectColorWord.css"
+  },
+  "resources/js/Pages/Aspect/SelectColorWord.vue": {
+    "css": [
+      "assets/SelectColorWord-c9cadcb1.css"
+    ],
+    "file": "assets/SelectColorWord-a1d1e66b.js",
+    "imports": [
+      "resources/js/app.js",
+      "_NextStep-3314cc88.js",
+      "_QuestionIcon-731eb7a0.js",
+      "_lodash-8a36b9fb.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Aspect/SelectColorWord.vue"
+  },
+  "resources/js/Pages/Aspect/SelectNewOrderColorsWords.css": {
+    "file": "assets/SelectNewOrderColorsWords-ac857524.css",
+    "src": "resources/js/Pages/Aspect/SelectNewOrderColorsWords.css"
+  },
+  "resources/js/Pages/Aspect/SelectNewOrderColorsWords.vue": {
+    "css": [
+      "assets/SelectNewOrderColorsWords-ac857524.css"
+    ],
+    "file": "assets/SelectNewOrderColorsWords-ba7e23a7.js",
+    "imports": [
+      "resources/js/app.js",
+      "_NextStep-3314cc88.js",
+      "_lodash-8a36b9fb.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Aspect/SelectNewOrderColorsWords.vue"
+  },
+  "resources/js/Pages/Aspect/SelectOrderShapes.css": {
+    "file": "assets/SelectOrderShapes-17ed199a.css",
+    "src": "resources/js/Pages/Aspect/SelectOrderShapes.css"
+  },
+  "resources/js/Pages/Aspect/SelectOrderShapes.vue": {
+    "css": [
+      "assets/SelectOrderShapes-17ed199a.css"
+    ],
+    "file": "assets/SelectOrderShapes-897cda53.js",
+    "imports": [
+      "resources/js/app.js",
+      "_NextStep-3314cc88.js",
+      "_lodash-8a36b9fb.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Aspect/SelectOrderShapes.vue"
+  },
+  "resources/js/Pages/Aspect/SelectOrderWords.css": {
+    "file": "assets/SelectOrderWords-0446130b.css",
+    "src": "resources/js/Pages/Aspect/SelectOrderWords.css"
+  },
+  "resources/js/Pages/Aspect/SelectOrderWords.vue": {
+    "css": [
+      "assets/SelectOrderWords-0446130b.css"
+    ],
+    "file": "assets/SelectOrderWords-5c4f6534.js",
+    "imports": [
+      "resources/js/app.js",
+      "_NextStep-3314cc88.js",
+      "_lodash-8a36b9fb.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Aspect/SelectOrderWords.vue"
+  },
+  "resources/js/Pages/Aspect/SelectShape.css": {
+    "file": "assets/SelectShape-5b46b385.css",
+    "src": "resources/js/Pages/Aspect/SelectShape.css"
+  },
+  "resources/js/Pages/Aspect/SelectShape.vue": {
+    "css": [
+      "assets/SelectShape-5b46b385.css"
+    ],
+    "file": "assets/SelectShape-edf1b11d.js",
+    "imports": [
+      "resources/js/app.js",
+      "_NextStep-3314cc88.js",
+      "_lodash-8a36b9fb.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Aspect/SelectShape.vue"
+  },
+  "resources/js/Pages/Aspect/SelectWords.css": {
+    "file": "assets/SelectWords-08961245.css",
+    "src": "resources/js/Pages/Aspect/SelectWords.css"
+  },
+  "resources/js/Pages/Aspect/SelectWords.vue": {
+    "css": [
+      "assets/SelectWords-08961245.css"
+    ],
+    "file": "assets/SelectWords-ba5c89e4.js",
+    "imports": [
+      "resources/js/app.js",
+      "_NextStep-3314cc88.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Aspect/SelectWords.vue"
+  },
+  "resources/js/Pages/Auth/Login.css": {
+    "file": "assets/Login-06d57b70.css",
+    "src": "resources/js/Pages/Auth/Login.css"
+  },
+  "resources/js/Pages/Auth/Login.vue": {
+    "css": [
+      "assets/Login-06d57b70.css"
+    ],
+    "file": "assets/Login-69068213.js",
+    "imports": [
+      "resources/js/app.js",
+      "_InputGroup-8a186358.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Auth/Login.vue"
+  },
+  "resources/js/Pages/Auth/Register.css": {
+    "file": "assets/Register-9a2c7372.css",
+    "src": "resources/js/Pages/Auth/Register.css"
+  },
+  "resources/js/Pages/Auth/Register.vue": {
+    "css": [
+      "assets/Register-9a2c7372.css"
+    ],
+    "file": "assets/Register-97294430.js",
+    "imports": [
+      "resources/js/app.js",
+      "_InputGroup-8a186358.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Auth/Register.vue"
+  },
+  "resources/js/Pages/Errors/Error.css": {
+    "file": "assets/Error-d9c58aaf.css",
+    "src": "resources/js/Pages/Errors/Error.css"
+  },
+  "resources/js/Pages/Errors/Error.vue": {
+    "css": [
+      "assets/Error-d9c58aaf.css"
+    ],
+    "file": "assets/Error-a8f22d3a.js",
+    "imports": [
+      "resources/js/app.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Errors/Error.vue"
+  },
+  "resources/js/Pages/Home.vue": {
+    "file": "assets/Home-3bf5ae1c.js",
+    "imports": [
+      "resources/js/app.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Home.vue"
+  },
+  "resources/js/Pages/Profile/User.css": {
+    "file": "assets/User-c21c932a.css",
+    "src": "resources/js/Pages/Profile/User.css"
+  },
+  "resources/js/Pages/Profile/User.vue": {
+    "css": [
+      "assets/User-c21c932a.css"
+    ],
+    "file": "assets/User-2e3d3574.js",
+    "imports": [
+      "resources/js/app.js",
+      "_lodash-8a36b9fb.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Profile/User.vue"
+  },
+  "resources/js/app.css": {
+    "file": "assets/app-3226bbee.css",
+    "src": "resources/js/app.css"
+  },
+  "resources/js/app.js": {
+    "assets": [
+      "assets/asp-small-logo-864bf3b5.png"
+    ],
+    "css": [
+      "assets/app-3226bbee.css"
+    ],
+    "dynamicImports": [
+      "resources/js/Pages/Aspect/Aspects.vue",
+      "resources/js/Pages/Aspect/MoodLevel.vue",
+      "resources/js/Pages/Aspect/Report.vue",
+      "resources/js/Pages/Aspect/SelectColorShape.vue",
+      "resources/js/Pages/Aspect/SelectColorWord.vue",
+      "resources/js/Pages/Aspect/SelectNewOrderColorsWords.vue",
+      "resources/js/Pages/Aspect/SelectOrderShapes.vue",
+      "resources/js/Pages/Aspect/SelectOrderWords.vue",
+      "resources/js/Pages/Aspect/SelectShape.vue",
+      "resources/js/Pages/Aspect/SelectWords.vue",
+      "resources/js/Pages/Auth/Login.vue",
+      "resources/js/Pages/Auth/Register.vue",
+      "resources/js/Pages/Errors/Error.vue",
+      "resources/js/Pages/Home.vue",
+      "resources/js/Pages/Profile/User.vue"
+    ],
+    "file": "assets/app-6b6c602d.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/scss/app.scss": {
+    "file": "assets/app-323ef71e.css",
+    "isEntry": true,
+    "src": "resources/scss/app.scss"
+  }
+}

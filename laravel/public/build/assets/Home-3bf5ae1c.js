@@ -1,0 +1,2 @@
+import{o as r,c as l,a as t,u as e,b as a,l as c,F as n,Z as i,A as u,B as _}from"./app-6b6c602d.js";const d={class:"start-page flex-c"},f=a("h1",null,"Облик",-1),m={__name:"Home",props:{title:String,isActive:Boolean},setup(s){return(o,p)=>(r(),l(n,null,[t(e(i),{title:s.title},null,8,["title"]),a("div",d,[f,t(e(_),{href:o.route("aspect.start"),as:"button",class:"start-button"},{default:c(()=>[u(" Начать ")]),_:1},8,["href"])])],64))}};export{m as default};
+//# sourceMappingURL=Home-3bf5ae1c.js.map
