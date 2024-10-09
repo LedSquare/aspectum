@@ -34,6 +34,7 @@ const selectPriority = (word) => {
             break;
         case '-':
             resultArrow = arrowDown;
+            break;
     }
 
     return resultArrow;
